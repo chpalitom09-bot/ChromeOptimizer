@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Réglages · ChromeOptimizer</title>
+<link rel="stylesheet" href="ui.css">
+<link rel="stylesheet" href="options.css">
+</head>
+<body>
+<main>
+  <header class="head">
+    <img src="icons/icon48.png" width="40" height="40" alt="">
+    <div><h1>Réglages</h1><p>ChromeOptimizer · version <span id="ver"></span></p></div>
+  </header>
+
+  <section class="card">
+    <h2>Mode</h2>
+    <label class="opt"><input type="radio" name="mode" value="auto"><span><b>Automatique</b>L'extension vérifie les onglets une fois par minute et met en veille ceux qui sont inactifs.</span></label>
+    <label class="opt"><input type="radio" name="mode" value="manual"><span><b>Manuel</b>Aucun réveil en arrière-plan. Rien ne se passe tant que vous ne cliquez pas sur « Optimiser maintenant ».</span></label>
+  </section>
+
+  <section class="card">
+    <h2>Onglets inactifs</h2>
+    <label class="field" for="idle"><b>Délai d'inactivité</b><span>Temps sans usage avant la mise en veille (minimum 5 minutes).</span></label>
+    <div class="inline"><input type="number" id="idle" min="5" max="1440" step="5"><em>minutes</em></div>
+  </section>
+
+  <section class="card">
+    <h2>Doublons</h2>
+    <label class="field" for="dups"><b>Pages ouvertes plusieurs fois</b><span>Une seule est conservée : l'onglet actif, épinglé ou le plus récemment utilisé. Un doublon fermé peut contenir du texte non enregistré ; vous pouvez le rouvrir avec Ctrl + Maj + T.</span></label>
+    <select id="dups">
+      <option value="off">Ignorer</option>
+      <option value="manual">Fermer seulement quand je clique sur Optimiser</option>
+      <option value="auto">Fermer automatiquement</option>
+    </select>
+  </section>
+
+  <section class="card">
+    <h2>Sites protégés</h2>
+    <label class="field" for="sites"><b>Ne jamais toucher à ces sites</b><span>Un domaine par ligne, par exemple <code>mail.google.com</code>. Les sous-domaines sont inclus.</span></label>
+    <textarea id="sites" rows="5" spellcheck="false" placeholder="exemple.fr"></textarea>
+  </section>
+
+  <section class="card always">
+    <h2>Toujours protégés</h2>
+    <p>L'onglet actif, les onglets épinglés et ceux qui jouent du son ne sont jamais mis en veille ni fermés. Les pages internes de Chrome (<code>chrome://</code>) sont ignorées.</p>
+  </section>
+
+  <section class="card">
+    <h2>Compteurs</h2>
+    <p id="stats" class="stat-line"></p>
+    <button id="reset" class="btn ghost small" type="button">Remettre à zéro</button>
+    <p class="note">Ces compteurs et vos réglages restent sur cet ordinateur. Rien n'est envoyé nulle part.</p>
+  </section>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite">Enregistré</div>
+<script type="module" src="options.js"></script>
+</body>
+</html>

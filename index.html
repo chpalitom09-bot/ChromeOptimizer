@@ -325,7 +325,7 @@ footer{padding:44px 0 56px}
 <!-- HERO -->
 <div class="hero" id="top">
   <div class="wrap">
-    <span class="status in-up" style="--d:.05"><i></i>En développement</span>
+    <span class="status in-up" style="--d:.05"><i></i>Version 0.1, en test</span>
     <h1 aria-label="Chrome, sans le poids mort.">
       <span class="ln" aria-hidden="true"><span style="--i:0">Chrome, sans</span></span>
       <span class="ln" aria-hidden="true"><span style="--i:1">le poids mort.</span></span>
@@ -468,7 +468,7 @@ footer{padding:44px 0 56px}
     <div class="steps">
       <div class="step">
         <h3>Télécharger</h3>
-        <p>Récupérez <code>ChromeOptimizer-extension.zip</code> dans les <em style="font-style:normal;color:var(--text)">Releases</em> du dépôt GitHub, ou clonez-le.</p>
+        <p>Récupérez <a href="ChromeOptimizer-extension.zip" style="color:var(--text)"><code>ChromeOptimizer-extension.zip</code></a>, ou téléchargez le dépôt GitHub entier.</p>
       </div>
       <div class="step">
         <h3>Décompresser</h3>
@@ -482,7 +482,7 @@ footer{padding:44px 0 56px}
     </div>
     <div class="callout">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-      <div><b>La première version n'est pas encore publiée.</b> Suivez le dépôt GitHub pour être prévenu de sa sortie.</div>
+      <div><b>Version 0.1, en test.</b> L'extension n'est pas encore sur le Chrome Web Store. Chrome 121 ou plus récent est nécessaire.</div>
     </div>
   </div>
 </section>
@@ -492,12 +492,14 @@ footer{padding:44px 0 56px}
   <div class="wrap">
     <div class="sec-head">
       <h2>Vos onglets restent chez vous</h2>
-      <p>ChromeOptimizer ne communique avec aucun serveur. Trois permissions, chacune avec une raison précise.</p>
+      <p>ChromeOptimizer ne communique avec aucun serveur. Cinq permissions, chacune avec une raison précise.</p>
     </div>
     <div class="table">
       <div class="tr"><b>tabs</b><span>Lire l'adresse et l'état des onglets pour repérer les inactifs et les doublons.</span></div>
       <div class="tr"><b>alarms</b><span>Se réveiller une fois par minute au lieu de tourner en permanence.</span></div>
       <div class="tr"><b>storage</b><span>Garder vos réglages et vos compteurs, uniquement sur votre machine.</span></div>
+      <div class="tr"><b>system.memory</b><span>Afficher la mémoire du système dans le panneau, seulement quand il est ouvert.</span></div>
+      <div class="tr"><b>system.cpu</b><span>Afficher la charge du processeur dans le panneau, seulement quand il est ouvert.</span></div>
     </div>
     <div class="assure">
       <div><b>Aucune collecte</b>Pas de compte, pas de pub, pas de mesure d'audience.</div>
@@ -515,10 +517,10 @@ footer{padding:44px 0 56px}
     </div>
     <ol class="road">
       <li class="done"><i></i><b>README et identité visuelle</b><span>Terminé.</span></li>
-      <li class="now"><i></i><b>Site de présentation</b><span>Vous y êtes.</span></li>
-      <li><i></i><b>Extension Manifest V3</b><span>Service worker, mise en veille, détection des doublons.</span></li>
-      <li><i></i><b>Panneau d'optimisation et réglages</b><span>Popup et page d'options.</span></li>
-      <li><i></i><b>Mesures reproductibles</b><span>Mémoire et CPU avec et sans l'extension. Les gains ne seront annoncés qu'après mesure.</span></li>
+      <li class="done"><i></i><b>Site de présentation</b><span>Terminé.</span></li>
+      <li class="done"><i></i><b>Extension Manifest V3</b><span>Service worker, mise en veille, détection des doublons.</span></li>
+      <li class="done"><i></i><b>Panneau d'optimisation et réglages</b><span>Popup et page d'options.</span></li>
+      <li class="now"><i></i><b>Mesures reproductibles</b><span>Mémoire et CPU avec et sans l'extension. Les gains ne seront annoncés qu'après mesure.</span></li>
       <li><i></i><b>Publication sur le Chrome Web Store</b><span>Installation en un clic.</span></li>
     </ol>
   </div>

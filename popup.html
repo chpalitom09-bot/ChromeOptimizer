@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>ChromeOptimizer</title>
+<link rel="stylesheet" href="ui.css">
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><img src="icons/icon32.png" width="26" height="26" alt=""><b>ChromeOptimizer</b></div>
+  <button id="openOptions" class="icon-btn" title="Réglages" aria-label="Ouvrir les réglages">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+  </button>
+</header>
+
+<section class="card">
+  <h2>Performances du système</h2>
+  <div class="meter">
+    <div class="meter-top"><span>Mémoire</span><b id="memText">…</b></div>
+    <div class="bar"><i id="memBar"></i></div>
+  </div>
+  <div class="meter">
+    <div class="meter-top"><span>Processeur</span><b id="cpuText">…</b></div>
+    <div class="bar"><i id="cpuBar"></i></div>
+  </div>
+</section>
+
+<section class="card">
+  <h2>Onglets</h2>
+  <div class="stats">
+    <div><b id="open">–</b><span>ouverts</span></div>
+    <div><b id="sleeping">–</b><span>en veille</span></div>
+    <div><b id="todo">–</b><span>à traiter</span></div>
+  </div>
+  <p class="hint" id="hint"></p>
+</section>
+
+<button id="run" class="btn primary" type="button">Optimiser maintenant</button>
+<p class="result" id="result" role="status" aria-live="polite"></p>
+
+<div class="opts">
+  <label class="switch"><input type="checkbox" id="auto"><span></span>Mode automatique</label>
+  <button id="protect" class="link" type="button" disabled>Protéger ce site</button>
+</div>
+
+<footer id="totals"></footer>
+<script type="module" src="popup.js"></script>
+</body>
+</html>

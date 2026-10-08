@@ -1,0 +1,29 @@
+body{padding:40px 20px 80px}
+main{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.head{display:flex;align-items:center;gap:16px;margin-bottom:12px}
+.head h1{font-size:28px;letter-spacing:-.03em;line-height:1.1}
+.head p{color:var(--muted);font-size:14px;margin-top:2px}
+.card{padding:22px 24px}
+.card h2{font-size:13px;margin-bottom:16px}
+.opt{display:flex;gap:14px;align-items:flex-start;padding:12px 0;cursor:pointer}
+.opt + .opt{border-top:1px solid var(--line)}
+.opt input{margin-top:5px;accent-color:#fff;width:17px;height:17px;flex:none}
+.opt b{display:block;font-size:15.5px}
+.opt span{color:var(--muted);font-size:14px}
+.field{display:block;margin-bottom:14px}
+.field b{display:block;font-size:15.5px}
+.field span{display:block;color:var(--muted);font-size:14px;margin-top:2px}
+.inline{display:flex;align-items:center;gap:12px}
+.inline em{color:var(--muted);font-style:normal;font-size:14px}
+input[type=number],select,textarea{background:var(--bg);color:var(--text);border:1px solid var(--line-2);border-radius:10px;padding:10px 12px;font:inherit;font-size:14.5px;width:100%}
+input[type=number]{width:110px}
+textarea{resize:vertical;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13.5px}
+input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--text);outline-offset:2px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9em;background:var(--surface-2);border:1px solid var(--line);padding:0 6px;border-radius:6px}
+.always p,.note{color:var(--muted);font-size:14px}
+.note{margin-top:14px}
+.stat-line{font-size:15.5px;margin-bottom:14px}
+.btn.small{width:auto;padding:9px 16px;font-size:13.5px}
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);background:var(--text);color:var(--bg);padding:10px 20px;border-radius:99px;font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}

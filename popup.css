@@ -1,0 +1,17 @@
+body{width:340px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.top{display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;font-size:15.5px;letter-spacing:-.01em}
+.icon-btn{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--muted);transition:color .2s,border-color .2s}
+.icon-btn:hover{color:var(--text);border-color:var(--line-2)}
+.meter + .meter{margin-top:12px}
+.meter-top{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:7px}
+.meter-top span{color:var(--muted)}
+.meter-top b{font-weight:600;font-variant-numeric:tabular-nums}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
+.stats b{display:block;font-size:26px;font-weight:700;letter-spacing:-.03em;line-height:1.1;font-variant-numeric:tabular-nums}
+.stats span{font-size:12px;color:var(--muted)}
+.hint{margin-top:12px;font-size:12.5px;color:var(--dim);text-align:center;min-height:1.4em}
+.result{font-size:13px;color:var(--muted);text-align:center;min-height:1.3em;margin-top:-4px}
+.opts{display:flex;align-items:center;justify-content:space-between;gap:10px}
+#protect{max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+footer{font-size:12px;color:var(--dim);text-align:center;border-top:1px solid var(--line);padding-top:12px}
