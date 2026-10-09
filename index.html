@@ -190,6 +190,22 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:
 .copy span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .copy button{border:1px solid var(--line-2);background:var(--surface-2);border-radius:9px;padding:7px 14px;font-size:13.5px;font-weight:600;font-family:"Bricolage Grotesque",system-ui,sans-serif;transition:background .2s}
 .copy button:hover{background:var(--line)}
+/* Versions */
+.versions{list-style:none;padding:0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--surface)}
+.ver{display:grid;grid-template-columns:130px 1fr auto;gap:20px;align-items:center;padding:22px 26px;border-top:1px solid var(--line)}
+.ver:first-child{border-top:0}
+.ver-n{font-size:22px;font-weight:700;letter-spacing:-.02em}
+.ver-n small{display:block;font-size:13px;font-weight:500;color:var(--dim);letter-spacing:0;margin-top:2px}
+.ver-t b{display:block;font-size:17px;letter-spacing:-.01em}
+.ver-t span{display:block;color:var(--muted);font-size:15px;margin-top:3px}
+.ver .tag{display:inline-block;margin-left:8px;padding:2px 10px;border-radius:999px;background:var(--text);color:var(--bg);font-size:12px;font-weight:700;vertical-align:2px;letter-spacing:0}
+.ver .btn{padding:10px 18px;font-size:15px}
+.ver-file{display:block;margin-top:8px;color:var(--dim);font-size:13px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+@media (max-width:640px){.ver{grid-template-columns:1fr;gap:12px;padding:20px}.ver .btn{width:100%}}
+/* PULSA */
+.pulsa-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.pulsa-meta{margin-top:14px;color:var(--dim);font-size:14px}
+.pulsa-meta code{color:var(--muted)}
 .callout{margin-top:16px;display:flex;gap:14px;align-items:flex-start;border:1px dashed var(--line-2);border-radius:var(--radius);padding:20px 24px;color:var(--muted);font-size:15.5px}
 .callout svg{flex:none;width:22px;height:22px;margin-top:2px;color:var(--text)}
 .callout b{color:var(--text)}
@@ -262,11 +278,6 @@ footer{padding:44px 0 56px}
   .fact:first-child{border-top:0}
   .fact span{max-width:none}
 }
-/* Pulsa card responsive */
-@media (max-width:640px){
-  .pulsa-card{flex-direction:column!important;padding:24px 20px!important}
-}
-
 @media (max-width:640px){
   body{font-size:16px}
   .hero{padding:118px 0 40px}
@@ -315,6 +326,8 @@ footer{padding:44px 0 56px}
     <nav class="menu" id="menu" aria-label="Navigation principale">
       <a href="#fonctionnalites">Fonctionnalités</a>
       <a href="#leger">Léger</a>
+      <a href="#pulsa">PULSA</a>
+      <a href="#versions">Versions</a>
       <a href="#installation">Installation</a>
       <a href="#confidentialite">Vie privée</a>
       <a href="#faq">Questions</a>
@@ -330,20 +343,19 @@ footer{padding:44px 0 56px}
 <!-- HERO -->
 <div class="hero" id="top">
   <div class="wrap">
-    <span class="status in-up" style="--d:.05"><i></i>Version 0.1, en test</span>
+    <span class="status in-up" style="--d:.05"><i></i>Version 0.3, en test</span>
     <h1 aria-label="Chrome, sans le poids mort.">
       <span class="ln" aria-hidden="true"><span style="--i:0">Chrome, sans</span></span>
       <span class="ln" aria-hidden="true"><span style="--i:1">le poids mort.</span></span>
     </h1>
     <p class="lead in-up" style="--d:.45">ChromeOptimizer met en veille les onglets que vous avez oubliés et ferme ceux qui sont ouverts en double, sans jamais surveiller vos pages en boucle.</p>
     <div class="cta in-up" style="--d:.55">
-  <a class="btn btn-primary" href="#installation">Installer l'extension</a>
-  <a class="btn btn-ghost" href="https://github.com/chpalitom09-bot/ChromeOptimizer" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12c0 5.08 3.29 9.38 7.86 10.9.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>
-    Voir sur GitHub
-  </a>
-</div>
-
+      <a class="btn btn-primary" href="#installation">Installer l'extension</a>
+      <a class="btn btn-ghost" href="https://github.com/chpalitom09-bot/ChromeOptimizer" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12c0 5.08 3.29 9.38 7.86 10.9.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>
+        Voir sur GitHub
+      </a>
+    </div>
 
     <!-- Démo interactive -->
     <div class="panel in-up" style="--d:.7" id="demo" role="group" aria-label="Démonstration interactive du panneau d'optimisation">
@@ -381,29 +393,6 @@ footer{padding:44px 0 56px}
     </div>
   </div>
 </div>
-
-<!-- PULSA -->
-<section id="pulsa" style="padding-top:64px">
-  <div class="wrap">
-    <div class="pulsa-card" style="background:linear-gradient(135deg,var(--surface),var(--bg-2));border:1px solid var(--line);border-radius:var(--radius);padding:36px 34px;display:flex;flex-wrap:wrap;gap:28px;align-items:center;box-shadow:0 20px 60px -20px rgba(0,0,0,.6)">
-      <div style="flex:1;min-width:260px">
-        <div style="display:inline-flex;align-items:center;gap:8px;padding:5px 14px 5px 10px;border:1px solid var(--line-2);border-radius:999px;font-size:13px;color:var(--muted);margin-bottom:16px;background:rgba(255,255,255,.03)">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          Nouveau · Technologie Pulsa
-        </div>
-        <h3 style="font-size:clamp(1.4rem,3vw,1.8rem);letter-spacing:-.025em;line-height:1.15;font-weight:700;margin-bottom:12px">Pulsa : l'optimisation qui pulse au rythme de Chrome</h3>
-<p style="color:var(--muted);font-size:16px;max-width:520px;line-height:1.6"><strong style="color:var(--text)">PULSA</strong> analyse le cycle de vie de chaque onglet pour estimer sa probabilité de réutilisation. Plutôt que d'appliquer un simple délai fixe, l'algorithme combine la récence, la fréquence et les habitudes d'utilisation afin d'attribuer à chaque onglet un score dynamique.</p>      </div>
-      <div style="flex:none;display:flex;flex-direction:column;gap:12px;align-items:flex-start">
-        <a class="btn btn-primary" href="https://github.com/chpalitom09-bot/ChromeOptimizer/raw/main/ChromeOptimizer-pulsa-v0.2.zip" download style="gap:12px">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Télécharger Pulsa v0.2
-        </a>
-        <span style="font-size:13.5px;color:var(--dim)">ChromeOptimizer-pulsa-v0.2.zip · Extension complète</span>
-      </div>
-    </div>
-  </div>
-</section>
-
 
 <!-- FONCTIONNALITÉS -->
 <section id="fonctionnalites">
@@ -487,6 +476,73 @@ footer{padding:44px 0 56px}
   </div>
 </section>
 
+<!-- PULSA -->
+<section id="pulsa">
+  <div class="wrap split">
+    <div>
+      <div class="sec-head" style="margin-bottom:0">
+        <h2>PULSA : mettre en veille ce que vous ne rouvrirez pas</h2>
+        <p>PULSA (<i>Predictive Usage Scoring and Lifecycle Algorithm</i>) remplace le délai fixe par un score. Pour chaque onglet inactif, il estime la probabilité que vous le rouvriez dans l'heure, d'après vos habitudes sur ce site.</p>
+      </div>
+      <div class="pulsa-cta">
+        <a class="btn btn-primary" href="ChromeOptimizer-pulsa-v0.3.zip" download>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+          Télécharger la version PULSA
+        </a>
+        <a class="btn btn-ghost" href="#versions">Toutes les versions</a>
+      </div>
+      <p class="pulsa-meta"><code>ChromeOptimizer-pulsa-v0.3.zip</code>, la dernière version. Installation décrite plus bas.</p>
+    </div>
+    <div>
+      <ul class="plist">
+        <li><b>Un score de 0 à 100, pas un chronomètre</b><span>Plus il est bas, moins l'onglet a de chances d'être rouvert. Sous le seuil que vous choisissez (prudent, équilibré ou agressif), il est mis en veille.</span></li>
+        <li><b>Il apprend vos habitudes</b><span>Il retient le temps qui s'écoule d'habitude avant que vous reveniez sur un site. Un onglet que vous rouvrez toutes les 20 minutes n'est pas traité comme une page lue une seule fois.</span></li>
+        <li><b>Il corrige ses erreurs</b><span>Si un onglet endormi est rouvert dans l'heure, PULSA devient plus prudent pour ce site.</span></li>
+        <li><b>Léger et désactivable</b><span>Un calcul simple, sans réseau. Un réglage permet de revenir au délai fixe, et un bouton efface ce qu'il a appris.</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="callout">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+      <div><b>Expérimental.</b> PULSA a été comparé à des délais fixes sur des usages simulés, pas encore sur de vrais usages : aucun gain n'est annoncé à ce stade. Il ne mémorise que le nom de domaine des sites et des durées, sur votre ordinateur, jamais le contenu ni l'adresse complète des pages. La liste des sites visités du panneau est désactivable et effaçable dans les réglages.</div>
+    </div>
+  </div>
+</section>
+
+<!-- VERSIONS -->
+<section id="versions">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Toutes les versions</h2>
+      <p>Chaque version est un .zip à décompresser puis à charger dans Chrome. Pour mettre à jour, remplacez le dossier et rechargez l'extension.</p>
+    </div>
+    <ul class="versions">
+      <li class="ver">
+        <div class="ver-n">0.3<small>PULSA</small></div>
+        <div class="ver-t"><b>Interrupteur PULSA et historique des sites <span class="tag">Dernière</span></b>
+          <span>Activer ou désactiver PULSA depuis le panneau, liste des sites visités avec raccourcis, raccourcis clavier (Alt+Maj+P et Alt+Maj+O).</span>
+          <code class="ver-file">ChromeOptimizer-pulsa-v0.3.zip</code></div>
+        <a class="btn btn-primary" href="ChromeOptimizer-pulsa-v0.3.zip" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Télécharger</a>
+      </li>
+      <li class="ver">
+        <div class="ver-n">0.2<small>PULSA</small></div>
+        <div class="ver-t"><b>Premier algorithme PULSA</b>
+          <span>Score de réutilisation par site, apprentissage de vos habitudes, correction des faux positifs, banc d'essai sur usages simulés.</span>
+          <code class="ver-file">ChromeOptimizer-pulsa-v0.2.zip</code></div>
+        <a class="btn btn-ghost" href="ChromeOptimizer-pulsa-v0.2.zip" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Télécharger</a>
+      </li>
+      <li class="ver">
+        <div class="ver-n">0.1<small>Délai fixe</small></div>
+        <div class="ver-t"><b>Version de base</b>
+          <span>Mise en veille après un délai d'inactivité, fermeture des doublons, panneau d'optimisation et réglages. Sans PULSA.</span>
+          <code class="ver-file">ChromeOptimizer-extension.zip</code></div>
+        <a class="btn btn-ghost" href="ChromeOptimizer-extension.zip" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Télécharger</a>
+      </li>
+    </ul>
+  </div>
+</section>
+
 <!-- INSTALLATION -->
 <section id="installation">
   <div class="wrap">
@@ -497,7 +553,7 @@ footer{padding:44px 0 56px}
     <div class="steps">
       <div class="step">
         <h3>Télécharger</h3>
-        <p>Récupérez <a href="ChromeOptimizer-extension.zip" style="color:var(--text)"><code>ChromeOptimizer-extension.zip</code></a>, ou téléchargez le dépôt GitHub entier.</p>
+        <p>Récupérez <a href="ChromeOptimizer-pulsa-v0.3.zip" style="color:var(--text)"><code>ChromeOptimizer-pulsa-v0.3.zip</code></a> (ou une <a href="#versions" style="color:var(--text)">autre version</a>), ou téléchargez le dépôt GitHub entier.</p>
       </div>
       <div class="step">
         <h3>Décompresser</h3>
@@ -511,7 +567,7 @@ footer{padding:44px 0 56px}
     </div>
     <div class="callout">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-      <div><b>Version 0.1, en test.</b> L'extension n'est pas encore sur le Chrome Web Store. Chrome 121 ou plus récent est nécessaire.</div>
+      <div><b>Version 0.3, en test.</b> L'extension n'est pas encore sur le Chrome Web Store. Chrome 121 ou plus récent est nécessaire.</div>
     </div>
   </div>
 </section>
@@ -532,7 +588,7 @@ footer{padding:44px 0 56px}
     </div>
     <div class="assure">
       <div><b>Aucune collecte</b>Pas de compte, pas de pub, pas de mesure d'audience.</div>
-      <div><b>Adresses non enregistrées</b>Lues en mémoire le temps de la comparaison, jamais stockées ni envoyées.</div>
+      <div><b>Adresses complètes non enregistrées</b>Lues en mémoire le temps de la comparaison. Avec PULSA et l'historique, seuls les noms de domaine et des durées sont mémorisés, sur votre machine, jamais envoyés.</div>
       <div><b>Code ouvert</b>Tout est lisible sur GitHub : vous pouvez vérifier chaque ligne.</div>
     </div>
   </div>
@@ -549,6 +605,7 @@ footer{padding:44px 0 56px}
       <li class="done"><i></i><b>Site de présentation</b><span>Terminé.</span></li>
       <li class="done"><i></i><b>Extension Manifest V3</b><span>Service worker, mise en veille, détection des doublons.</span></li>
       <li class="done"><i></i><b>Panneau d'optimisation et réglages</b><span>Popup et page d'options.</span></li>
+      <li class="done"><i></i><b>Algorithme PULSA (v0.2 et v0.3)</b><span>Score de réutilisation, interrupteur dans le panneau, historique des sites, banc d'essai sur usages simulés.</span></li>
       <li class="now"><i></i><b>Mesures reproductibles</b><span>Mémoire et CPU avec et sans l'extension. Les gains ne seront annoncés qu'après mesure.</span></li>
       <li><i></i><b>Publication sur le Chrome Web Store</b><span>Installation en un clic.</span></li>
     </ol>
@@ -582,7 +639,7 @@ footer{padding:44px 0 56px}
       </details>
       <details>
         <summary>Mes données sont-elles collectées ?</summary>
-        <p>Non. L'extension n'envoie rien nulle part. Vos réglages restent dans le stockage local de votre navigateur.</p>
+        <p>Non. L'extension n'envoie rien nulle part. Vos réglages, et avec PULSA les noms de domaine et durées appris, restent dans le stockage local de votre navigateur.</p>
       </details>
     </div>
   </div>
