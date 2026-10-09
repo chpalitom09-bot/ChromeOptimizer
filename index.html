@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ChromeOptimizer : libérez la mémoire de Chrome sans y penser</title>
-<meta name="description" content="ChromeOptimizer met en veille les onglets inactifs et ferme les doublons, sans surveiller vos pages en boucle. Aucune donnée collectée, aucune requête réseau.">
+<meta name="description" content="ChromeOptimizer met en veille les onglets inactifs et ferme les doublons, sans surveiller vos pages en boucle. Aucune donnée collectée.">
 <meta name="theme-color" content="#09090a">
 <meta property="og:title" content="ChromeOptimizer">
 <meta property="og:description" content="Libérez la mémoire de Chrome sans y penser. Onglets inactifs en veille, doublons fermés.">
@@ -327,6 +327,7 @@ footer{padding:44px 0 56px}
       <a href="#fonctionnalites">Fonctionnalités</a>
       <a href="#leger">Léger</a>
       <a href="#pulsa">PULSA</a>
+      <a href="#bswp">BSWP</a>
       <a href="#versions">Versions</a>
       <a href="#installation">Installation</a>
       <a href="#confidentialite">Vie privée</a>
@@ -343,7 +344,7 @@ footer{padding:44px 0 56px}
 <!-- HERO -->
 <div class="hero" id="top">
   <div class="wrap">
-    <span class="status in-up" style="--d:.05"><i></i>Version 0.4, en test</span>
+    <span class="status in-up" style="--d:.05"><i></i>Version 0.6, en test</span>
     <h1 aria-label="Chrome, sans le poids mort.">
       <span class="ln" aria-hidden="true"><span style="--i:0">Chrome, sans</span></span>
       <span class="ln" aria-hidden="true"><span style="--i:1">le poids mort.</span></span>
@@ -387,8 +388,8 @@ footer{padding:44px 0 56px}
     </div>
 
     <div class="facts">
-      <div class="fact"><b>0</b><span>requête réseau, l'extension ne parle à aucun serveur</span></div>
-      <div class="fact"><b>0</b><span>script injecté dans vos pages</span></div>
+      <div class="fact"><b>1</b><span>requête par jour : lire le numéro de version sur GitHub, désactivable</span></div>
+      <div class="fact"><b>0</b><span>script injecté dans vos pages, sauf si vous activez BSWP</span></div>
       <div class="fact"><b>1</b><span>réveil par minute, le reste du temps elle dort</span></div>
     </div>
   </div>
@@ -454,7 +455,7 @@ footer{padding:44px 0 56px}
       <ul class="plist">
         <li><b>Des événements, pas de boucle</b><span>Elle écoute <code>chrome.tabs</code> et ne scrute rien en continu.</span></li>
         <li><b>Une seule alarme</b><span><code>chrome.alarms</code> réveille le service worker une fois par minute.</span></li>
-        <li><b>Rien dans vos pages</b><span>Aucun script injecté : vos sites ne sont ni modifiés ni ralentis.</span></li>
+        <li><b>Rien dans vos pages par défaut</b><span>Aucun script injecté tant que BSWP, optionnel, est éteint : vos sites ne sont ni modifiés ni ralentis.</span></li>
         <li><b>Le travail déjà fait par Chrome</b><span>La date de dernier accès (<code>lastAccessed</code>) et la mise en veille (<code>tabs.discard</code>) sont natives.</span></li>
       </ul>
     </div>
@@ -485,13 +486,13 @@ footer{padding:44px 0 56px}
         <p>PULSA (<i>Predictive Usage Scoring and Lifecycle Algorithm</i>) remplace le délai fixe par un score. Pour chaque onglet inactif, il estime la probabilité que vous le rouvriez dans l'heure, d'après vos habitudes sur ce site.</p>
       </div>
       <div class="pulsa-cta">
-        <a class="btn btn-primary" href="ChromeOptimizer-pulsa-v0.4.zip" download>
+        <a class="btn btn-primary" href="ChromeOptimizer-pulsa-bswp-v0.6.zip" download>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
-          Télécharger la version PULSA
+          Télécharger la dernière version
         </a>
         <a class="btn btn-ghost" href="#versions">Toutes les versions</a>
       </div>
-      <p class="pulsa-meta"><code>ChromeOptimizer-pulsa-v0.4.zip</code>, la dernière version. Installation décrite plus bas.</p>
+      <p class="pulsa-meta"><code>ChromeOptimizer-pulsa-bswp-v0.6.zip</code>, la dernière version (PULSA et BSWP). Installation décrite plus bas.</p>
     </div>
     <div>
       <ul class="plist">
@@ -511,6 +512,41 @@ footer{padding:44px 0 56px}
   </div>
 </section>
 
+<!-- BSWP -->
+<section id="bswp">
+  <div class="wrap split">
+    <div>
+      <div class="sec-head" style="margin-bottom:0">
+        <h2>BSWP : charger d'abord ce que vous voyez</h2>
+        <p>BSWP (<i>Better Speed WebPage</i>) est un petit script qui accélère le chargement des pages en ne chargeant que le nécessaire. Les images, cadres et vidéos situés loin sous la zone visible attendent que vous descendiez, et la connexion est libérée pour le haut de la page.</p>
+      </div>
+      <div class="pulsa-cta">
+        <a class="btn btn-primary" href="ChromeOptimizer-pulsa-bswp-v0.6.zip" download>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+          Télécharger la version avec BSWP
+        </a>
+        <a class="btn btn-ghost" href="#versions">Toutes les versions</a>
+      </div>
+      <p class="pulsa-meta"><code>ChromeOptimizer-pulsa-bswp-v0.6.zip</code>. BSWP est éteint par défaut : il s'active d'un interrupteur dans le panneau.</p>
+    </div>
+    <div>
+      <ul class="plist">
+        <li><b>Il ne diffère que le lointain</b><span>Seuls les éléments situés à plus de deux écrans sous la zone visible sont touchés. Ce que vous voyez à l'ouverture se charge comme d'habitude.</span></li>
+        <li><b>Images et cadres en chargement différé</b><span>Il leur applique le chargement différé natif de Chrome (<code>loading="lazy"</code>) et un décodage asynchrone. Elles arrivent quand vous approchez.</span></li>
+        <li><b>Vidéos : métadonnées seulement</b><span>Les vidéos sans lecture automatique ne préchargent que leurs métadonnées, pas le fichier entier.</span></li>
+        <li><b>Aucun script bloqué ni retiré</b><span>Il ne bloque, ne retire et ne reporte aucun script : les pages gardent leur comportement, et le risque de casser l'affichage est réduit.</span></li>
+        <li><b>Léger et désactivable</b><span>Le script se met au repos quelques secondes après le chargement. Éteint, il n'est plus injecté nulle part, et l'accès aux sites est retiré.</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="callout">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+      <div><b>Expérimental.</b> Aucun gain de vitesse n'a encore été mesuré : il sera annoncé seulement après mesure. À l'activation, Chrome vous demande l'accès aux sites, car c'est ce qui permet d'injecter le script. BSWP ne lit, ne garde et n'envoie rien. Rechargez les pages déjà ouvertes après l'avoir activé.</div>
+    </div>
+  </div>
+</section>
+
 <!-- VERSIONS -->
 <section id="versions">
   <div class="wrap">
@@ -520,11 +556,25 @@ footer{padding:44px 0 56px}
     </div>
     <ul class="versions">
       <li class="ver">
+        <div class="ver-n">0.6<small>PULSA + BSWP</small></div>
+        <div class="ver-t"><b>BSWP : chargement allégé des pages <span class="tag">Dernière</span></b>
+          <span>Nouveau script BSWP, activable depuis le panneau : images, cadres et vidéos loin sous la zone visible sont différés. L'accès aux sites n'est demandé qu'à l'activation.</span>
+          <code class="ver-file">ChromeOptimizer-pulsa-bswp-v0.6.zip</code></div>
+        <a class="btn btn-primary" href="ChromeOptimizer-pulsa-bswp-v0.6.zip" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Télécharger</a>
+      </li>
+      <li class="ver">
+        <div class="ver-n">0.5<small>PULSA</small></div>
+        <div class="ver-t"><b>Mises à jour et jauges du panneau</b>
+          <span>Vérification quotidienne de la dernière version (désactivable), jauges circulaires pour la mémoire et le processeur, liste des sites retirée du panneau (l'historique reste enregistré).</span>
+          <code class="ver-file">ChromeOptimizer-pulsa-v0.5.zip</code></div>
+        <a class="btn btn-ghost" href="ChromeOptimizer-pulsa-v0.5.zip" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Télécharger</a>
+      </li>
+      <li class="ver">
         <div class="ver-n">0.4<small>PULSA</small></div>
-        <div class="ver-t"><b>Seuil adaptatif et cycles espacés <span class="tag">Dernière</span></b>
+        <div class="ver-t"><b>Seuil adaptatif et cycles espacés</b>
           <span>Le seuil de veille suit la pression mémoire et se règle seul selon les onglets rouverts trop vite. Quand il n'y a rien à faire, l'extension se réveille moins souvent (1, 2, 5, puis 10 min).</span>
           <code class="ver-file">ChromeOptimizer-pulsa-v0.4.zip</code></div>
-        <a class="btn btn-primary" href="ChromeOptimizer-pulsa-v0.4.zip" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Télécharger</a>
+        <a class="btn btn-ghost" href="ChromeOptimizer-pulsa-v0.4.zip" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Télécharger</a>
       </li>
       <li class="ver">
         <div class="ver-n">0.3<small>PULSA</small></div>
@@ -561,7 +611,7 @@ footer{padding:44px 0 56px}
     <div class="steps">
       <div class="step">
         <h3>Télécharger</h3>
-        <p>Récupérez <a href="ChromeOptimizer-pulsa-v0.4.zip" style="color:var(--text)"><code>ChromeOptimizer-pulsa-v0.4.zip</code></a> (ou une <a href="#versions" style="color:var(--text)">autre version</a>), ou téléchargez le dépôt GitHub entier.</p>
+        <p>Récupérez <a href="ChromeOptimizer-pulsa-bswp-v0.6.zip" style="color:var(--text)"><code>ChromeOptimizer-pulsa-bswp-v0.6.zip</code></a> (ou une <a href="#versions" style="color:var(--text)">autre version</a>), ou téléchargez le dépôt GitHub entier.</p>
       </div>
       <div class="step">
         <h3>Décompresser</h3>
@@ -575,7 +625,7 @@ footer{padding:44px 0 56px}
     </div>
     <div class="callout">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-      <div><b>Version 0.4, en test.</b> L'extension n'est pas encore sur le Chrome Web Store. Chrome 121 ou plus récent est nécessaire.</div>
+      <div><b>Version 0.6, en test.</b> L'extension n'est pas encore sur le Chrome Web Store. Chrome 121 ou plus récent est nécessaire.</div>
     </div>
   </div>
 </section>
@@ -585,7 +635,7 @@ footer{padding:44px 0 56px}
   <div class="wrap">
     <div class="sec-head">
       <h2>Vos onglets restent chez vous</h2>
-      <p>ChromeOptimizer ne communique avec aucun serveur. Cinq permissions, chacune avec une raison précise.</p>
+      <p>ChromeOptimizer n'envoie aucune donnée. Une seule requête par jour, pour lire le numéro de la dernière version sur GitHub. Chaque permission a une raison précise.</p>
     </div>
     <div class="table">
       <div class="tr"><b>tabs</b><span>Lire l'adresse et l'état des onglets pour repérer les inactifs et les doublons.</span></div>
@@ -593,6 +643,9 @@ footer{padding:44px 0 56px}
       <div class="tr"><b>storage</b><span>Garder vos réglages et vos compteurs, uniquement sur votre machine.</span></div>
       <div class="tr"><b>system.memory</b><span>Afficher la mémoire du système dans le panneau, seulement quand il est ouvert.</span></div>
       <div class="tr"><b>system.cpu</b><span>Afficher la charge du processeur dans le panneau, seulement quand il est ouvert.</span></div>
+      <div class="tr"><b>scripting</b><span>Enregistrer le script BSWP, uniquement quand vous l'activez.</span></div>
+      <div class="tr"><b>Accès aux sites (optionnel)</b><span>Demandé par Chrome à l'activation de BSWP, retiré dès que vous l'éteignez.</span></div>
+      <div class="tr"><b>raw.githubusercontent.com</b><span>Lire le fichier public <code>manifest.json</code> du dépôt, une fois par jour, pour signaler une nouvelle version. Désactivable.</span></div>
     </div>
     <div class="assure">
       <div><b>Aucune collecte</b>Pas de compte, pas de pub, pas de mesure d'audience.</div>
@@ -614,7 +667,8 @@ footer{padding:44px 0 56px}
       <li class="done"><i></i><b>Extension Manifest V3</b><span>Service worker, mise en veille, détection des doublons.</span></li>
       <li class="done"><i></i><b>Panneau d'optimisation et réglages</b><span>Popup et page d'options.</span></li>
       <li class="done"><i></i><b>Algorithme PULSA (v0.2 à v0.4)</b><span>Score de réutilisation, interrupteur dans le panneau, historique des sites, seuil adaptatif, banc d'essai sur usages simulés.</span></li>
-      <li class="now"><i></i><b>Mesures reproductibles</b><span>Mémoire et CPU avec et sans l'extension. Les gains ne seront annoncés qu'après mesure.</span></li>
+      <li class="done"><i></i><b>Mises à jour et BSWP (v0.5 et v0.6)</b><span>Vérification quotidienne de version, jauges du panneau, chargement différé des éléments loin sous la zone visible.</span></li>
+      <li class="now"><i></i><b>Mesures reproductibles</b><span>Mémoire, CPU et vitesse de chargement avec et sans l'extension. Les gains ne seront annoncés qu'après mesure.</span></li>
       <li><i></i><b>Publication sur le Chrome Web Store</b><span>Installation en un clic.</span></li>
     </ol>
   </div>
@@ -627,7 +681,7 @@ footer{padding:44px 0 56px}
     <div class="faq">
       <details>
         <summary>L'extension ralentit-elle Chrome ?</summary>
-        <p>Elle est conçue pour l'éviter : pas de boucle de surveillance, pas de script dans les pages, un seul réveil par minute. Les mesures précises seront publiées avec la première version.</p>
+        <p>Elle est conçue pour l'éviter : pas de boucle de surveillance, pas de script dans les pages tant que BSWP est éteint, un seul réveil par minute. Les mesures précises seront publiées avec la première version.</p>
       </details>
       <details>
         <summary>Que devient un onglet mis en veille ?</summary>
@@ -642,12 +696,16 @@ footer{padding:44px 0 56px}
         <p>Ça dépend du nombre d'onglets que vous laissez ouverts. Plus vous en gardez d'oubliés, plus le gain est grand. Nous ne donnerons de chiffres qu'après les avoir mesurés.</p>
       </details>
       <details>
+        <summary>BSWP peut-il casser l'affichage d'un site ?</summary>
+        <p>Le risque est réduit : BSWP ne bloque, ne retire et ne reporte aucun script, et ne touche qu'aux images, cadres et vidéos situés à plus de deux écrans sous la zone visible. Si un site se comporte mal, éteignez BSWP dans le panneau.</p>
+      </details>
+      <details>
         <summary>Quels navigateurs sont compatibles ?</summary>
         <p>Chrome, et les navigateurs basés sur Chromium comme Edge, Brave, Opera et Vivaldi.</p>
       </details>
       <details>
         <summary>Mes données sont-elles collectées ?</summary>
-        <p>Non. L'extension n'envoie rien nulle part. Vos réglages, et avec PULSA les noms de domaine et durées appris, restent dans le stockage local de votre navigateur.</p>
+        <p>Non. L'extension n'envoie aucune donnée. Sa seule requête réseau est une lecture quotidienne du numéro de version sur GitHub, désactivable dans les réglages. Vos réglages, et avec PULSA les noms de domaine et durées appris, restent dans le stockage local de votre navigateur.</p>
       </details>
     </div>
   </div>
