@@ -343,7 +343,7 @@ footer{padding:44px 0 56px}
 <!-- HERO -->
 <div class="hero" id="top">
   <div class="wrap">
-    <span class="status in-up" style="--d:.05"><i></i>Version 0.3, en test</span>
+    <span class="status in-up" style="--d:.05"><i></i>Version 0.4, en test</span>
     <h1 aria-label="Chrome, sans le poids mort.">
       <span class="ln" aria-hidden="true"><span style="--i:0">Chrome, sans</span></span>
       <span class="ln" aria-hidden="true"><span style="--i:1">le poids mort.</span></span>
@@ -485,20 +485,21 @@ footer{padding:44px 0 56px}
         <p>PULSA (<i>Predictive Usage Scoring and Lifecycle Algorithm</i>) remplace le délai fixe par un score. Pour chaque onglet inactif, il estime la probabilité que vous le rouvriez dans l'heure, d'après vos habitudes sur ce site.</p>
       </div>
       <div class="pulsa-cta">
-        <a class="btn btn-primary" href="ChromeOptimizer-pulsa-v0.3.zip" download>
+        <a class="btn btn-primary" href="ChromeOptimizer-pulsa-v0.4.zip" download>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
           Télécharger la version PULSA
         </a>
         <a class="btn btn-ghost" href="#versions">Toutes les versions</a>
       </div>
-      <p class="pulsa-meta"><code>ChromeOptimizer-pulsa-v0.3.zip</code>, la dernière version. Installation décrite plus bas.</p>
+      <p class="pulsa-meta"><code>ChromeOptimizer-pulsa-v0.4.zip</code>, la dernière version. Installation décrite plus bas.</p>
     </div>
     <div>
       <ul class="plist">
         <li><b>Un score de 0 à 100, pas un chronomètre</b><span>Plus il est bas, moins l'onglet a de chances d'être rouvert. Sous le seuil que vous choisissez (prudent, équilibré ou agressif), il est mis en veille.</span></li>
         <li><b>Il apprend vos habitudes</b><span>Il retient le temps qui s'écoule d'habitude avant que vous reveniez sur un site. Un onglet que vous rouvrez toutes les 20 minutes n'est pas traité comme une page lue une seule fois.</span></li>
         <li><b>Il corrige ses erreurs</b><span>Si un onglet endormi est rouvert dans l'heure, PULSA devient plus prudent pour ce site.</span></li>
-        <li><b>Léger et désactivable</b><span>Un calcul simple, sans réseau. Un réglage permet de revenir au délai fixe, et un bouton efface ce qu'il a appris.</span></li>
+        <li><b>Il adapte son seuil</b><span>Prudent tant que la mémoire est libre, plus ferme quand elle manque, et réglé tout seul selon les onglets que vous rouvrez trop vite.</span></li>
+        <li><b>Léger et désactivable</b><span>Un calcul simple, sans réseau, et des cycles qui s'espacent quand il n'y a rien à faire. Un réglage permet de revenir au délai fixe, et un bouton efface ce qu'il a appris.</span></li>
       </ul>
     </div>
   </div>
@@ -519,11 +520,18 @@ footer{padding:44px 0 56px}
     </div>
     <ul class="versions">
       <li class="ver">
+        <div class="ver-n">0.4<small>PULSA</small></div>
+        <div class="ver-t"><b>Seuil adaptatif et cycles espacés <span class="tag">Dernière</span></b>
+          <span>Le seuil de veille suit la pression mémoire et se règle seul selon les onglets rouverts trop vite. Quand il n'y a rien à faire, l'extension se réveille moins souvent (1, 2, 5, puis 10 min).</span>
+          <code class="ver-file">ChromeOptimizer-pulsa-v0.4.zip</code></div>
+        <a class="btn btn-primary" href="ChromeOptimizer-pulsa-v0.4.zip" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Télécharger</a>
+      </li>
+      <li class="ver">
         <div class="ver-n">0.3<small>PULSA</small></div>
-        <div class="ver-t"><b>Interrupteur PULSA et historique des sites <span class="tag">Dernière</span></b>
+        <div class="ver-t"><b>Interrupteur PULSA et historique des sites</b>
           <span>Activer ou désactiver PULSA depuis le panneau, liste des sites visités avec raccourcis, raccourcis clavier (Alt+Maj+P et Alt+Maj+O).</span>
           <code class="ver-file">ChromeOptimizer-pulsa-v0.3.zip</code></div>
-        <a class="btn btn-primary" href="ChromeOptimizer-pulsa-v0.3.zip" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Télécharger</a>
+        <a class="btn btn-ghost" href="ChromeOptimizer-pulsa-v0.3.zip" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Télécharger</a>
       </li>
       <li class="ver">
         <div class="ver-n">0.2<small>PULSA</small></div>
@@ -553,7 +561,7 @@ footer{padding:44px 0 56px}
     <div class="steps">
       <div class="step">
         <h3>Télécharger</h3>
-        <p>Récupérez <a href="ChromeOptimizer-pulsa-v0.3.zip" style="color:var(--text)"><code>ChromeOptimizer-pulsa-v0.3.zip</code></a> (ou une <a href="#versions" style="color:var(--text)">autre version</a>), ou téléchargez le dépôt GitHub entier.</p>
+        <p>Récupérez <a href="ChromeOptimizer-pulsa-v0.4.zip" style="color:var(--text)"><code>ChromeOptimizer-pulsa-v0.4.zip</code></a> (ou une <a href="#versions" style="color:var(--text)">autre version</a>), ou téléchargez le dépôt GitHub entier.</p>
       </div>
       <div class="step">
         <h3>Décompresser</h3>
@@ -567,7 +575,7 @@ footer{padding:44px 0 56px}
     </div>
     <div class="callout">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-      <div><b>Version 0.3, en test.</b> L'extension n'est pas encore sur le Chrome Web Store. Chrome 121 ou plus récent est nécessaire.</div>
+      <div><b>Version 0.4, en test.</b> L'extension n'est pas encore sur le Chrome Web Store. Chrome 121 ou plus récent est nécessaire.</div>
     </div>
   </div>
 </section>
@@ -605,7 +613,7 @@ footer{padding:44px 0 56px}
       <li class="done"><i></i><b>Site de présentation</b><span>Terminé.</span></li>
       <li class="done"><i></i><b>Extension Manifest V3</b><span>Service worker, mise en veille, détection des doublons.</span></li>
       <li class="done"><i></i><b>Panneau d'optimisation et réglages</b><span>Popup et page d'options.</span></li>
-      <li class="done"><i></i><b>Algorithme PULSA (v0.2 et v0.3)</b><span>Score de réutilisation, interrupteur dans le panneau, historique des sites, banc d'essai sur usages simulés.</span></li>
+      <li class="done"><i></i><b>Algorithme PULSA (v0.2 à v0.4)</b><span>Score de réutilisation, interrupteur dans le panneau, historique des sites, seuil adaptatif, banc d'essai sur usages simulés.</span></li>
       <li class="now"><i></i><b>Mesures reproductibles</b><span>Mémoire et CPU avec et sans l'extension. Les gains ne seront annoncés qu'après mesure.</span></li>
       <li><i></i><b>Publication sur le Chrome Web Store</b><span>Installation en un clic.</span></li>
     </ol>
