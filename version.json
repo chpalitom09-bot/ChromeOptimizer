@@ -1,14 +1,32 @@
 {
   "name": "1.1",
-  "version": "1.1.0",
+  "version": "1.1.0.1",
   "page": "https://chpalitom09-bot.github.io/ChromeOptimizer/#versions",
-  "download": "https://github.com/chpalitom09-bot/ChromeOptimizer/raw/main/releases/ChromeOptimizer-4-v1.1.zip",
+  "download": "https://github.com/chpalitom09-bot/ChromeOptimizer/raw/main/ChromeOptimizer-4-v1.1.zip",
   "notes": {
-    "fr": ["Nouveau : 1PW (bêta), concentre le navigateur sur un seul onglet en mettant les autres en veille", "Raccourci Alt+Shift+1 et option « fenêtre de l'onglet seulement »"],
-    "en": ["New: 1PW (beta), focuses the browser on a single tab by putting the others to sleep", "Alt+Shift+1 shortcut and a \"tab's window only\" option"],
-    "es": ["Nuevo: 1PW (beta), concentra el navegador en una sola pestaña poniendo las demás en reposo", "Atajo Alt+Mayús+1 y opción «solo la ventana de la pestaña»"],
-    "de": ["Neu: 1PW (Beta) konzentriert den Browser auf einen Tab, indem die anderen in den Ruhezustand gehen", "Tastenkürzel Alt+Umschalt+1 und Option „nur Fenster des Tabs“"],
-    "ru": ["Новое: 1PW (бета) сосредоточивает браузер на одной вкладке, отправляя остальные в спящий режим", "Сочетание Alt+Shift+1 и параметр «только окно вкладки»"],
-    "zh": ["新增:1PW(测试版),让其他标签页休眠,把浏览器集中在单个标签页上", "快捷键 Alt+Shift+1,以及“仅影响标签页所在窗口”选项"]
+    "fr": [
+      "Nouveau module Safe, activé par défaut : un onglet en appel (Meet, Zoom, Teams…) ou avec du son n'est jamais mis en veille, ni par PULSA ni par 1PW",
+      "Un onglet qui a joué du son il y a moins de 5 minutes reste aussi éveillé. Désactivable dans le panneau et les réglages"
+    ],
+    "en": [
+      "New Safe module, on by default: a tab in a call (Meet, Zoom, Teams…) or with sound is never put to sleep, by PULSA or by 1PW",
+      "A tab that played sound less than 5 minutes ago also stays awake. Can be turned off in the panel and settings"
+    ],
+    "es": [
+      "Nuevo módulo Safe, activado por defecto: una pestaña en llamada (Meet, Zoom, Teams…) o con sonido nunca pasa a reposo, ni por PULSA ni por 1PW",
+      "Una pestaña que reprodujo sonido hace menos de 5 minutos también sigue activa. Se puede desactivar en el panel y en los ajustes"
+    ],
+    "de": [
+      "Neues Safe-Modul, standardmäßig an: Ein Tab in einem Anruf (Meet, Zoom, Teams…) oder mit Ton geht nie in den Ruhezustand, weder durch PULSA noch durch 1PW",
+      "Ein Tab, der vor weniger als 5 Minuten Ton hatte, bleibt ebenfalls wach. Im Panel und in den Einstellungen abschaltbar"
+    ],
+    "ru": [
+      "Новый модуль Safe, включён по умолчанию: вкладка в звонке (Meet, Zoom, Teams…) или со звуком никогда не засыпает ни из-за PULSA, ни из-за 1PW",
+      "Вкладка, где звук был менее 5 минут назад, тоже остаётся активной. Отключается в панели и настройках"
+    ],
+    "zh": [
+      "新增 Safe 模块,默认开启:正在通话(Meet、Zoom、Teams 等)或有声音的标签页不会被 PULSA 或 1PW 休眠",
+      "不到 5 分钟前有过声音的标签页也保持唤醒。可在面板和设置中关闭"
+    ]
   }
 }

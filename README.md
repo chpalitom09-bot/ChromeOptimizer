@@ -4,12 +4,13 @@
 ![Navigateurs](https://img.shields.io/badge/Chrome-Edge%20%C2%B7%20Brave-F5F5F6?style=for-the-badge&labelColor=141416&color=26262A)
 ![Version](https://img.shields.io/badge/version-1.1-F5F5F6?style=for-the-badge&labelColor=141416&color=26262A)
 ![1PW](https://img.shields.io/badge/1PW-b%C3%AAta-F5F5F6?style=for-the-badge&labelColor=141416&color=26262A)
+![Safe](https://img.shields.io/badge/Safe-activ%C3%A9-F5F5F6?style=for-the-badge&labelColor=141416&color=26262A)
 ![Statut](https://img.shields.io/badge/statut-en%20test-F5F5F6?style=for-the-badge&labelColor=141416&color=26262A)
 ![Réseau](https://img.shields.io/badge/requ%C3%AAte%20r%C3%A9seau-1%20par%20jour-F5F5F6?style=for-the-badge&labelColor=141416&color=26262A)
 
 **Des onglets qui dorment, des pages ouvertes en double, un jeu qui rame : ChromeOptimizer s'en occupe, sans ralentir Chrome lui-même.**
 
-[Site](https://chpalitom09-bot.github.io/ChromeOptimizer/) · [Fonctionnalités](#fonctionnalités) · [1PW](#1pw-bêta) · [PULSA](#pulsa) · [BSWP](#bswp) · [EcoOptimizer](#ecooptimizer) · [Versions](#versions) · [Installation](#installation) · [Réglages](#réglages) · [Vie privée](#vie-privée) · [Feuille de route](#feuille-de-route)
+[Site](https://chpalitom09-bot.github.io/ChromeOptimizer/) · [Fonctionnalités](#fonctionnalités) · [1PW](#1pw-bêta) · [Safe](#module-safe) · [PULSA](#pulsa) · [BSWP](#bswp) · [EcoOptimizer](#ecooptimizer) · [Versions](#versions) · [Installation](#installation) · [Réglages](#réglages) · [Vie privée](#vie-privée) · [Feuille de route](#feuille-de-route)
 
 ![](assets/divider.svg)
 
@@ -36,6 +37,7 @@ Pas de compte, pas de pub, pas de collecte de données. Tout se passe dans votre
 | **Panneau d'optimisation** | Liste des onglets avec leur état : actif, inactif, doublon                                              |
 | **Optimiser en un clic**   | Ou automatiquement, selon le mode choisi dans les réglages                                              |
 | **1PW** *(bêta)*           | Met tous les autres onglets en veille pour concentrer Chrome sur un seul, par exemple un jeu            |
+| **Module Safe**            | Ne met jamais en veille un onglet en appel ou avec du son (activé par défaut)                           |
 | **PULSA**                  | Un score de réutilisation par onglet à la place d'un délai fixe                                         |
 | **BSWP**                   | Charge d'abord ce qui est visible : les images et vidéos très loin sous l'écran attendent               |
 | **EcoOptimizer**           | Espace les vérifications et met des fonctions en pause quand la batterie baisse                         |
@@ -59,12 +61,29 @@ Pas de compte, pas de pub, pas de collecte de données. Tout se passe dans votre
 | **Un interrupteur ou un raccourci**   | Cochez **1PW** dans le panneau depuis l'onglet à privilégier, ou appuyez sur `Alt + Maj + 1` (modifiable dans `chrome://extensions/shortcuts`) |
 | **Les autres onglets dorment**        | Mise en veille native de Chrome (`chrome.tabs.discard`) : les onglets restent dans la barre et se rechargent au clic     |
 | **Les nouveaux onglets aussi**        | Tant que le mode est actif, un onglet ouvert en arrière-plan est endormi dès qu'il a fini de charger                     |
-| **Les mêmes protections**             | Onglet visible, onglets épinglés, onglets qui jouent du son, sites protégés et pages internes de Chrome sont épargnés    |
+| **Les mêmes protections**             | Onglet visible, onglets épinglés, sites protégés, pages internes de Chrome, et (module Safe) onglets en appel ou avec du son sont épargnés |
 | **Il s'arrête tout seul**             | Quand vous le décochez, ou quand vous fermez l'onglet du jeu. Une pastille verte **1PW** sur l'icône indique qu'il est actif |
 | **Fenêtre de l'onglet seulement**     | Une option des réglages laisse éveillés les onglets des autres fenêtres Chrome                                           |
 
 > [!WARNING]
 > **1PW est en bêta.** Un onglet en veille perd son état : ce qui n'y a pas été enregistré (un formulaire à moitié rempli, par exemple) est perdu. Chrome ne permet pas de donner plus de puissance à un onglet : 1PW **retire seulement de la charge ailleurs**. Si le ralentissement vient du jeu lui-même ou de la carte graphique, le gain sera faible. **Aucun gain n'est annoncé** à ce stade. 1PW ne lit, ne garde et n'envoie rien, et n'ajoute aucune permission.
+
+![](assets/divider.svg)
+
+## Module Safe
+
+Le module **Safe** garde éveillés les onglets qu'il serait gênant d'endormir. Il est **activé par défaut** et s'applique à PULSA, au mode classique et à 1PW.
+
+| Ce qui est protégé                  | Comment c'est reconnu                                                                                             |
+| ----------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| **Un onglet qui joue du son**       | L'état « son en cours » fourni par Chrome (`tab.audible`)                                                         |
+| **Un onglet qui en a joué récemment** | Le service worker note l'heure du dernier changement sonore (en session) : moins de 5 minutes, il reste éveillé (musique en pause, appel où personne ne parle) |
+| **Un onglet de visioconférence**    | Son adresse seulement : Google Meet et Voice, Zoom dans le navigateur, Microsoft Teams, Whereby, Webex, Jitsi, Skype, BlueJeans, GoToMeeting, Around |
+
+Pour un service qui n'est pas dans la liste, ajoutez son site aux **sites protégés**. Le module s'éteint d'un interrupteur dans le panneau ou dans les réglages : un onglet avec du son ou en appel peut alors être mis en veille.
+
+> [!NOTE]
+> Safe ne lit aucune page et n'ajoute aucune permission : il ne regarde que l'adresse et l'état sonore que Chrome fournit déjà. Chrome n'indique pas si un onglet utilise le micro ou la caméra : un appel dans un service inconnu et silencieux n'est donc reconnu que par ses 5 minutes de grâce, ou par la liste des sites protégés.
 
 ![](assets/divider.svg)
 
@@ -143,7 +162,7 @@ Chaque version est un `.zip` à décompresser puis à charger dans Chrome. Pour 
 
 | Version | Modules | Nouveautés | Téléchargement |
 | ------- | ------- | ---------- | -------------- |
-| **1.1** (dernière) | PULSA, BSWP, Eco, 1PW | **1PW (bêta)** : tous les autres onglets en veille pour concentrer Chrome sur un seul, interrupteur dans le panneau, raccourci `Alt + Maj + 1`, pastille sur l'icône, option « fenêtre de l'onglet seulement ». Mises à jour : lecture de `version.json`, détection des corrections d'une même version, lien vers le site | [`ChromeOptimizer-4-v1.1.zip`](releases/ChromeOptimizer-4-v1.1.zip) |
+| **1.1** (dernière, r1) | PULSA, BSWP, Eco, 1PW, Safe | **Module Safe** (r1) : les onglets en appel ou avec du son, y compris depuis moins de 5 minutes, ne sont jamais mis en veille. **1PW (bêta)** : tous les autres onglets en veille pour concentrer Chrome sur un seul, interrupteur dans le panneau, raccourci `Alt + Maj + 1`, pastille sur l'icône, option « fenêtre de l'onglet seulement ». Mises à jour : lecture de `version.json`, détection des corrections d'une même version, lien vers le site | [`ChromeOptimizer-4-v1.1.zip`](ChromeOptimizer-4-v1.1.zip) |
 | **1.0** | PULSA, BSWP, Eco | Page des réglages à la façon des Paramètres Windows : catégories, sous-parties, barre de recherche et interrupteurs | [`ChromeOptimizer-pulsa-bswp-eco-v1.0.zip`](ChromeOptimizer-pulsa-bswp-eco-v1.0.zip) |
 | **0.9** | PULSA, BSWP, Eco | Quatre nouvelles langues (espagnol, allemand, chinois, russe), pluriels gérés pour chacune | [`ChromeOptimizer-pulsa-bswp-eco-v0.9.zip`](ChromeOptimizer-pulsa-bswp-eco-v0.9.zip) |
 | **0.8** | PULSA, BSWP, Eco | EcoOptimizer (batterie), interface en français et anglais avec sélecteur à drapeaux | [`ChromeOptimizer-pulsa-bswp-eco-v0.8.zip`](ChromeOptimizer-pulsa-bswp-eco-v0.8.zip) |
@@ -155,7 +174,7 @@ Chaque version est un `.zip` à décompresser puis à charger dans Chrome. Pour 
 | **0.1** | Délai fixe | Version de base : mise en veille après un délai d'inactivité, fermeture des doublons, panneau d'optimisation et réglages. Sans PULSA | [`ChromeOptimizer-extension.zip`](ChromeOptimizer-extension.zip) |
 
 > [!NOTE]
-> Les fichiers à la racine du dépôt correspondent à la **dernière version (1.1)**. La page [Versions](https://chpalitom09-bot.github.io/ChromeOptimizer/#versions) du site liste aussi toutes les archives.
+> Le dépôt ne contient que les **zips** : le code de l'extension se trouve dans chacun d'eux. La page [Versions](https://chpalitom09-bot.github.io/ChromeOptimizer/#versions) du site liste aussi toutes les archives.
 
 ### Mises à jour et numéros de version
 
@@ -200,7 +219,7 @@ Une extension qui optimise Chrome ne doit pas devenir le problème. Les choix su
 
 ### 1. Télécharger
 
-Récupérez [`ChromeOptimizer-4-v1.1.zip`](releases/ChromeOptimizer-4-v1.1.zip) (ou une [autre version](#versions)).
+Récupérez [`ChromeOptimizer-4-v1.1.zip`](ChromeOptimizer-4-v1.1.zip) (ou une [autre version](#versions)).
 
 ### 2. Décompresser
 
@@ -256,16 +275,17 @@ Le panneau s'ouvre depuis l'icône de la barre d'outils. La page de réglages s'
 | **Délai d'inactivité**                 | Mode classique : temps sans usage avant la mise en veille, 30 minutes par défaut, 5 minutes au minimum               |
 | **Doublons**                           | Ignorer, fermer seulement quand vous cliquez sur **Optimiser**, ou fermer automatiquement                            |
 | **Sites protégés**                     | Domaines que l'extension ne met jamais en veille et ne ferme jamais (sous-domaines inclus)                           |
+| **Module Safe**                        | Protège les onglets en appel ou avec du son. Activé par défaut, aussi dans le panneau                                |
 | **1PW : fenêtre de l'onglet seulement** | Ne met en veille que les onglets de la fenêtre du jeu, les autres fenêtres Chrome restent éveillées                 |
 | **EcoOptimizer**                       | Ralentit les cycles et met des fonctions en pause quand la batterie baisse. Éteint par défaut                        |
 | **Langue**                             | Français, anglais, espagnol, allemand, chinois ou russe                                                               |
 | **Mises à jour**                       | Vérification quotidienne de la version (activée par défaut), bouton **Vérifier maintenant**, notes de version        |
 
-BSWP et 1PW s'activent depuis le **panneau**, pas depuis les réglages.
+BSWP, 1PW et Safe s'activent depuis le **panneau** (Safe aussi depuis les réglages).
 
 Dans le panneau, le bouton **Protéger ce site** ajoute le site de l'onglet courant à la liste des sites protégés.
 
-L'onglet actif, les onglets épinglés et ceux qui jouent du son sont **toujours** laissés tranquilles, ainsi que les pages internes de Chrome.
+L'onglet actif et les onglets épinglés sont **toujours** laissés tranquilles, ainsi que les pages internes de Chrome. Les onglets en appel ou avec du son le sont aussi tant que le module Safe est activé.
 
 Par défaut, les doublons ne sont fermés que sur clic : fermer un onglet est irréversible pour le texte non enregistré qu'il contient (vous pouvez le rouvrir avec `Ctrl + Maj + T`).
 
@@ -277,7 +297,7 @@ ChromeOptimizer **n'envoie aucune donnée** et ne contient aucun outil de mesure
 
 | Permission                          | Pourquoi                                                                                                   |
 | ----------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `tabs`                              | Lire l'adresse et l'état des onglets, pour repérer les inactifs et les doublons, et savoir quoi endormir avec 1PW |
+| `tabs`                              | Lire l'adresse et l'état des onglets (dont le son), pour repérer les inactifs et les doublons, protéger les appels et savoir quoi endormir avec 1PW |
 | `alarms`                            | Se réveiller une fois par minute (ou par jour pour la version) au lieu de tourner en permanence            |
 | `storage`                           | Garder vos réglages et vos compteurs                                                                       |
 | `system.memory`                     | Afficher la mémoire du système dans le panneau, uniquement quand il est ouvert                             |
@@ -287,7 +307,7 @@ ChromeOptimizer **n'envoie aucune donnée** et ne contient aucun outil de mesure
 | Accès aux sites *(optionnel)*       | Demandé par Chrome à l'activation de BSWP, retiré dès que vous l'éteignez                                  |
 | `raw.githubusercontent.com` (dépôt) | Lire `version.json`, une fois par jour. Désactivable                                                       |
 
-Les adresses complètes des onglets sont lues en mémoire le temps de la comparaison. Elles ne sont ni enregistrées ni envoyées. Avec PULSA et la liste des sites, seuls les **noms de domaine** et des **durées** sont mémorisés, sur votre machine. 1PW n'ajoute aucune permission et ne garde rien.
+Les adresses complètes des onglets sont lues en mémoire le temps de la comparaison. Elles ne sont ni enregistrées ni envoyées. Avec PULSA et la liste des sites, seuls les **noms de domaine** et des **durées** sont mémorisés, sur votre machine. 1PW et Safe n'ajoutent aucune permission. Safe ne garde, en session, que l'heure du dernier changement sonore de chaque onglet.
 
 ![](assets/divider.svg)
 
@@ -301,6 +321,7 @@ Les adresses complètes des onglets sont lues en mémoire le temps de la compara
 - [x] Mises à jour et BSWP (v0.5 et v0.6) : vérification quotidienne, jauges du panneau, chargement différé
 - [x] EcoOptimizer, langues et réglages (v0.8 à v1.0) : cycles adaptés à la batterie, six langues, réglages à catégories avec recherche
 - [x] 1PW et mises à jour (v1.1) : mode un seul onglet en bêta, raccourci et pastille, détection des corrections via `version.json`
+- [x] Module Safe (v1.1 r1) : appels et son protégés, activé par défaut
 - [ ] Mesures reproductibles de la mémoire et du CPU, avec et sans l'extension
 - [ ] Sortie de bêta de 1PW, après essais sur de vrais usages
 - [ ] Publication sur le Chrome Web Store
@@ -309,27 +330,14 @@ Les gains de performance seront annoncés **uniquement après mesure**, avec la 
 
 ## Développement
 
+Le dépôt ne publie que les archives de chaque version, le site et ce README :
+
 ```
 .
-├── manifest.json               # extension Manifest V3 (version 1.1.0, version_name 1.1)
+├── ChromeOptimizer-4-v1.1.zip              # version 1.1 (dernière)
+├── ChromeOptimizer-pulsa-bswp-eco-v1.0.zip # versions précédentes (0.1 à 1.0)
 ├── version.json                # lu par l'extension : dernière version, lien, notes de version
-├── background.js               # service worker : alarmes, 1PW, mises à jour, BSWP, batterie
-├── lib.js                      # réglages, analyse des onglets, optimisation
-├── pulsa.js / pulsa-store.js   # algorithme PULSA et son apprentissage
-├── history.js                  # liste des sites visités (domaines seulement)
-├── onepw.js                    # 1PW (bêta) : mise en veille de tous les autres onglets
-├── bswp.js                     # BSWP : script de chargement différé
-├── eco.js / offscreen.html/.js # EcoOptimizer : paliers et lecture de la batterie
-├── update.js                   # détection des nouvelles versions (version.json)
-├── i18n.js / i18n-strings.js   # six langues de l'interface
-├── _locales/                   # nom, description et raccourcis dans la page des extensions
-├── popup.html / .css / .js     # le panneau d'optimisation
-├── options.html / .css / .js   # la page de réglages
-├── ui.css                      # styles communs
-├── icons/                      # icônes 16, 32, 48 et 128 px
-├── releases/
-│   └── ChromeOptimizer-4-v1.1.zip       # version 1.1 (dernière)
-├── ChromeOptimizer-pulsa-bswp-eco-v1.0.zip   # versions précédentes (0.1 à 1.0)
+├── manifest.json               # fichier de compatibilité, lu par les versions 0.5 à 1.0
 ├── index.html                  # site de présentation (GitHub Pages)
 ├── README.md
 └── assets/                     # SVG animés de ce README
@@ -339,15 +347,37 @@ Les gains de performance seront annoncés **uniquement après mesure**, avec la 
     └── logo.svg
 ```
 
+Chaque zip contient l'extension :
+
+```
+├── manifest.json               # extension Manifest V3 (1.1 : version 1.1.0, version_name 1.1)
+├── background.js               # service worker : alarmes, 1PW, mises à jour, BSWP, batterie
+├── lib.js                      # réglages, analyse des onglets, optimisation
+├── pulsa.js / pulsa-store.js   # algorithme PULSA et son apprentissage
+├── history.js                  # liste des sites visités (domaines seulement)
+├── onepw.js                    # 1PW (bêta) : mise en veille de tous les autres onglets
+├── safe.js                     # module Safe : appels et son jamais mis en veille
+├── bswp.js                     # BSWP : script de chargement différé
+├── eco.js / offscreen.html/.js # EcoOptimizer : paliers et lecture de la batterie
+├── update.js                   # détection des nouvelles versions (version.json)
+├── i18n.js / i18n-strings.js   # six langues de l'interface
+├── _locales/                   # nom, description et raccourcis dans la page des extensions
+├── popup.html / .css / .js     # le panneau d'optimisation
+├── options.html / .css / .js   # la page de réglages
+├── ui.css                      # styles communs
+└── icons/                      # icônes 16, 32, 48 et 128 px
+```
+
 Les zips PULSA anciens contiennent en plus le dossier `bench/` (banc d'essai : `node bench/simulate.mjs`).
 
 **Tester une modification.** Modifiez les fichiers, puis cliquez sur **Recharger** sur `chrome://extensions`.
 
 **Publier une version.** Les étapes, dans cet ordre :
 
-1. Mettre à jour `version` (et `version_name` pour une nouvelle version) dans `manifest.json`.
-2. Régénérer le zip de l'extension (manifest, `.js`, `.html`, `.css`, `_locales/` et `icons/`) et le placer dans `releases/`, sous un nom stable pour que le lien de téléchargement ne change pas.
-3. Mettre à jour `version.json` **en dernier** : `version` identique à celle du `manifest.json` du zip, `download`, et `notes`. Tant qu'il n'est pas modifié, personne n'est prévenu d'un zip pas encore en ligne.
+1. Mettre à jour `version` (et `version_name` pour une nouvelle version) dans le `manifest.json` de l'extension.
+2. Régénérer le zip (manifest, `.js`, `.html`, `.css`, `_locales/` et `icons/`) et le déposer **à la racine du dépôt**, sous un nom stable pour que le lien de téléchargement ne change pas.
+3. Mettre à jour `version.json` **en dernier** : `version` identique à celle du `manifest.json` du zip, `download` (adresse du zip à la racine), et `notes`. Tant qu'il n'est pas modifié, personne n'est prévenu d'un zip pas encore en ligne.
+4. Mettre le même numéro dans le `manifest.json` de compatibilité à la racine, tant que des utilisateurs des versions 0.5 à 1.0 doivent être prévenus.
 
 Le `version` de `version.json` doit être exactement celui du zip : s'il est plus haut, l'extension proposera la mise à jour en permanence, même installée.
 
