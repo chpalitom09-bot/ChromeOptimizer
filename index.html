@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ChromeOptimizer : libérez la mémoire de Chrome sans y penser</title>
-<meta name="description" content="ChromeOptimizer met en veille les onglets inactifs et ferme les doublons, sans surveiller vos pages en boucle. Aucune donnée collectée.">
+<meta name="description" content="ChromeOptimizer met en veille les onglets inactifs, ferme les doublons et ménage la batterie (EcoOptimizer), sans surveiller vos pages en boucle. En six langues. Aucune donnée collectée.">
 <meta name="theme-color" content="#09090a">
 <meta property="og:title" content="ChromeOptimizer">
 <meta property="og:description" content="Libérez la mémoire de Chrome sans y penser. Onglets inactifs en veille, doublons fermés.">
@@ -50,7 +50,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;font-weight:700;font-size:19px;letter-spacing:-.01em}
 .brand svg{width:32px;height:32px}
 .menu{display:flex;align-items:center;gap:30px}
-.menu a{color:var(--muted);text-decoration:none;font-size:15.5px;transition:color .2s}
+.menu a{color:var(--muted);text-decoration:none;font-size:15.5px;transition:color .2s;white-space:nowrap}
 .menu a:hover{color:var(--text)}
 .nav-cta{display:flex;align-items:center;gap:10px}
 .nav-cta .btn{padding:9px 18px;font-size:15px}
@@ -254,6 +254,37 @@ footer{padding:44px 0 56px}
 /* Animations seulement quand visibles */
 [data-anim]:not(.in) *,[data-anim]:not(.in) *::after{animation-play-state:paused!important}
 
+
+/* Nouveautés v0.8 : EcoOptimizer et langues */
+.eco-viz{display:grid;gap:8px;width:100%}
+.eco-row{display:grid;grid-template-columns:62px 1fr 74px;align-items:center;gap:12px;font-size:14px;color:var(--muted)}
+.eco-row b{color:var(--text);font-weight:600;font-variant-numeric:tabular-nums}
+.eco-bar{height:10px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);overflow:hidden}
+.eco-bar i{display:block;height:100%;width:var(--w);border-radius:999px;background:var(--text);transform:scaleX(0);transform-origin:left;transition:transform .9s cubic-bezier(.4,0,.2,1);transition-delay:calc(var(--k) * .12s)}
+.in .eco-bar i{transform:scaleX(1)}
+.eco-row em{font-style:normal;text-align:right;font-variant-numeric:tabular-nums}
+.langs{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%}
+.lg{display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:14px;border:1px solid var(--line-2);background:var(--surface-2);font-size:15px;font-weight:600}
+.lg.on{border-color:var(--muted)}
+.lg .flag{width:34px;height:23px;border-radius:5px;box-shadow:0 0 0 1px rgba(255,255,255,.18),0 1px 3px rgba(0,0,0,.5)}
+.lg small{display:block;font-size:12px;font-weight:500;color:var(--dim);letter-spacing:.04em}
+.tiers{margin-top:28px}
+.tiers .tr{grid-template-columns:110px 1fr}
+.tiers .tr b{font-family:inherit;font-weight:700}
+.eco-note{margin-top:14px;color:var(--dim);font-size:14px}
+.new{display:inline-block;margin-left:8px;padding:2px 10px;border-radius:999px;border:1px solid var(--line-2);color:var(--text);font-size:12px;font-weight:700;vertical-align:3px;letter-spacing:0}
+.menu{gap:26px}
+.nav-cta .btn{display:none}
+@media (max-width:1260px){
+  .menu{position:absolute;left:0;right:0;top:68px;flex-direction:column;align-items:stretch;gap:0;background:rgba(9,9,10,.97);border-bottom:1px solid var(--line);padding:6px 20px 16px;display:none}
+  .nav.open .menu{display:flex}
+  .menu a{padding:15px 0;border-bottom:1px solid var(--line);font-size:17px}
+  .menu a:last-child{border-bottom:0}
+  .burger{display:block}
+  .nav-cta .btn{display:none}
+}
+@media (max-width:640px){.tiers .tr{grid-template-columns:1fr}.eco-row{grid-template-columns:54px 1fr 66px;gap:8px}}
+
 /* Responsive */
 @media (max-width:980px){
   .bento{grid-template-columns:1fr 1fr}
@@ -324,10 +355,11 @@ footer{padding:44px 0 56px}
   <div class="wrap nav-in">
     <a class="brand" href="#top" aria-label="ChromeOptimizer, accueil"><svg aria-hidden="true"><use href="#logo"/></svg>ChromeOptimizer</a>
     <nav class="menu" id="menu" aria-label="Navigation principale">
+      <a href="#nouveautes">Nouveautés</a>
       <a href="#fonctionnalites">Fonctionnalités</a>
-      <a href="#leger">Léger</a>
       <a href="#pulsa">PULSA</a>
       <a href="#bswp">BSWP</a>
+      <a href="#eco">EcoOptimizer</a>
       <a href="#versions">Versions</a>
       <a href="#installation">Installation</a>
       <a href="#confidentialite">Vie privée</a>
@@ -344,7 +376,7 @@ footer{padding:44px 0 56px}
 <!-- HERO -->
 <div class="hero" id="top">
   <div class="wrap">
-    <span class="status in-up" style="--d:.05"><i></i>Version 0.6, en test</span>
+    <span class="status in-up" style="--d:.05"><i></i>Version 0.9, en test</span>
     <h1 aria-label="Chrome, sans le poids mort.">
       <span class="ln" aria-hidden="true"><span style="--i:0">Chrome, sans</span></span>
       <span class="ln" aria-hidden="true"><span style="--i:1">le poids mort.</span></span>
@@ -394,6 +426,62 @@ footer{padding:44px 0 56px}
     </div>
   </div>
 </div>
+
+<!-- NOUVEAUTÉS -->
+<section id="nouveautes">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Nouveautés des versions 0.8 et 0.9</h2>
+      <p>L'extension ménage la batterie de votre ordinateur, et elle parle maintenant six langues : français, anglais, espagnol, allemand, chinois et russe.</p>
+    </div>
+    <div class="bento" data-anim>
+      <article class="tile t4">
+        <div class="viz">
+          <div class="eco-viz" aria-hidden="true">
+            <div class="eco-row"><b>≤ 40 %</b><div class="eco-bar"><i style="--w:17%;--k:0"></i></div><em>+5 %</em></div>
+            <div class="eco-row"><b>≤ 30 %</b><div class="eco-bar"><i style="--w:33%;--k:1"></i></div><em>+10 %</em></div>
+            <div class="eco-row"><b>≤ 20 %</b><div class="eco-bar"><i style="--w:50%;--k:2"></i></div><em>+15 %</em></div>
+            <div class="eco-row"><b>≤ 10 %</b><div class="eco-bar"><i style="--w:100%;--k:3"></i></div><em>+30 %</em></div>
+          </div>
+        </div>
+        <div><h3>EcoOptimizer <span class="new">Nouveau</span></h3><p>Plus la batterie baisse, plus l'extension espace ses vérifications et met des fonctions en pause. Sur secteur, rien ne change. Il s'active dans les réglages.</p></div>
+      </article>
+      <article class="tile t2">
+        <div class="viz">
+          <div class="langs" aria-hidden="true">
+            <span class="lg on"><svg class="flag" viewBox="0 0 3 2" preserveAspectRatio="none" aria-hidden="true"><rect width="1" height="2" fill="#0055A4"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#EF4135"/></svg><span>Français<small>FR</small></span></span>
+            <span class="lg"><svg class="flag" viewBox="0 0 60 40" preserveAspectRatio="none" aria-hidden="true"><rect width="60" height="40" fill="#012169"/><path d="M0 0L60 40M60 0L0 40" stroke="#fff" stroke-width="8"/><path d="M0 0L60 40M60 0L0 40" stroke="#C8102E" stroke-width="3"/><path d="M30 0V40M0 20H60" stroke="#fff" stroke-width="13"/><path d="M30 0V40M0 20H60" stroke="#C8102E" stroke-width="8"/></svg><span>English<small>EN</small></span></span>
+            <span class="lg"><svg class="flag" viewBox="0 0 3 2" preserveAspectRatio="none" aria-hidden="true"><rect width="3" height="2" fill="#AA151B"/><rect y=".5" width="3" height="1" fill="#F1BF00"/></svg><span>Español<small>ES</small></span></span>
+            <span class="lg"><svg class="flag" viewBox="0 0 3 2" preserveAspectRatio="none" aria-hidden="true"><rect width="3" height="2" fill="#000"/><rect y=".667" width="3" height="1.334" fill="#DD0000"/><rect y="1.334" width="3" height=".666" fill="#FFCE00"/></svg><span>Deutsch<small>DE</small></span></span>
+            <span class="lg"><svg class="flag" viewBox="0 0 18 12" preserveAspectRatio="none" aria-hidden="true"><rect width="18" height="12" fill="#DE2910"/><polygon points="6.00,2.40 6.81,4.89 9.42,4.89 7.31,6.42 8.12,8.91 6.00,7.38 3.88,8.91 4.69,6.42 2.58,4.89 5.19,4.89" fill="#FFDE00"/><polygon points="10.97,3.02 11.54,2.36 11.09,1.61 11.90,1.95 12.47,1.30 12.39,2.16 13.20,2.51 12.35,2.70 12.27,3.57 11.82,2.82" fill="#FFDE00"/><polygon points="13.21,4.97 13.99,4.59 13.87,3.72 14.48,4.35 15.26,3.96 14.85,4.74 15.46,5.36 14.60,5.21 14.19,5.98 14.07,5.12" fill="#FFDE00"/><polygon points="13.25,8.07 14.12,8.04 14.36,7.20 14.66,8.02 15.53,7.99 14.84,8.53 15.14,9.34 14.42,8.86 13.73,9.40 13.97,8.56" fill="#FFDE00"/><polygon points="11.06,10.05 11.88,10.36 12.42,9.68 12.38,10.55 13.20,10.86 12.36,11.09 12.32,11.96 11.84,11.23 11.00,11.46 11.54,10.78" fill="#FFDE00"/></svg><span>中文<small>ZH</small></span></span>
+            <span class="lg"><svg class="flag" viewBox="0 0 3 2" preserveAspectRatio="none" aria-hidden="true"><rect width="3" height="0.67" fill="#fff"/><rect y="0.67" width="3" height="0.67" fill="#0039A6"/><rect y="1.33" width="3" height="0.67" fill="#D52B1E"/></svg><span>Русский<small>RU</small></span></span>
+          </div>
+        </div>
+        <div><h3>Six langues <span class="new">Nouveau</span></h3><p>Un bouton avec le drapeau change la langue de l'extension, dans le panneau comme dans les réglages : français, anglais, espagnol, allemand, chinois et russe.</p></div>
+      </article>
+      <article class="tile t2">
+        <div class="viz v-line" aria-hidden="true">
+          <svg viewBox="0 0 300 96" preserveAspectRatio="none">
+            <path d="M0 48 H300" fill="none" stroke="#2c2c31" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+            <path class="pulse" d="M0 48 H300" pathLength="100" fill="none" stroke="#f5f5f6" stroke-width="3" stroke-linecap="round" stroke-dasharray="20 80" vector-effect="non-scaling-stroke"/>
+          </svg>
+        </div>
+        <div><h3>Un seul réveil par palier</h3><p>La batterie est lue par un document invisible qui ne réveille l'extension que lorsque le palier change, pas à chaque pourcent.</p></div>
+      </article>
+      <article class="tile t4">
+        <div class="viz">
+          <div class="chips" aria-hidden="true">
+            <span class="chip" style="--k:0">Message dans le panneau</span>
+            <span class="chip" style="--k:1">Historique en pause sous 20 %</span>
+            <span class="chip" style="--k:2">BSWP en pause sous 10 %</span>
+            <span class="chip" style="--k:3">Désactivé par défaut</span>
+          </div>
+        </div>
+        <div><h3>Vous voyez ce qui change</h3><p>Dès qu'un ralentissement s'applique, le panneau l'indique : niveau de batterie, ralentissement des cycles et fonctions en pause. EcoOptimizer est éteint tant que vous ne l'avez pas activé.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
 
 <!-- FONCTIONNALITÉS -->
 <section id="fonctionnalites">
@@ -486,13 +574,13 @@ footer{padding:44px 0 56px}
         <p>PULSA (<i>Predictive Usage Scoring and Lifecycle Algorithm</i>) remplace le délai fixe par un score. Pour chaque onglet inactif, il estime la probabilité que vous le rouvriez dans l'heure, d'après vos habitudes sur ce site.</p>
       </div>
       <div class="pulsa-cta">
-        <a class="btn btn-primary" href="ChromeOptimizer-pulsa-bswp-v0.6.zip" download>
+        <a class="btn btn-primary" href="ChromeOptimizer-pulsa-bswp-eco-v0.9.zip" download>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
           Télécharger la dernière version
         </a>
         <a class="btn btn-ghost" href="#versions">Toutes les versions</a>
       </div>
-      <p class="pulsa-meta"><code>ChromeOptimizer-pulsa-bswp-v0.6.zip</code>, la dernière version (PULSA et BSWP). Installation décrite plus bas.</p>
+      <p class="pulsa-meta"><code>ChromeOptimizer-pulsa-bswp-eco-v0.9.zip</code>, la dernière version (PULSA, BSWP et EcoOptimizer). Installation décrite plus bas.</p>
     </div>
     <div>
       <ul class="plist">
@@ -521,13 +609,13 @@ footer{padding:44px 0 56px}
         <p>BSWP (<i>Better Speed WebPage</i>) est un petit script qui accélère le chargement des pages en ne chargeant que le nécessaire. Les images, cadres et vidéos situés loin sous la zone visible attendent que vous descendiez, et la connexion est libérée pour le haut de la page.</p>
       </div>
       <div class="pulsa-cta">
-        <a class="btn btn-primary" href="ChromeOptimizer-pulsa-bswp-v0.6.zip" download>
+        <a class="btn btn-primary" href="ChromeOptimizer-pulsa-bswp-eco-v0.9.zip" download>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
           Télécharger la version avec BSWP
         </a>
         <a class="btn btn-ghost" href="#versions">Toutes les versions</a>
       </div>
-      <p class="pulsa-meta"><code>ChromeOptimizer-pulsa-bswp-v0.6.zip</code>. BSWP est éteint par défaut : il s'active d'un interrupteur dans le panneau.</p>
+      <p class="pulsa-meta"><code>ChromeOptimizer-pulsa-bswp-eco-v0.9.zip</code>, avec BSWP. BSWP est éteint par défaut : il s'active d'un interrupteur dans le panneau.</p>
     </div>
     <div>
       <ul class="plist">
@@ -547,6 +635,45 @@ footer{padding:44px 0 56px}
   </div>
 </section>
 
+<!-- ECOOPTIMIZER -->
+<section id="eco">
+  <div class="wrap split">
+    <div>
+      <div class="sec-head" style="margin-bottom:0">
+        <h2>EcoOptimizer : ralentir quand la batterie baisse</h2>
+        <p>Sur batterie, EcoOptimizer adapte le rythme de l'extension au niveau restant : les cycles de vérification s'espacent par paliers, et quelques fonctions annexes se mettent en pause quand la charge devient critique. Il se règle uniquement depuis la page des réglages.</p>
+      </div>
+      <div class="pulsa-cta">
+        <a class="btn btn-primary" href="ChromeOptimizer-pulsa-bswp-eco-v0.9.zip" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Télécharger la version 0.9</a>
+        <a class="btn btn-ghost" href="#versions">Toutes les versions</a>
+      </div>
+      <p class="pulsa-meta"><code>ChromeOptimizer-pulsa-bswp-eco-v0.9.zip</code>. EcoOptimizer est éteint par défaut : choisissez « Activé » dans les réglages.</p>
+    </div>
+    <div>
+      <ul class="plist">
+        <li><b>Des paliers simples</b><span>À 40 %, les cycles sont 5 % plus lents ; à 30 %, 10 % ; à 20 %, 15 % ; à 10 %, 30 %. Chaque cycle est comparé à ce qu'il aurait duré sur secteur.</span></li>
+        <li><b>Des fonctions en pause quand c'est critique</b><span>Sous 20 %, l'historique des sites n'est plus écrit. Sous 10 %, BSWP est retiré des pages, et la lecture de la mémoire et le réglage automatique de PULSA s'arrêtent. Tout revient dès que la batterie remonte ou que le PC est branché.</span></li>
+        <li><b>Rien sur secteur</b><span>Branché, l'extension retrouve son rythme normal, sans ralentissement ni pause.</span></li>
+        <li><b>Un lecteur de batterie très discret</b><span>Une extension ne peut pas lire la batterie depuis son service worker. Un document invisible s'en charge, n'existe que si EcoOptimizer est activé, et ne prévient l'extension que lorsque le palier change.</span></li>
+        <li><b>Un message dans le panneau</b><span>Quand un ralentissement s'applique, le panneau affiche le niveau de batterie, le ralentissement et les fonctions en pause. Les réglages montrent le niveau en direct et la liste des paliers.</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="table tiers">
+      <div class="tr"><b>Batterie</b><span>Cycles plus lents de · fonctions en pause</span></div>
+      <div class="tr"><b>≤ 40 %</b><span>5 %</span></div>
+      <div class="tr"><b>≤ 30 %</b><span>10 %</span></div>
+      <div class="tr"><b>≤ 20 %</b><span>15 % · historique des sites</span></div>
+      <div class="tr"><b>≤ 10 %</b><span>30 % · historique des sites, BSWP, lecture de la mémoire, réglage automatique du seuil</span></div>
+    </div>
+    <div class="callout">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+      <div><b>Expérimental.</b> L'extension consomme déjà très peu : espacer ses cycles ne fait gagner qu'un faible pourcentage d'autonomie, et aucun gain n'a encore été mesuré. Il ne sera annoncé qu'après mesure. EcoOptimizer ne lit que le niveau de charge et l'état de branchement, et n'envoie rien.</div>
+    </div>
+  </div>
+</section>
+
 <!-- VERSIONS -->
 <section id="versions">
   <div class="wrap">
@@ -556,11 +683,25 @@ footer{padding:44px 0 56px}
     </div>
     <ul class="versions">
       <li class="ver">
+        <div class="ver-n">0.9<small>PULSA + BSWP + Eco</small></div>
+        <div class="ver-t"><b>Quatre nouvelles langues <span class="tag">Dernière</span></b>
+          <span>L'extension s'enrichit de l'espagnol, de l'allemand, du chinois et du russe, en plus du français et de l'anglais. Le sélecteur à drapeaux propose les six langues, les pluriels sont gérés pour chacune (trois formes en russe), et la langue du navigateur est choisie au premier lancement quand elle est disponible.</span>
+          <code class="ver-file">ChromeOptimizer-pulsa-bswp-eco-v0.9.zip</code></div>
+        <a class="btn btn-primary" href="ChromeOptimizer-pulsa-bswp-eco-v0.9.zip" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Télécharger</a>
+      </li>
+      <li class="ver">
+        <div class="ver-n">0.8<small>PULSA + BSWP + Eco</small></div>
+        <div class="ver-t"><b>EcoOptimizer et deux langues</b>
+          <span>EcoOptimizer ralentit les cycles et met des fonctions en pause quand la batterie baisse (réglage désactivé par défaut), avec un message dans le panneau. L'extension passe en français et anglais, avec un sélecteur à drapeaux.</span>
+          <code class="ver-file">ChromeOptimizer-pulsa-bswp-eco-v0.8.zip</code></div>
+        <a class="btn btn-ghost" href="ChromeOptimizer-pulsa-bswp-eco-v0.8.zip" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Télécharger</a>
+      </li>
+      <li class="ver">
         <div class="ver-n">0.6<small>PULSA + BSWP</small></div>
-        <div class="ver-t"><b>BSWP : chargement allégé des pages <span class="tag">Dernière</span></b>
+        <div class="ver-t"><b>BSWP : chargement allégé des pages</b>
           <span>Nouveau script BSWP, activable depuis le panneau : images, cadres et vidéos loin sous la zone visible sont différés. L'accès aux sites n'est demandé qu'à l'activation.</span>
           <code class="ver-file">ChromeOptimizer-pulsa-bswp-v0.6.zip</code></div>
-        <a class="btn btn-primary" href="ChromeOptimizer-pulsa-bswp-v0.6.zip" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Télécharger</a>
+        <a class="btn btn-ghost" href="ChromeOptimizer-pulsa-bswp-v0.6.zip" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Télécharger</a>
       </li>
       <li class="ver">
         <div class="ver-n">0.5<small>PULSA</small></div>
@@ -611,7 +752,7 @@ footer{padding:44px 0 56px}
     <div class="steps">
       <div class="step">
         <h3>Télécharger</h3>
-        <p>Récupérez <a href="ChromeOptimizer-pulsa-bswp-v0.6.zip" style="color:var(--text)"><code>ChromeOptimizer-pulsa-bswp-v0.6.zip</code></a> (ou une <a href="#versions" style="color:var(--text)">autre version</a>), ou téléchargez le dépôt GitHub entier.</p>
+        <p>Récupérez <a href="ChromeOptimizer-pulsa-bswp-eco-v0.9.zip" style="color:var(--text)"><code>ChromeOptimizer-pulsa-bswp-eco-v0.9.zip</code></a> (ou une <a href="#versions" style="color:var(--text)">autre version</a>), ou téléchargez le dépôt GitHub entier.</p>
       </div>
       <div class="step">
         <h3>Décompresser</h3>
@@ -625,7 +766,7 @@ footer{padding:44px 0 56px}
     </div>
     <div class="callout">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-      <div><b>Version 0.6, en test.</b> L'extension n'est pas encore sur le Chrome Web Store. Chrome 121 ou plus récent est nécessaire.</div>
+      <div><b>Version 0.9, en test.</b> L'extension n'est pas encore sur le Chrome Web Store. Chrome 121 ou plus récent est nécessaire.</div>
     </div>
   </div>
 </section>
@@ -643,6 +784,7 @@ footer{padding:44px 0 56px}
       <div class="tr"><b>storage</b><span>Garder vos réglages et vos compteurs, uniquement sur votre machine.</span></div>
       <div class="tr"><b>system.memory</b><span>Afficher la mémoire du système dans le panneau, seulement quand il est ouvert.</span></div>
       <div class="tr"><b>system.cpu</b><span>Afficher la charge du processeur dans le panneau, seulement quand il est ouvert.</span></div>
+      <div class="tr"><b>offscreen</b><span>Ouvrir un document invisible qui lit le niveau de batterie, seulement si EcoOptimizer est activé.</span></div>
       <div class="tr"><b>scripting</b><span>Enregistrer le script BSWP, uniquement quand vous l'activez.</span></div>
       <div class="tr"><b>Accès aux sites (optionnel)</b><span>Demandé par Chrome à l'activation de BSWP, retiré dès que vous l'éteignez.</span></div>
       <div class="tr"><b>raw.githubusercontent.com</b><span>Lire le fichier public <code>manifest.json</code> du dépôt, une fois par jour, pour signaler une nouvelle version. Désactivable.</span></div>
@@ -668,6 +810,7 @@ footer{padding:44px 0 56px}
       <li class="done"><i></i><b>Panneau d'optimisation et réglages</b><span>Popup et page d'options.</span></li>
       <li class="done"><i></i><b>Algorithme PULSA (v0.2 à v0.4)</b><span>Score de réutilisation, interrupteur dans le panneau, historique des sites, seuil adaptatif, banc d'essai sur usages simulés.</span></li>
       <li class="done"><i></i><b>Mises à jour et BSWP (v0.5 et v0.6)</b><span>Vérification quotidienne de version, jauges du panneau, chargement différé des éléments loin sous la zone visible.</span></li>
+      <li class="done"><i></i><b>EcoOptimizer et langues (v0.8 et v0.9)</b><span>Cycles adaptés à la batterie, fonctions en pause sous 20 % et 10 %, message dans le panneau, interface en français, anglais, espagnol, allemand, chinois et russe.</span></li>
       <li class="now"><i></i><b>Mesures reproductibles</b><span>Mémoire, CPU et vitesse de chargement avec et sans l'extension. Les gains ne seront annoncés qu'après mesure.</span></li>
       <li><i></i><b>Publication sur le Chrome Web Store</b><span>Installation en un clic.</span></li>
     </ol>
@@ -698,6 +841,14 @@ footer{padding:44px 0 56px}
       <details>
         <summary>BSWP peut-il casser l'affichage d'un site ?</summary>
         <p>Le risque est réduit : BSWP ne bloque, ne retire et ne reporte aucun script, et ne touche qu'aux images, cadres et vidéos situés à plus de deux écrans sous la zone visible. Si un site se comporte mal, éteignez BSWP dans le panneau.</p>
+      </details>
+      <details>
+        <summary>À quoi sert EcoOptimizer ?</summary>
+        <p>Il adapte le rythme de l'extension à votre batterie : à 40, 30, 20 et 10 %, les cycles de vérification sont 5, 10, 15 et 30 % plus lents, et quelques fonctions se mettent en pause sous 20 et 10 %. Il ne fait rien sur secteur, et reste éteint tant que vous ne l'activez pas dans les réglages. Son effet sur l'autonomie n'est pas encore mesuré : l'extension consomme déjà peu.</p>
+      </details>
+      <details>
+        <summary>Dans quelles langues est l'extension ?</summary>
+        <p>En français, en anglais, en espagnol, en allemand, en chinois et en russe. Le bouton avec le drapeau, dans le panneau et dans les réglages, change la langue. Au premier lancement, l'extension suit la langue du navigateur si elle est disponible, sinon elle s'affiche en anglais. La description dans la page des extensions de Chrome suit, elle, la langue du navigateur.</p>
       </details>
       <details>
         <summary>Quels navigateurs sont compatibles ?</summary>
