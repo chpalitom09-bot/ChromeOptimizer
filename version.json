@@ -1,14 +1,14 @@
 {
-  "name": "1.0",
-  "version": "1.0.0.1",
+  "name": "1.1",
+  "version": "1.1.0",
   "page": "https://chpalitom09-bot.github.io/ChromeOptimizer/#versions",
-  "download": "https://github.com/chpalitom09-bot/ChromeOptimizer/raw/main/releases/ChromeOptimizer-v1.0.zip",
+  "download": "https://github.com/chpalitom09-bot/ChromeOptimizer/raw/main/releases/ChromeOptimizer-4-v1.1.zip",
   "notes": {
-    "fr": ["Détection des nouvelles versions et des révisions de la 1.0", "Lien vers la page des versions"],
-    "en": ["Detection of new versions and 1.0 revisions", "Link to the versions page"],
-    "es": ["Detección de nuevas versiones y revisiones de la 1.0", "Enlace a la página de versiones"],
-    "de": ["Erkennung neuer Versionen und Revisionen der 1.0", "Link zur Versionsseite"],
-    "ru": ["Обнаружение новых версий и ревизий 1.0", "Ссылка на страницу версий"],
-    "zh": ["检测新版本及 1.0 的修订版", "版本页面链接"]
+    "fr": ["Nouveau : 1PW (bêta), concentre le navigateur sur un seul onglet en mettant les autres en veille", "Raccourci Alt+Shift+1 et option « fenêtre de l'onglet seulement »"],
+    "en": ["New: 1PW (beta), focuses the browser on a single tab by putting the others to sleep", "Alt+Shift+1 shortcut and a \"tab's window only\" option"],
+    "es": ["Nuevo: 1PW (beta), concentra el navegador en una sola pestaña poniendo las demás en reposo", "Atajo Alt+Mayús+1 y opción «solo la ventana de la pestaña»"],
+    "de": ["Neu: 1PW (Beta) konzentriert den Browser auf einen Tab, indem die anderen in den Ruhezustand gehen", "Tastenkürzel Alt+Umschalt+1 und Option „nur Fenster des Tabs“"],
+    "ru": ["Новое: 1PW (бета) сосредоточивает браузер на одной вкладке, отправляя остальные в спящий режим", "Сочетание Alt+Shift+1 и параметр «только окно вкладки»"],
+    "zh": ["新增:1PW(测试版),让其他标签页休眠,把浏览器集中在单个标签页上", "快捷键 Alt+Shift+1,以及“仅影响标签页所在窗口”选项"]
   }
 }
