@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ChromeOptimizer : libérez la mémoire de Chrome sans y penser</title>
-<meta name="description" content="ChromeOptimizer met en veille les onglets inactifs, ferme les doublons et ménage la batterie (EcoOptimizer), sans surveiller vos pages en boucle. En six langues. Aucune donnée collectée.">
+<meta name="description" content="ChromeOptimizer met en veille les onglets inactifs, ferme les doublons, ménage la batterie (EcoOptimizer) et, nouveauté de la 1.1, concentre Chrome sur un seul onglet (1PW, bêta). En six langues. Aucune donnée collectée.">
 <meta name="theme-color" content="#09090a">
 <meta property="og:title" content="ChromeOptimizer">
 <meta property="og:description" content="Libérez la mémoire de Chrome sans y penser. Onglets inactifs en veille, doublons fermés.">
@@ -360,6 +360,7 @@ footer{padding:44px 0 56px}
       <a href="#pulsa">PULSA</a>
       <a href="#bswp">BSWP</a>
       <a href="#eco">EcoOptimizer</a>
+      <a href="#onepw">1PW</a>
       <a href="#versions">Versions</a>
       <a href="#installation">Installation</a>
       <a href="#confidentialite">Vie privée</a>
@@ -376,12 +377,12 @@ footer{padding:44px 0 56px}
 <!-- HERO -->
 <div class="hero" id="top">
   <div class="wrap">
-    <span class="status in-up" style="--d:.05"><i></i>Version 1.0, en test</span>
+    <span class="status in-up" style="--d:.05"><i></i>Version 1.1, en test</span>
     <h1 aria-label="Chrome, sans le poids mort.">
       <span class="ln" aria-hidden="true"><span style="--i:0">Chrome, sans</span></span>
       <span class="ln" aria-hidden="true"><span style="--i:1">le poids mort.</span></span>
     </h1>
-    <p class="lead in-up" style="--d:.45">ChromeOptimizer met en veille les onglets que vous avez oubliés et ferme ceux qui sont ouverts en double, sans jamais surveiller vos pages en boucle.</p>
+    <p class="lead in-up" style="--d:.45">ChromeOptimizer met en veille les onglets que vous avez oubliés et ferme ceux qui sont ouverts en double, sans jamais surveiller vos pages en boucle. Nouveau dans la 1.1 : le mode 1PW (bêta) concentre Chrome sur un seul onglet, par exemple un jeu qui rame.</p>
     <div class="cta in-up" style="--d:.55">
       <a class="btn btn-primary" href="#installation">Installer l'extension</a>
       <a class="btn btn-ghost" href="https://github.com/chpalitom09-bot/ChromeOptimizer" target="_blank" rel="noopener">
@@ -431,33 +432,29 @@ footer{padding:44px 0 56px}
 <section id="nouveautes">
   <div class="wrap">
     <div class="sec-head">
-      <h2>Nouveautés des versions 0.8 à 1.0</h2>
-      <p>L'extension ménage la batterie de votre ordinateur, et elle parle maintenant six langues : français, anglais, espagnol, allemand, chinois et russe.</p>
+      <h2>Nouveautés de la version 1.1</h2>
+      <p>Un jeu rame, un onglet doit passer avant tous les autres : la 1.1 ajoute 1PW (One Page Web), en bêta. Les nouveautés des versions 0.8 à 1.0 (EcoOptimizer, six langues, réglages) sont dans <a href="#versions" style="color:var(--text)">Toutes les versions</a>.</p>
     </div>
     <div class="bento" data-anim>
       <article class="tile t4">
         <div class="viz">
-          <div class="eco-viz" aria-hidden="true">
-            <div class="eco-row"><b>≤ 40 %</b><div class="eco-bar"><i style="--w:17%;--k:0"></i></div><em>+5 %</em></div>
-            <div class="eco-row"><b>≤ 30 %</b><div class="eco-bar"><i style="--w:33%;--k:1"></i></div><em>+10 %</em></div>
-            <div class="eco-row"><b>≤ 20 %</b><div class="eco-bar"><i style="--w:50%;--k:2"></i></div><em>+15 %</em></div>
-            <div class="eco-row"><b>≤ 10 %</b><div class="eco-bar"><i style="--w:100%;--k:3"></i></div><em>+30 %</em></div>
+          <div class="mt-row" aria-hidden="true">
+            <span class="mt on">Jeu en cours</span>
+            <span class="mt sl" style="--k:0">Messagerie<em class="z" style="font-style:normal">z</em><em class="z" style="font-style:normal">z</em><em class="z" style="font-style:normal">z</em></span>
+            <span class="mt sl" style="--k:1">Article<em class="z" style="font-style:normal">z</em><em class="z" style="font-style:normal">z</em><em class="z" style="font-style:normal">z</em></span>
+            <span class="mt sl" style="--k:2">Vidéo<em class="z" style="font-style:normal">z</em><em class="z" style="font-style:normal">z</em><em class="z" style="font-style:normal">z</em></span>
           </div>
         </div>
-        <div><h3>EcoOptimizer <span class="new">Nouveau</span></h3><p>Plus la batterie baisse, plus l'extension espace ses vérifications et met des fonctions en pause. Sur secteur, rien ne change. Il s'active dans les réglages.</p></div>
+        <div><h3>1PW, un seul onglet <span class="new">Bêta</span></h3><p>Vous l'activez depuis l'onglet à privilégier : tous les autres passent en veille, ce qui libère de la mémoire et du processeur. Les onglets qui s'ouvrent ensuite s'endorment dès leur chargement. Le mode s'arrête quand vous le coupez ou fermez l'onglet.</p></div>
       </article>
       <article class="tile t2">
         <div class="viz">
-          <div class="langs" aria-hidden="true">
-            <span class="lg on"><svg class="flag" viewBox="0 0 3 2" preserveAspectRatio="none" aria-hidden="true"><rect width="1" height="2" fill="#0055A4"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#EF4135"/></svg><span>Français<small>FR</small></span></span>
-            <span class="lg"><svg class="flag" viewBox="0 0 60 40" preserveAspectRatio="none" aria-hidden="true"><rect width="60" height="40" fill="#012169"/><path d="M0 0L60 40M60 0L0 40" stroke="#fff" stroke-width="8"/><path d="M0 0L60 40M60 0L0 40" stroke="#C8102E" stroke-width="3"/><path d="M30 0V40M0 20H60" stroke="#fff" stroke-width="13"/><path d="M30 0V40M0 20H60" stroke="#C8102E" stroke-width="8"/></svg><span>English<small>EN</small></span></span>
-            <span class="lg"><svg class="flag" viewBox="0 0 3 2" preserveAspectRatio="none" aria-hidden="true"><rect width="3" height="2" fill="#AA151B"/><rect y=".5" width="3" height="1" fill="#F1BF00"/></svg><span>Español<small>ES</small></span></span>
-            <span class="lg"><svg class="flag" viewBox="0 0 3 2" preserveAspectRatio="none" aria-hidden="true"><rect width="3" height="2" fill="#000"/><rect y=".667" width="3" height="1.334" fill="#DD0000"/><rect y="1.334" width="3" height=".666" fill="#FFCE00"/></svg><span>Deutsch<small>DE</small></span></span>
-            <span class="lg"><svg class="flag" viewBox="0 0 18 12" preserveAspectRatio="none" aria-hidden="true"><rect width="18" height="12" fill="#DE2910"/><polygon points="6.00,2.40 6.81,4.89 9.42,4.89 7.31,6.42 8.12,8.91 6.00,7.38 3.88,8.91 4.69,6.42 2.58,4.89 5.19,4.89" fill="#FFDE00"/><polygon points="10.97,3.02 11.54,2.36 11.09,1.61 11.90,1.95 12.47,1.30 12.39,2.16 13.20,2.51 12.35,2.70 12.27,3.57 11.82,2.82" fill="#FFDE00"/><polygon points="13.21,4.97 13.99,4.59 13.87,3.72 14.48,4.35 15.26,3.96 14.85,4.74 15.46,5.36 14.60,5.21 14.19,5.98 14.07,5.12" fill="#FFDE00"/><polygon points="13.25,8.07 14.12,8.04 14.36,7.20 14.66,8.02 15.53,7.99 14.84,8.53 15.14,9.34 14.42,8.86 13.73,9.40 13.97,8.56" fill="#FFDE00"/><polygon points="11.06,10.05 11.88,10.36 12.42,9.68 12.38,10.55 13.20,10.86 12.36,11.09 12.32,11.96 11.84,11.23 11.00,11.46 11.54,10.78" fill="#FFDE00"/></svg><span>中文<small>ZH</small></span></span>
-            <span class="lg"><svg class="flag" viewBox="0 0 3 2" preserveAspectRatio="none" aria-hidden="true"><rect width="3" height="0.67" fill="#fff"/><rect y="0.67" width="3" height="0.67" fill="#0039A6"/><rect y="1.33" width="3" height="0.67" fill="#D52B1E"/></svg><span>Русский<small>RU</small></span></span>
+          <div class="chips" aria-hidden="true">
+            <span class="chip" style="--k:0">Alt+Maj+1</span>
+            <span class="chip" style="--k:1">Pastille 1PW</span>
           </div>
         </div>
-        <div><h3>Six langues <span class="new">Nouveau</span></h3><p>Un bouton avec le drapeau change la langue de l'extension, dans le panneau comme dans les réglages : français, anglais, espagnol, allemand, chinois et russe.</p></div>
+        <div><h3>Raccourci et pastille</h3><p>Un raccourci clavier pour l'activer sans ouvrir le panneau, et une pastille verte sur l'icône tant que le mode est actif.</p></div>
       </article>
       <article class="tile t2">
         <div class="viz v-line" aria-hidden="true">
@@ -466,18 +463,18 @@ footer{padding:44px 0 56px}
             <path class="pulse" d="M0 48 H300" pathLength="100" fill="none" stroke="#f5f5f6" stroke-width="3" stroke-linecap="round" stroke-dasharray="20 80" vector-effect="non-scaling-stroke"/>
           </svg>
         </div>
-        <div><h3>Un seul réveil par palier</h3><p>La batterie est lue par un document invisible qui ne réveille l'extension que lorsque le palier change, pas à chaque pourcent.</p></div>
+        <div><h3>Mises à jour plus claires</h3><p>L'extension lit un petit fichier <code>version.json</code>, repère aussi les corrections de la même version, et vous renvoie vers cette page avec les notes de version.</p></div>
       </article>
       <article class="tile t4">
         <div class="viz">
           <div class="chips" aria-hidden="true">
-            <span class="chip" style="--k:0">Message dans le panneau</span>
-            <span class="chip" style="--k:1">Historique en pause sous 20 %</span>
-            <span class="chip" style="--k:2">BSWP en pause sous 10 %</span>
-            <span class="chip" style="--k:3">Désactivé par défaut</span>
+            <span class="chip" style="--k:0">Onglet visible</span>
+            <span class="chip" style="--k:1">Onglets épinglés</span>
+            <span class="chip" style="--k:2">Audio en cours</span>
+            <span class="chip" style="--k:3">Sites protégés</span>
           </div>
         </div>
-        <div><h3>Vous voyez ce qui change</h3><p>Dès qu'un ralentissement s'applique, le panneau l'indique : niveau de batterie, ralentissement des cycles et fonctions en pause. EcoOptimizer est éteint tant que vous ne l'avez pas activé.</p></div>
+        <div><h3>Les mêmes protections</h3><p>1PW épargne ce que l'extension protège déjà. Une option permet aussi de ne toucher qu'à la fenêtre de l'onglet, pour laisser les autres fenêtres Chrome éveillées. Éteint, il ne fait rien.</p></div>
       </article>
     </div>
   </div>
@@ -574,13 +571,13 @@ footer{padding:44px 0 56px}
         <p>PULSA (<i>Predictive Usage Scoring and Lifecycle Algorithm</i>) remplace le délai fixe par un score. Pour chaque onglet inactif, il estime la probabilité que vous le rouvriez dans l'heure, d'après vos habitudes sur ce site.</p>
       </div>
       <div class="pulsa-cta">
-        <a class="btn btn-primary" href="ChromeOptimizer-pulsa-bswp-eco-v1.0.zip" download>
+        <a class="btn btn-primary" href="https://github.com/chpalitom09-bot/ChromeOptimizer/raw/main/releases/ChromeOptimizer-4-v1.1.zip" download>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
           Télécharger la dernière version
         </a>
         <a class="btn btn-ghost" href="#versions">Toutes les versions</a>
       </div>
-      <p class="pulsa-meta"><code>ChromeOptimizer-pulsa-bswp-eco-v1.0.zip</code>, la dernière version (PULSA, BSWP et EcoOptimizer). Installation décrite plus bas.</p>
+      <p class="pulsa-meta"><code>ChromeOptimizer-4-v1.1.zip</code>, la dernière version (PULSA, BSWP, EcoOptimizer et 1PW). Installation décrite plus bas.</p>
     </div>
     <div>
       <ul class="plist">
@@ -609,13 +606,13 @@ footer{padding:44px 0 56px}
         <p>BSWP (<i>Better Speed WebPage</i>) est un petit script qui accélère le chargement des pages en ne chargeant que le nécessaire. Les images, cadres et vidéos situés loin sous la zone visible attendent que vous descendiez, et la connexion est libérée pour le haut de la page.</p>
       </div>
       <div class="pulsa-cta">
-        <a class="btn btn-primary" href="ChromeOptimizer-pulsa-bswp-eco-v1.0.zip" download>
+        <a class="btn btn-primary" href="https://github.com/chpalitom09-bot/ChromeOptimizer/raw/main/releases/ChromeOptimizer-4-v1.1.zip" download>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
           Télécharger la version avec BSWP
         </a>
         <a class="btn btn-ghost" href="#versions">Toutes les versions</a>
       </div>
-      <p class="pulsa-meta"><code>ChromeOptimizer-pulsa-bswp-eco-v1.0.zip</code>, avec BSWP. BSWP est éteint par défaut : il s'active d'un interrupteur dans le panneau.</p>
+      <p class="pulsa-meta"><code>ChromeOptimizer-4-v1.1.zip</code>, avec BSWP. BSWP est éteint par défaut : il s'active d'un interrupteur dans le panneau.</p>
     </div>
     <div>
       <ul class="plist">
@@ -644,10 +641,10 @@ footer{padding:44px 0 56px}
         <p>Sur batterie, EcoOptimizer adapte le rythme de l'extension au niveau restant : les cycles de vérification s'espacent par paliers, et quelques fonctions annexes se mettent en pause quand la charge devient critique. Il se règle uniquement depuis la page des réglages.</p>
       </div>
       <div class="pulsa-cta">
-        <a class="btn btn-primary" href="ChromeOptimizer-pulsa-bswp-eco-v1.0.zip" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Télécharger la version 1.0</a>
+        <a class="btn btn-primary" href="https://github.com/chpalitom09-bot/ChromeOptimizer/raw/main/releases/ChromeOptimizer-4-v1.1.zip" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Télécharger la version 1.1</a>
         <a class="btn btn-ghost" href="#versions">Toutes les versions</a>
       </div>
-      <p class="pulsa-meta"><code>ChromeOptimizer-pulsa-bswp-eco-v1.0.zip</code>. EcoOptimizer est éteint par défaut : choisissez « Activé » dans les réglages.</p>
+      <p class="pulsa-meta"><code>ChromeOptimizer-4-v1.1.zip</code>. EcoOptimizer est éteint par défaut : choisissez « Activé » dans les réglages.</p>
     </div>
     <div>
       <ul class="plist">
@@ -674,20 +671,66 @@ footer{padding:44px 0 56px}
   </div>
 </section>
 
+<!-- 1PW -->
+<section id="onepw">
+  <div class="wrap split">
+    <div>
+      <div class="sec-head" style="margin-bottom:0">
+        <h2>1PW : tout pour un seul onglet</h2>
+        <p>1PW (<i>One Page Web</i>) sert quand un onglet doit passer avant les autres, par exemple un jeu de navigateur qui rame. Vous l'activez sur cet onglet, et l'extension met tous les autres en veille pour libérer la mémoire et le processeur.</p>
+      </div>
+      <div class="pulsa-cta">
+        <a class="btn btn-primary" href="https://github.com/chpalitom09-bot/ChromeOptimizer/raw/main/releases/ChromeOptimizer-4-v1.1.zip" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Télécharger la version 1.1</a>
+        <a class="btn btn-ghost" href="#versions">Toutes les versions</a>
+      </div>
+      <p class="pulsa-meta"><code>ChromeOptimizer-4-v1.1.zip</code>. 1PW est éteint par défaut : activez-le d'un interrupteur dans le panneau, ou avec Alt+Maj+1.</p>
+    </div>
+    <div>
+      <ul class="plist">
+        <li><b>Un interrupteur, ou un raccourci</b><span>Dans le panneau, cochez 1PW depuis l'onglet à privilégier. Le raccourci Alt+Maj+1 fait la même chose, et se change dans <code>chrome://extensions/shortcuts</code>.</span></li>
+        <li><b>Les autres onglets passent en veille</b><span>L'extension utilise la mise en veille native de Chrome (<code>tabs.discard</code>). Les onglets restent dans la barre et se rechargent d'un clic.</span></li>
+        <li><b>Les nouveaux onglets aussi</b><span>Tant que le mode est actif, un onglet ouvert en arrière-plan est endormi dès qu'il a fini de charger.</span></li>
+        <li><b>Il s'arrête tout seul</b><span>Quand vous le coupez, ou quand vous fermez l'onglet du jeu. Rien ne reste actif à votre insu, et la pastille verte « 1PW » sur l'icône vous le rappelle.</span></li>
+        <li><b>Seulement la fenêtre de l'onglet, si vous voulez</b><span>Une option des réglages laisse éveillés les onglets des autres fenêtres Chrome.</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="table tiers">
+      <div class="tr"><b>Onglet du jeu</b><span>Jamais touché</span></div>
+      <div class="tr"><b>Onglet visible</b><span>Reste éveillé, y compris dans une autre fenêtre</span></div>
+      <div class="tr"><b>Protégés</b><span>Onglets épinglés, onglets qui jouent du son et sites de votre liste : jamais mis en veille</span></div>
+      <div class="tr"><b>Pages Chrome</b><span>Les pages internes (<code>chrome://</code>…) sont ignorées</span></div>
+      <div class="tr"><b>Les autres</b><span>Mis en veille</span></div>
+    </div>
+    <div class="callout">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+      <div><b>Bêta.</b> Un onglet en veille perd son état : ce qui n'y a pas été enregistré (un formulaire à moitié rempli, par exemple) est perdu. Chrome ne permet pas de donner plus de puissance à un onglet : 1PW ne fait que retirer de la charge ailleurs. Si le ralentissement vient du jeu lui-même ou de la carte graphique, le gain sera faible, et aucun gain n'a encore été mesuré. 1PW ne lit, ne garde et n'envoie rien, et n'ajoute aucune permission.</div>
+    </div>
+  </div>
+</section>
+
 <!-- VERSIONS -->
 <section id="versions">
   <div class="wrap">
     <div class="sec-head">
       <h2>Toutes les versions</h2>
-      <p>Chaque version est un .zip à décompresser puis à charger dans Chrome. Pour mettre à jour, remplacez le dossier et rechargez l'extension.</p>
+      <p>Chaque version est un .zip à décompresser puis à charger dans Chrome. Pour mettre à jour, remplacez le dossier et rechargez l'extension. Une correction d'une même version est indiquée par une lettre r (1.1 r1) : l'extension vous le signale aussi.</p>
     </div>
     <ul class="versions">
       <li class="ver">
+        <div class="ver-n">1.1<small>PULSA + BSWP + Eco + 1PW</small></div>
+        <div class="ver-t"><b>1PW, un seul onglet <span class="tag">Dernière</span></b>
+          <span>Nouveau mode 1PW (bêta) : il met tous les autres onglets en veille pour concentrer Chrome sur un seul, avec un interrupteur dans le panneau, le raccourci Alt+Maj+1, une pastille sur l'icône et une option « fenêtre de l'onglet seulement ». Les mises à jour lisent désormais un fichier version.json, détectent les corrections d'une même version et renvoient vers cette page.</span>
+          <code class="ver-file">ChromeOptimizer-4-v1.1.zip</code></div>
+        <a class="btn btn-primary" href="https://github.com/chpalitom09-bot/ChromeOptimizer/raw/main/releases/ChromeOptimizer-4-v1.1.zip" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Télécharger</a>
+      </li>
+      <li class="ver">
         <div class="ver-n">1.0<small>PULSA + BSWP + Eco</small></div>
-        <div class="ver-t"><b>Réglages réorganisés <span class="tag">Dernière</span></b>
+        <div class="ver-t"><b>Réglages réorganisés</b>
           <span>La page des réglages passe à la façon des Paramètres Windows : catégories, sous-parties, barre de recherche et interrupteurs. Un bouton « Nous soutenir sur GitHub » est ajouté dans « À propos ».</span>
           <code class="ver-file">ChromeOptimizer-pulsa-bswp-eco-v1.0.zip</code></div>
-        <a class="btn btn-primary" href="ChromeOptimizer-pulsa-bswp-eco-v1.0.zip" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Télécharger</a>
+        <a class="btn btn-ghost" href="ChromeOptimizer-pulsa-bswp-eco-v1.0.zip" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Télécharger</a>
       </li>
       <li class="ver">
         <div class="ver-n">0.9<small>PULSA + BSWP + Eco</small></div>
@@ -759,7 +802,7 @@ footer{padding:44px 0 56px}
     <div class="steps">
       <div class="step">
         <h3>Télécharger</h3>
-        <p>Récupérez <a href="ChromeOptimizer-pulsa-bswp-eco-v1.0.zip" style="color:var(--text)"><code>ChromeOptimizer-pulsa-bswp-eco-v1.0.zip</code></a> (ou une <a href="#versions" style="color:var(--text)">autre version</a>), ou téléchargez le dépôt GitHub entier.</p>
+        <p>Récupérez <a href="https://github.com/chpalitom09-bot/ChromeOptimizer/raw/main/releases/ChromeOptimizer-4-v1.1.zip" style="color:var(--text)"><code>ChromeOptimizer-4-v1.1.zip</code></a> (ou une <a href="#versions" style="color:var(--text)">autre version</a>), ou téléchargez le dépôt GitHub entier.</p>
       </div>
       <div class="step">
         <h3>Décompresser</h3>
@@ -773,7 +816,7 @@ footer{padding:44px 0 56px}
     </div>
     <div class="callout">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-      <div><b>Version 1.0, en test.</b> L'extension n'est pas encore sur le Chrome Web Store. Chrome 121 ou plus récent est nécessaire.</div>
+      <div><b>Version 1.1, en test.</b> L'extension n'est pas encore sur le Chrome Web Store. Chrome 121 ou plus récent est nécessaire.</div>
     </div>
   </div>
 </section>
@@ -786,7 +829,7 @@ footer{padding:44px 0 56px}
       <p>ChromeOptimizer n'envoie aucune donnée. Une seule requête par jour, pour lire le numéro de la dernière version sur GitHub. Chaque permission a une raison précise.</p>
     </div>
     <div class="table">
-      <div class="tr"><b>tabs</b><span>Lire l'adresse et l'état des onglets pour repérer les inactifs et les doublons.</span></div>
+      <div class="tr"><b>tabs</b><span>Lire l'adresse et l'état des onglets pour repérer les inactifs et les doublons, et, avec 1PW, savoir lesquels mettre en veille.</span></div>
       <div class="tr"><b>alarms</b><span>Se réveiller une fois par minute au lieu de tourner en permanence.</span></div>
       <div class="tr"><b>storage</b><span>Garder vos réglages et vos compteurs, uniquement sur votre machine.</span></div>
       <div class="tr"><b>system.memory</b><span>Afficher la mémoire du système dans le panneau, seulement quand il est ouvert.</span></div>
@@ -794,7 +837,7 @@ footer{padding:44px 0 56px}
       <div class="tr"><b>offscreen</b><span>Ouvrir un document invisible qui lit le niveau de batterie, seulement si EcoOptimizer est activé.</span></div>
       <div class="tr"><b>scripting</b><span>Enregistrer le script BSWP, uniquement quand vous l'activez.</span></div>
       <div class="tr"><b>Accès aux sites (optionnel)</b><span>Demandé par Chrome à l'activation de BSWP, retiré dès que vous l'éteignez.</span></div>
-      <div class="tr"><b>raw.githubusercontent.com</b><span>Lire le fichier public <code>manifest.json</code> du dépôt, une fois par jour, pour signaler une nouvelle version. Désactivable.</span></div>
+      <div class="tr"><b>raw.githubusercontent.com</b><span>Lire le fichier public <code>version.json</code> du dépôt, une fois par jour, pour signaler une nouvelle version. Désactivable.</span></div>
     </div>
     <div class="assure">
       <div><b>Aucune collecte</b>Pas de compte, pas de pub, pas de mesure d'audience.</div>
@@ -818,6 +861,7 @@ footer{padding:44px 0 56px}
       <li class="done"><i></i><b>Algorithme PULSA (v0.2 à v0.4)</b><span>Score de réutilisation, interrupteur dans le panneau, historique des sites, seuil adaptatif, banc d'essai sur usages simulés.</span></li>
       <li class="done"><i></i><b>Mises à jour et BSWP (v0.5 et v0.6)</b><span>Vérification quotidienne de version, jauges du panneau, chargement différé des éléments loin sous la zone visible.</span></li>
       <li class="done"><i></i><b>EcoOptimizer, langues et réglages (v0.8 à v1.0)</b><span>Cycles adaptés à la batterie, fonctions en pause sous 20 % et 10 %, message dans le panneau, interface en six langues, page de réglages à catégories avec recherche.</span></li>
+      <li class="done"><i></i><b>1PW et mises à jour (v1.1)</b><span>Mode un seul onglet en bêta, raccourci et pastille, détection des nouvelles versions et des corrections via version.json.</span></li>
       <li class="now"><i></i><b>Mesures reproductibles</b><span>Mémoire, CPU et vitesse de chargement avec et sans l'extension. Les gains ne seront annoncés qu'après mesure.</span></li>
       <li><i></i><b>Publication sur le Chrome Web Store</b><span>Installation en un clic.</span></li>
     </ol>
@@ -858,12 +902,20 @@ footer{padding:44px 0 56px}
         <p>En français, en anglais, en espagnol, en allemand, en chinois et en russe. Le bouton avec le drapeau, dans le panneau et dans les réglages, change la langue. Au premier lancement, l'extension suit la langue du navigateur si elle est disponible, sinon elle s'affiche en anglais. La description dans la page des extensions de Chrome suit, elle, la langue du navigateur.</p>
       </details>
       <details>
+        <summary>À quoi sert 1PW, et est-ce risqué ?</summary>
+        <p>1PW (bêta) met tous les autres onglets en veille pour concentrer Chrome sur celui que vous choisissez, par exemple un jeu qui rame. Il épargne l'onglet visible, les onglets épinglés, ceux qui jouent du son et vos sites protégés. Le seul risque est de perdre ce qui n'a pas été enregistré dans un onglet endormi, comme un formulaire à moitié rempli. Il ne donne pas plus de puissance à l'onglet du jeu : il retire seulement de la charge ailleurs, donc le gain dépend de ce qui fait ramer.</p>
+      </details>
+      <details>
+        <summary>Comment sortir du mode 1PW ?</summary>
+        <p>Décochez 1PW dans le panneau, ou appuyez de nouveau sur Alt+Maj+1. Il s'arrête aussi quand vous fermez l'onglet du jeu. Les onglets déjà endormis se rechargent quand vous cliquez dessus.</p>
+      </details>
+      <details>
         <summary>Quels navigateurs sont compatibles ?</summary>
         <p>Chrome, et les navigateurs basés sur Chromium comme Edge, Brave, Opera et Vivaldi.</p>
       </details>
       <details>
         <summary>Mes données sont-elles collectées ?</summary>
-        <p>Non. L'extension n'envoie aucune donnée. Sa seule requête réseau est une lecture quotidienne du numéro de version sur GitHub, désactivable dans les réglages. Vos réglages, et avec PULSA les noms de domaine et durées appris, restent dans le stockage local de votre navigateur.</p>
+        <p>Non. L'extension n'envoie aucune donnée. Sa seule requête réseau est une lecture quotidienne du fichier de version sur GitHub, désactivable dans les réglages. Vos réglages, et avec PULSA les noms de domaine et durées appris, restent dans le stockage local de votre navigateur.</p>
       </details>
     </div>
   </div>
@@ -882,6 +934,7 @@ footer{padding:44px 0 56px}
     <a class="brand" href="#top" style="color:var(--text)"><svg aria-hidden="true"><use href="#logo"/></svg>ChromeOptimizer</a>
     <nav aria-label="Pied de page">
       <a href="#fonctionnalites">Fonctionnalités</a>
+      <a href="#onepw">1PW</a>
       <a href="#confidentialite">Vie privée</a>
       <a href="#faq">Questions</a>
       <a href="https://github.com/chpalitom09-bot/ChromeOptimizer" target="_blank" rel="noopener">GitHub</a>
