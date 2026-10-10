@@ -1,0 +1,14 @@
+{
+  "name": "1.0",
+  "version": "1.0.0.1",
+  "page": "https://chpalitom09-bot.github.io/ChromeOptimizer/#versions",
+  "download": "https://github.com/chpalitom09-bot/ChromeOptimizer/raw/main/releases/ChromeOptimizer-v1.0.zip",
+  "notes": {
+    "fr": ["Détection des nouvelles versions et des révisions de la 1.0", "Lien vers la page des versions"],
+    "en": ["Detection of new versions and 1.0 revisions", "Link to the versions page"],
+    "es": ["Detección de nuevas versiones y revisiones de la 1.0", "Enlace a la página de versiones"],
+    "de": ["Erkennung neuer Versionen und Revisionen der 1.0", "Link zur Versionsseite"],
+    "ru": ["Обнаружение новых версий и ревизий 1.0", "Ссылка на страницу версий"],
+    "zh": ["检测新版本及 1.0 的修订版", "版本页面链接"]
+  }
+}
