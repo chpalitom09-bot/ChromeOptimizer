@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Règles de confidentialité - ChromeOptimizer</title>
+<meta name="description" content="Règles de confidentialité de l'extension ChromeOptimizer. Vos données restent sur votre ordinateur.">
+<meta name="theme-color" content="#09090a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#09090a; --bg-2:#0e0e10; --surface:#141416; --surface-2:#1b1b1e;
+  --line:#26262a; --line-2:#37373d;
+  --text:#f5f5f6; --muted:#a1a1a9; --dim:#6f6f78;
+  --radius:20px; --wrap:1160px;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+*{margin:0}
+html{overflow-x:hidden;scroll-behavior:smooth;scroll-padding-top:88px;-webkit-text-size-adjust:100%}
+body{font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;font-size:17px}
+a{color:inherit}
+img,svg{display:block;max-width:100%}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--text);outline-offset:3px;border-radius:6px}
+.wrap{width:min(var(--wrap),100% - 40px);margin-inline:auto}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Boutons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:13px 22px;border-radius:999px;font-weight:600;font-size:16px;text-decoration:none;border:1px solid transparent;transition:background .2s,color .2s,border-color .2s,transform .2s;white-space:nowrap}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--text);color:var(--bg)}
+.btn-primary:hover{background:#fff}
+.btn-ghost{border-color:var(--line-2);color:var(--text);background:transparent}
+.btn-ghost:hover{border-color:var(--muted);background:rgba(255,255,255,.04)}
+.btn-danger{background:#ff4444;color:#fff;}
+.btn-danger:hover{background:#ff6666;}
+.btn svg{width:18px;height:18px}
+
+/* Navigation */
+.nav{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+.nav.scrolled,.nav.open{background:rgba(9,9,10,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-color:var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:68px;gap:20px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;font-weight:700;font-size:19px;letter-spacing:-.01em}
+.brand svg{width:32px;height:32px}
+.menu{display:flex;align-items:center;gap:30px}
+.menu a{color:var(--muted);text-decoration:none;font-size:15.5px;transition:color .2s;white-space:nowrap}
+.menu a:hover{color:var(--text)}
+.nav-cta{display:flex;align-items:center;gap:10px}
+.burger{display:none;width:44px;height:44px;border-radius:12px;border:1px solid var(--line-2);background:transparent;position:relative}
+.burger i{position:absolute;left:12px;right:12px;height:2px;background:var(--text);border-radius:2px;transition:transform .3s,opacity .2s}
+.burger i:nth-child(1){top:16px}.burger i:nth-child(2){top:21px}.burger i:nth-child(3){top:26px}
+.nav.open .burger i:nth-child(1){transform:translateY(5px) rotate(45deg)}
+.nav.open .burger i:nth-child(2){opacity:0}
+.nav.open .burger i:nth-child(3){transform:translateY(-5px) rotate(-45deg)}
+
+/* Hero */
+.hero{position:relative;padding:150px 0 60px;isolation:isolate;overflow-x:clip}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:64px 64px;opacity:.4;-webkit-mask-image:radial-gradient(ellipse 75% 55% at 50% 25%,#000,transparent 78%);mask-image:radial-gradient(ellipse 75% 55% at 50% 25%,#000,transparent 78%)}
+.hero::after{content:"";position:absolute;left:50%;top:-180px;width:min(1100px,140vw);height:620px;transform:translateX(-50%);z-index:-1;background:radial-gradient(closest-side,rgba(255,255,255,.09),transparent);pointer-events:none}
+.status{display:inline-flex;align-items:center;gap:10px;padding:7px 14px 7px 12px;border:1px solid var(--line-2);border-radius:999px;font-size:14px;color:var(--muted);background:rgba(20,20,22,.7)}
+.status i{width:8px;height:8px;border-radius:50%;background:var(--text);animation:beat 2.4s ease-in-out infinite}
+@keyframes beat{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
+h1{font-size:clamp(2.5rem,7.6vw,6.1rem);line-height:.98;letter-spacing:-.04em;font-weight:700;margin:26px 0 24px}
+h1 .ln{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
+h1 .ln span{display:block;animation:rise 1s cubic-bezier(.2,.75,.15,1) both;animation-delay:calc(var(--i) * .11s + .1s)}
+@keyframes rise{from{transform:translateY(105%)}to{transform:none}}
+.lead{max-width:680px;font-size:clamp(1.05rem,2.2vw,1.28rem);color:var(--muted);line-height:1.55}
+.in-up{animation:inup .9s cubic-bezier(.2,.75,.15,1) both;animation-delay:calc(var(--d,0) * 1s)}
+@keyframes inup{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+/* Sections */
+section{padding:90px 0 0}
+.sec-head{max-width:700px;margin-bottom:48px}
+h2{font-size:clamp(2rem,4.6vw,3.4rem);letter-spacing:-.035em;line-height:1.05;font-weight:700}
+.sec-head p{margin-top:18px;color:var(--muted);font-size:clamp(1.02rem,2vw,1.18rem)}
+
+/* Splits et Listes */
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:56px;align-items:start}
+.plist{list-style:none;padding:0;border-top:1px solid var(--line)}
+.plist li{padding:20px 0;border-bottom:1px solid var(--line)}
+.plist b{display:block;font-size:18px;letter-spacing:-.01em;color:var(--text)}
+.plist span{display:block;color:var(--muted);font-size:15.5px;margin-top:4px}
+
+/* Bento & Tiles */
+.bento{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:28px;display:flex;flex-direction:column;gap:18px;overflow:hidden;position:relative;transition:border-color .3s}
+.tile:hover{border-color:var(--line-2)}
+.tile h3{font-size:22px;letter-spacing:-.02em;line-height:1.2}
+.tile p{color:var(--muted);font-size:16px;margin-top:4px;flex-grow:1;}
+.cta{display:flex;gap:12px;}
+
+/* Tables */
+.table{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--surface)}
+.tr{display:grid;grid-template-columns:220px 1fr;gap:20px;padding:20px 26px;border-top:1px solid var(--line)}
+.tr:first-child{border-top:0}
+.tr b{font-size:16px;font-weight:600;letter-spacing:-.01em;}
+.tr span{color:var(--muted);font-size:15.5px}
+
+/* Callouts & Copies */
+.callout{margin-top:16px;display:flex;gap:14px;align-items:flex-start;border:1px dashed var(--line-2);border-radius:var(--radius);padding:20px 24px;color:var(--muted);font-size:15.5px}
+.callout svg{flex:none;width:22px;height:22px;margin-top:2px;color:var(--text)}
+.callout b{color:var(--text)}
+.copy{margin-top:18px;display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:6px 6px 6px 14px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:14px}
+.copy span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--muted);}
+.copy button{border:1px solid var(--line-2);background:var(--surface-2);border-radius:9px;padding:7px 14px;font-size:13.5px;font-weight:600;font-family:"Bricolage Grotesque",system-ui,sans-serif;transition:background .2s}
+.copy button:hover{background:var(--line)}
+
+/* Assure Grid (Sécurité) */
+.assure{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+.assure div{padding:28px 24px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);color:var(--muted);font-size:15.5px}
+.assure b{display:block;color:var(--text);font-size:20px;margin-bottom:12px;letter-spacing:-.01em}
+
+/* Footer */
+footer{padding:64px 0 56px; margin-top:80px; border-top:1px solid var(--line);}
+.foot{display:flex;flex-wrap:wrap;gap:24px 40px;justify-content:space-between;align-items:center;color:var(--dim);font-size:14.5px}
+
+/* Responsive */
+@media (max-width:980px){
+  .split{grid-template-columns:1fr;gap:36px}
+  .assure{grid-template-columns:1fr}
+}
+@media (max-width:820px){
+  .menu{position:absolute;left:0;right:0;top:68px;flex-direction:column;align-items:stretch;gap:0;background:rgba(9,9,10,.97);border-bottom:1px solid var(--line);padding:6px 20px 16px;display:none}
+  .nav.open .menu{display:flex}
+  .menu a{padding:15px 0;border-bottom:1px solid var(--line);font-size:17px}
+  .menu a:last-child{border-bottom:0}
+  .burger{display:block}
+}
+@media (max-width:640px){
+  .hero{padding:118px 0 40px}
+  section{padding-top:70px}
+  .bento{grid-template-columns:1fr}
+  .tr{grid-template-columns:1fr;gap:6px;padding:18px 20px}
+  .assure div{padding:22px;}
+}
+/* Animations pour l'apparition au scroll */
+[data-anim]:not(.in) { opacity: 0; transform: translateY(15px); }
+[data-anim] { transition: opacity 0.6s ease, transform 0.6s ease; }
+[data-anim].in { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="logo" viewBox="0 0 128 128">
+    <rect width="128" height="128" rx="28" fill="#f5f5f6"/>
+    <circle cx="64" cy="64" r="40" fill="none" stroke="#c4c4c9" stroke-width="10"/>
+    <circle cx="64" cy="64" r="40" fill="none" stroke="#09090a" stroke-width="10" stroke-linecap="round" stroke-dasharray="251.3" stroke-dashoffset="62" transform="rotate(-90 64 64)"/>
+    <rect x="47" y="50" width="34" height="8" rx="2.5" fill="#09090a"/>
+    <rect x="47" y="56" width="34" height="22" rx="5" fill="#09090a"/>
+    <rect x="52" y="62" width="24" height="3" rx="1.5" fill="#f5f5f6"/>
+    <rect x="52" y="69" width="15" height="3" rx="1.5" fill="#8b8b93"/>
+  </symbol>
+</svg>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top" aria-label="ChromeOptimizer, accueil"><svg aria-hidden="true"><use href="#logo"/></svg>ChromeOptimizer</a>
+    <nav class="menu" id="menu" aria-label="Navigation principale">
+      <a href="#bref">En bref</a>
+      <a href="#lectures">Lectures</a>
+      <a href="#stockage">Stockage local</a>
+      <a href="#sorties">Réseau</a>
+      <a href="#droits">Vos droits</a>
+    </nav>
+    <div class="nav-cta">
+      <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
+    </div>
+  </div>
+</header>
+
+<main id="contenu">
+<!-- HERO -->
+<div class="hero" id="top">
+  <div class="wrap">
+    <span class="status in-up" style="--d:.05"><i></i>Dernière mise à jour : 15 octobre 2026</span>
+    <h1 aria-label="Politique de confidentialité">
+      <span class="ln" aria-hidden="true"><span style="--i:0">Règles de</span></span>
+      <span class="ln" aria-hidden="true"><span style="--i:1">confidentialité.</span></span>
+    </h1>
+    <p class="lead in-up" style="--d:.45">ChromeOptimizer fait son travail sur votre ordinateur et nulle part ailleurs. Il n'y a pas de compte à créer, pas de serveur à moi qui reçoit vos données, pas de publicité, pas de statistiques d'usage, et rien n'est revendu.</p>
+  </div>
+</div>
+
+<!-- EN BREF / RESPONSABLE -->
+<section id="bref" data-anim>
+  <div class="wrap split">
+    <div>
+      <div class="sec-head" style="margin-bottom:28px">
+        <h2>En bref</h2>
+      </div>
+      <p style="color:var(--muted);font-size:16.5px;margin-bottom:16px;">Cette page explique ce que l'extension lit, ce qu'elle garde, ce qui peut quitter votre ordinateur, et comment tout effacer.</p>
+      <p style="color:var(--muted);font-size:16.5px;">Il existe deux situations où une requête réseau est envoyée : la vérification des mises à jour, que vous pouvez couper, et l'analyse des téléchargements par l'antivirus AO1, qui reste désactivé tant que vous ne l'allumez pas. Les deux sont détaillées plus bas, avec les réglages pour les limiter.</p>
+    </div>
+    <div>
+      <div class="sec-head" style="margin-bottom:28px">
+        <h2>Qui est responsable</h2>
+      </div>
+      <p style="color:var(--muted);font-size:16.5px;margin-bottom:16px;">ChromeOptimizer est développé à titre personnel sous le pseudonyme <strong>chpalitom09-bot</strong> sur GitHub. Comme vos données restent dans votre navigateur, je n'y ai pas accès et je ne les traite pas à distance.</p>
+      <p style="color:var(--muted);font-size:16.5px;">Pour toute question sur cette politique ou sur vos données, le plus simple est d'ouvrir un ticket sur la page du projet :</p>
+      <div class="copy">
+        <span>https://github.com/chpalitom09-bot/ChromeOptimizer/issues</span>
+        <a href="https://github.com/chpalitom09-bot/ChromeOptimizer/issues" target="_blank" rel="noopener" style="text-decoration:none;"><button type="button">Ouvrir un ticket</button></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CE QUE L'EXTENSION LIT -->
+<section id="lectures" data-anim>
+  <div class="wrap split">
+    <div>
+      <div class="sec-head" style="margin-bottom:0">
+        <h2>Ce que l'extension lit, et pourquoi</h2>
+      </div>
+    </div>
+    <div>
+      <ul class="plist">
+        <li>
+          <b>Vos onglets.</b>
+          <span>Pour repérer les onglets inactifs, épinglés, en doublon ou qui jouent du son, l'extension lit l'adresse de chaque onglet et son état. C'est le cœur du produit : sans cela, elle ne pourrait pas endormir les bons onglets. Les adresses complètes ne sont utilisées qu'en mémoire, le temps du calcul. Elles ne sont pas enregistrées.</span>
+        </li>
+        <li>
+          <b>La mémoire et le processeur.</b>
+          <span>L'extension lit la charge de votre ordinateur pour afficher les jauges et agir plus tôt quand la mémoire manque. Ces valeurs ne sont pas conservées.</span>
+        </li>
+        <li>
+          <b>La batterie.</b>
+          <span>Si vous activez le mode économie d'énergie, une page interne invisible lit le niveau de batterie grâce à l'outil standard du navigateur, pour espacer les cycles quand elle est faible. Le niveau n'est gardé que pendant la session.</span>
+        </li>
+        <li>
+          <b>Le chargement paresseux des pages.</b>
+          <span>Cette option, désactivée par défaut, installe un petit script sur les sites que vous visitez. Il se contente d'ajouter un attribut de chargement différé aux images, cadres et vidéos situés loin sous l'écran. Il ne lit ni le texte des pages, ni les formulaires, ni les mots de passe, et il n'envoie rien nulle part. Il ne fonctionne que si vous lui accordez l'accès aux sites.</span>
+        </li>
+        <li>
+          <b>Les téléchargements et les notifications.</b>
+          <span>Ces deux permissions ne servent qu'à l'antivirus AO1 : voir qu'un téléchargement démarre, le mettre en pause ou l'annuler si vous l'avez demandé, et vous prévenir en cas de doute.</span>
+        </li>
+        <li>
+          <b>L'accès aux sites web.</b>
+          <span>Il est facultatif et demandé séparément, jamais à l'installation. Il sert à deux choses : le chargement paresseux et la lecture partielle des fichiers par AO1. Vous pouvez le retirer à tout moment dans chrome://extensions, et le reste de l'extension continue de fonctionner.</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CE QUI EST ENREGISTRÉ -->
+<section id="stockage" data-anim>
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Ce qui est enregistré sur votre ordinateur</h2>
+      <p>Tout est stocké dans l'espace local de votre navigateur. Voici la liste complète.</p>
+    </div>
+    
+    <div class="table">
+      <div class="tr"><b>Vos réglages</b><span>Le mode, le thème, vos sites protégés, vos préférences.</span></div>
+      <div class="tr"><b>Des compteurs</b><span>Combien d'onglets ont été endormis ou fermés, et combien de cycles ont tourné. Aucune adresse n'y figure.</span></div>
+      <div class="tr"><b>L'historique des sites</b><span>Pour chaque site visité, seulement son nom de domaine (par exemple exemple.fr, jamais la page exacte), le nombre de visites, la date de la première et de la dernière. Il est limité à 150 domaines, les plus anciens sont supprimés en premier. Cette liste ressemble à un historique de navigation, donc je préfère être clair : elle sert uniquement à l'apprentissage local. Vous pouvez la désactiver et la vider dans la catégorie Données.</span></div>
+      <div class="tr"><b>Le modèle d'apprentissage</b><span>Des statistiques par domaine sur le délai habituel avant que vous reveniez sur un onglet, et les paramètres chiffrés du petit modèle qui en découle. Il ne contient aucun contenu de page. Vous pouvez le réinitialiser dans la catégorie IA.</span></div>
+      <div class="tr"><b>L'historique de l'antivirus</b><span>Les 50 dernières analyses : nom du fichier, note, signaux repérés, date, empreinte SHA-256 de l'en-tête et mesure d'entropie. L'adresse complète du téléchargement n'est pas conservée. Les réglages d'AO1 permettent de ne garder ni le nom ni l'empreinte.</span></div>
+      <div class="tr"><b>La mémoire de session</b><span>Quels onglets ont joué du son récemment, l'état du mode « un seul onglet » et le niveau de batterie. Elle disparaît à la fermeture du navigateur.</span></div>
+    </div>
+
+    <div class="callout" style="margin-top:24px">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+      <div><b>Non synchronisé.</b> Rien de tout cela n'est synchronisé avec votre compte Google : l'extension utilise le stockage local, pas le stockage synchronisé. Désinstaller l'extension supprime ces données.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CE QUI PEUT QUITTER L'ORDINATEUR -->
+<section id="sorties" data-anim>
+  <div class="wrap split">
+    <div>
+      <div class="sec-head" style="margin-bottom:0">
+        <h2>Ce qui peut quitter votre ordinateur</h2>
+      </div>
+    </div>
+    <div>
+      <ul class="plist">
+        <li>
+          <b>La vérification des mises à jour.</b>
+          <span>Environ une fois par jour, l'extension lit un petit fichier de version sur raw.githubusercontent.com. La requête part sans cookie et sans indication de la page d'origine. GitHub, qui appartient à une entreprise américaine, voit nécessairement votre adresse IP et votre type de navigateur, comme n'importe quel site que vous visitez, et peut les conserver selon sa propre politique. Je n'ajoute aucune information vous concernant à cette requête. Vous pouvez la couper dans la catégorie À propos, section Mises à jour. Chrome fait aussi sa propre vérification via le Chrome Web Store, indépendamment de moi.</span>
+        </li>
+        <li>
+          <b>L'analyse des téléchargements par AO1.</b>
+          <span>Quand AO1 est activé et que l'accès aux sites est accordé, l'extension relit chaque téléchargement : une première requête demande les 256 premiers Ko du fichier, et pour une archive ZIP une seconde demande les 128 derniers Ko, là où se trouve la liste de son contenu. Ces requêtes vont à l'adresse du téléchargement, donc au site qui vous a fourni le fichier, qui voit passer une seconde demande depuis votre adresse IP. Les octets lus sont analysés en mémoire puis oubliés. Seuls les résultats sont gardés, localement.</span>
+        </li>
+        <li>
+          <b>Les cookies dans AO1.</b>
+          <span>Par défaut, cette relecture envoie vos cookies du site concerné, comme le ferait votre navigateur pour un téléchargement normal. C'est ce qui permet de voir le même fichier que vous, car beaucoup de sites renvoient sinon une page de connexion. L'extension ne lit pas ces cookies, ne les copie pas et ne les stocke pas : elle demande simplement au navigateur de les joindre à la requête. Si cela vous gêne, désactivez-les dans AntiVirus, section Confidentialité de l'antivirus. L'analyse sera moins fiable sur les sites qui demandent une connexion.</span>
+        </li>
+        <li>
+          <b>Un effet de bord à connaître.</b>
+          <span>Dans de rares cas, un lien à usage unique peut ne plus fonctionner après cette seconde lecture. Si cela vous arrive, désactivez la lecture du contenu des fichiers dans les mêmes réglages. AO1 analysera alors seulement l'adresse et le nom du fichier.</span>
+        </li>
+      </ul>
+      <div class="callout" style="margin-top:24px">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+        <div><b>Rien d'autre.</b> Pas de télémétrie, pas de mesure d'audience, pas de publicité, pas de script ni de police chargés depuis un autre site, pas de rapport de plantage envoyé. L'extension ne dépose elle-même aucun cookie et ne contient aucun traceur.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DROITS & BASES LÉGALES -->
+<section id="droits" data-anim>
+  <div class="wrap split">
+    <div>
+      <div class="sec-head" style="margin-bottom:24px">
+        <h2>Vos droits et les bases légales</h2>
+      </div>
+      <p style="color:var(--muted);font-size:16px;margin-bottom:16px;">Si vous vivez dans l'Union européenne ou l'Espace économique européen, le RGPD s'applique. Pour les fonctions de base (apprentissage local, compteurs, historique des sites), la base légale est le fonctionnement du service que vous avez choisi d'installer. Pour l'antivirus AO1 et pour l'accès aux sites, c'est votre consentement : vous le donnez en activant la fonction et en accordant la permission, et vous le retirez en les coupant, sans justification à fournir.</p>
+      <p style="color:var(--muted);font-size:16px;margin-bottom:16px;">Les données sont conservées jusqu'à ce que vous les effaciez ou que vous désinstalliez l'extension, avec des plafonds de 150 domaines et de 50 analyses. Vous avez le droit d'accéder à vos données, de les corriger, de les effacer, de limiter ou de refuser leur usage, et de les récupérer dans un format lisible. Comme elles sont dans votre navigateur et pas chez moi, les deux boutons ci-dessous suffisent pour exercer ces droits tout de suite.</p>
+      <p style="color:var(--muted);font-size:16px;">Si vous estimez que vos droits ne sont pas respectés, vous pouvez saisir la CNIL (cnil.fr) ou l'autorité de protection des données de votre pays.</p>
+    </div>
+    <div>
+      <div class="bento" style="grid-template-columns: 1fr;">
+        <article class="tile">
+          <h3>Récupérer mes données</h3>
+          <p>Télécharge un fichier JSON avec tout ce que l'extension a enregistré.</p>
+          <div class="cta"><button class="btn btn-ghost" type="button">Exporter</button></div>
+        </article>
+        <article class="tile">
+          <h3>Tout effacer</h3>
+          <p>Supprime les réglages, l'historique, le modèle et l'historique AO1. L'extension repart de zéro.</p>
+          <div class="cta"><button class="btn btn-danger" type="button">Effacer</button></div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SÉCURITÉ, ENFANTS & CHANGEMENTS -->
+<section id="securite" data-anim>
+  <div class="wrap">
+    <div class="assure">
+      <div>
+        <b>Sécurité.</b>
+        Les données sont dans le stockage local de Chrome et ne sont pas chiffrées par l'extension. Quelqu'un qui accède à votre session d'ordinateur et à votre profil Chrome pourrait donc les lire. Verrouillez votre session et, sur un ordinateur partagé, videz les données de l'extension. AO1 est une aide heuristique en version bêta : il peut se tromper dans les deux sens et ne remplace pas un antivirus complet.
+      </div>
+      <div>
+        <b>Usage limité.</b>
+        Les informations auxquelles l'extension accède ne servent qu'à faire fonctionner les fonctions décrites ici. Elles ne sont pas vendues, pas transmises à des tiers en dehors des cas expliqués plus haut, et jamais utilisées pour de la publicité ni pour évaluer votre solvabilité ou votre profil. Cette règle suit la politique du Chrome Web Store sur les données des utilisateurs, y compris son exigence d'usage limité.
+      </div>
+      <div>
+        <b>Enfants et changements.</b>
+        L'extension ne s'adresse pas aux enfants et ne collecte rien à leur sujet.<br><br>
+        Si une version modifie ce qui est dit ici, cette page sera mise à jour avec elle, et la date ci-dessous changera.<br><br>
+        <i style="color:var(--dim); font-size:14px;">Pour ChromeOptimizer 1.3 R7.</i>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a class="brand" href="#top" style="color:var(--text)"><svg aria-hidden="true"><use href="#logo"/></svg>ChromeOptimizer</a>
+    <span>© 2026 ChromeOptimizer</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* Navigation */
+  var nav = document.getElementById('nav'), burger = document.getElementById('burger');
+  function onScroll(){ nav.classList.toggle('scrolled', window.scrollY > 12); }
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+  burger.addEventListener('click', function(){
+    var open = nav.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open);
+    burger.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+  });
+  document.querySelectorAll('#menu a').forEach(function(a){
+    a.addEventListener('click', function(){ nav.classList.remove('open'); burger.setAttribute('aria-expanded','false'); });
+  });
+
+  /* Animations lancées seulement quand visibles */
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ e.target.classList.toggle('in', e.isIntersecting); });
+  }, {threshold:.15});
+  document.querySelectorAll('[data-anim]').forEach(function(el){ io.observe(el); });
+})();
+</script>
+</body>
+</html>
