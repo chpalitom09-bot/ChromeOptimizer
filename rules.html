@@ -176,7 +176,7 @@ footer{padding:64px 0 56px; margin-top:80px; border-top:1px solid var(--line);}
 <!-- HERO -->
 <div class="hero" id="top">
   <div class="wrap">
-    <span class="status in-up" style="--d:.05"><i></i>Dernière mise à jour : 15 octobre 2026</span>
+    <span class="status in-up" style="--d:.05"><i></i>Dernière mise à jour : 16 octobre 2026</span>
     <h1 aria-label="Politique de confidentialité">
       <span class="ln" aria-hidden="true"><span style="--i:0">Règles de</span></span>
       <span class="ln" aria-hidden="true"><span style="--i:1">confidentialité.</span></span>
@@ -237,7 +237,7 @@ footer{padding:64px 0 56px; margin-top:80px; border-top:1px solid var(--line);}
         </li>
         <li>
           <b>Les téléchargements et les notifications.</b>
-          <span>Ces deux permissions ne servent qu'à l'antivirus AO1 : voir qu'un téléchargement démarre, le mettre en pause ou l'annuler si vous l'avez demandé, et vous prévenir en cas de doute.</span>
+          <span>Ces deux permissions ne servent qu'à l'antivirus AO1 : voir qu'un téléchargement démarre, le mettre en pause ou l'annuler, et vous prévenir en cas de doute. Selon le mode que vous avez choisi, AO1 peut aussi supprimer de votre disque un fichier jugé dangereux (mode Bloquer) ou vous proposer de le supprimer (autres modes). En dehors du mode Bloquer, il ne supprime jamais rien sans votre clic.</span>
         </li>
         <li>
           <b>L'accès aux sites web.</b>
@@ -257,11 +257,12 @@ footer{padding:64px 0 56px; margin-top:80px; border-top:1px solid var(--line);}
     </div>
     
     <div class="table">
-      <div class="tr"><b>Vos réglages</b><span>Le mode, le thème, vos sites protégés, vos préférences.</span></div>
+      <div class="tr"><b>Vos réglages</b><span>Le mode, le thème, vos sites protégés, vos préférences, et l'état de l'interrupteur général (actif ou en pause).</span></div>
       <div class="tr"><b>Des compteurs</b><span>Combien d'onglets ont été endormis ou fermés, et combien de cycles ont tourné. Aucune adresse n'y figure.</span></div>
       <div class="tr"><b>L'historique des sites</b><span>Pour chaque site visité, seulement son nom de domaine (par exemple exemple.fr, jamais la page exacte), le nombre de visites, la date de la première et de la dernière. Il est limité à 150 domaines, les plus anciens sont supprimés en premier. Cette liste ressemble à un historique de navigation, donc je préfère être clair : elle sert uniquement à l'apprentissage local. Vous pouvez la désactiver et la vider dans la catégorie Données.</span></div>
       <div class="tr"><b>Le modèle d'apprentissage</b><span>Des statistiques par domaine sur le délai habituel avant que vous reveniez sur un onglet, et les paramètres chiffrés du petit modèle qui en découle. Il ne contient aucun contenu de page. Vous pouvez le réinitialiser dans la catégorie IA.</span></div>
-      <div class="tr"><b>L'historique de l'antivirus</b><span>Les 50 dernières analyses : nom du fichier, note, signaux repérés, date, empreinte SHA-256 de l'en-tête et mesure d'entropie. L'adresse complète du téléchargement n'est pas conservée. Les réglages d'AO1 permettent de ne garder ni le nom ni l'empreinte.</span></div>
+      <div class="tr"><b>L'historique de l'antivirus</b><span>Les 50 dernières analyses : nom du fichier, note, signaux repérés, nombre de contrôles effectués, date, empreinte SHA-256 du début du fichier (ses 256 premiers Ko) et mesure d'entropie. L'adresse complète du téléchargement n'est pas conservée. Les réglages d'AO1 permettent de ne garder ni le nom ni l'empreinte.</span></div>
+      <div class="tr"><b>Les fichiers validés et le bilan de protection</b><span>Quand vous choisissez « Garder » ou « Ignorer » pour un fichier signalé par AO1, et que la conservation des détails est activée, l'empreinte SHA-256 de ce fichier est mémorisée pour ne plus le signaler (200 au maximum, et seulement pour les fichiers de moins de 256 Ko). Un bilan chiffré est aussi gardé : nombre de téléchargements analysés, signalés et bloqués, nombre de contrôles effectués, date du premier. Il ne contient ni nom de fichier ni adresse. Le bouton qui vide l'historique d'AO1 efface ces deux éléments.</span></div>
       <div class="tr"><b>La mémoire de session</b><span>Quels onglets ont joué du son récemment, l'état du mode « un seul onglet » et le niveau de batterie. Elle disparaît à la fermeture du navigateur.</span></div>
     </div>
 
@@ -284,15 +285,15 @@ footer{padding:64px 0 56px; margin-top:80px; border-top:1px solid var(--line);}
       <ul class="plist">
         <li>
           <b>La vérification des mises à jour.</b>
-          <span>Environ une fois par jour, l'extension lit un petit fichier de version sur raw.githubusercontent.com. La requête part sans cookie et sans indication de la page d'origine. GitHub, qui appartient à une entreprise américaine, voit nécessairement votre adresse IP et votre type de navigateur, comme n'importe quel site que vous visitez, et peut les conserver selon sa propre politique. Je n'ajoute aucune information vous concernant à cette requête. Vous pouvez la couper dans la catégorie À propos, section Mises à jour. Chrome fait aussi sa propre vérification via le Chrome Web Store, indépendamment de moi.</span>
+          <span>Environ une fois par jour, l'extension lit un petit fichier de version sur raw.githubusercontent.com. La requête part sans cookie et sans indication de la page d'origine. GitHub, qui appartient à une entreprise américaine, voit nécessairement votre adresse IP et votre type de navigateur, comme n'importe quel site que vous visitez, et peut les conserver selon sa propre politique. Je n'ajoute aucune information vous concernant à cette requête. Vous pouvez la couper dans la catégorie À propos, section Mises à jour. Elle est aussi suspendue quand l'extension est en pause (interrupteur général). Chrome fait aussi sa propre vérification via le Chrome Web Store, indépendamment de moi.</span>
         </li>
         <li>
           <b>L'analyse des téléchargements par AO1.</b>
-          <span>Quand AO1 est activé et que l'accès aux sites est accordé, l'extension relit chaque téléchargement : une première requête demande les 256 premiers Ko du fichier, et pour une archive ZIP une seconde demande les 128 derniers Ko, là où se trouve la liste de son contenu. Ces requêtes vont à l'adresse du téléchargement, donc au site qui vous a fourni le fichier, qui voit passer une seconde demande depuis votre adresse IP. Les octets lus sont analysés en mémoire puis oubliés. Seuls les résultats sont gardés, localement.</span>
+          <span>Quand AO1 est activé et que l'accès aux sites est accordé, l'extension relit chaque téléchargement : une première requête demande les 256 premiers Ko du fichier, et pour une archive ZIP une seconde demande les 128 derniers Ko, là où se trouve la liste de son contenu. Ces requêtes vont à l'adresse du téléchargement, donc au site qui vous a fourni le fichier, qui voit passer une seconde demande depuis votre adresse IP. Les octets lus sont analysés en mémoire puis oubliés. Seuls les résultats sont gardés, localement. Quand l'extension est en pause, AO1 n'analyse plus rien.</span>
         </li>
         <li>
           <b>Les cookies dans AO1.</b>
-          <span>Par défaut, cette relecture envoie vos cookies du site concerné, comme le ferait votre navigateur pour un téléchargement normal. C'est ce qui permet de voir le même fichier que vous, car beaucoup de sites renvoient sinon une page de connexion. L'extension ne lit pas ces cookies, ne les copie pas et ne les stocke pas : elle demande simplement au navigateur de les joindre à la requête. Si cela vous gêne, désactivez-les dans AntiVirus, section Confidentialité de l'antivirus. L'analyse sera moins fiable sur les sites qui demandent une connexion.</span>
+          <span>Quand le téléchargement a été lancé depuis le site qui fournit le fichier (ou un site de la même famille), cette relecture envoie vos cookies de ce site, comme le ferait votre navigateur. C'est ce qui permet de voir le même fichier que vous, car beaucoup de sites renvoient sinon une page de connexion. Quand le téléchargement est déclenché depuis un autre site, aucun cookie n'est envoyé, pour qu'une page tierce ne puisse pas s'en servir. L'extension ne lit pas ces cookies, ne les copie pas et ne les stocke pas : elle demande simplement au navigateur de les joindre à la requête. Si cela vous gêne, désactivez-les dans AntiVirus, section Confidentialité de l'antivirus. L'analyse sera moins fiable sur les sites qui demandent une connexion.</span>
         </li>
         <li>
           <b>Un effet de bord à connaître.</b>
@@ -315,7 +316,7 @@ footer{padding:64px 0 56px; margin-top:80px; border-top:1px solid var(--line);}
         <h2>Vos droits et les bases légales</h2>
       </div>
       <p style="color:var(--muted);font-size:16px;margin-bottom:16px;">Si vous vivez dans l'Union européenne ou l'Espace économique européen, le RGPD s'applique. Pour les fonctions de base (apprentissage local, compteurs, historique des sites), la base légale est le fonctionnement du service que vous avez choisi d'installer. Pour l'antivirus AO1 et pour l'accès aux sites, c'est votre consentement : vous le donnez en activant la fonction et en accordant la permission, et vous le retirez en les coupant, sans justification à fournir.</p>
-      <p style="color:var(--muted);font-size:16px;margin-bottom:16px;">Les données sont conservées jusqu'à ce que vous les effaciez ou que vous désinstalliez l'extension, avec des plafonds de 150 domaines et de 50 analyses. Vous avez le droit d'accéder à vos données, de les corriger, de les effacer, de limiter ou de refuser leur usage, et de les récupérer dans un format lisible. Comme elles sont dans votre navigateur et pas chez moi, les deux boutons ci-dessous suffisent pour exercer ces droits tout de suite.</p>
+      <p style="color:var(--muted);font-size:16px;margin-bottom:16px;">Les données sont conservées jusqu'à ce que vous les effaciez ou que vous désinstalliez l'extension, avec des plafonds de 150 domaines, de 50 analyses et de 200 empreintes validées. Vous avez le droit d'accéder à vos données, de les corriger, de les effacer, de limiter ou de refuser leur usage, et de les récupérer dans un format lisible. Comme elles sont dans votre navigateur et pas chez moi, les deux boutons de la catégorie Confidentialité des réglages de l'extension (rappelés ci-dessous) suffisent pour exercer ces droits tout de suite.</p>
       <p style="color:var(--muted);font-size:16px;">Si vous estimez que vos droits ne sont pas respectés, vous pouvez saisir la CNIL (cnil.fr) ou l'autorité de protection des données de votre pays.</p>
     </div>
     <div>
@@ -323,12 +324,12 @@ footer{padding:64px 0 56px; margin-top:80px; border-top:1px solid var(--line);}
         <article class="tile">
           <h3>Récupérer mes données</h3>
           <p>Télécharge un fichier JSON avec tout ce que l'extension a enregistré.</p>
-          <div class="cta"><button class="btn btn-ghost" type="button">Exporter</button></div>
+          <div class="cta"><span class="btn btn-ghost" style="cursor:default">Réglages › Confidentialité › Exporter</span></div>
         </article>
         <article class="tile">
           <h3>Tout effacer</h3>
           <p>Supprime les réglages, l'historique, le modèle et l'historique AO1. L'extension repart de zéro.</p>
-          <div class="cta"><button class="btn btn-danger" type="button">Effacer</button></div>
+          <div class="cta"><span class="btn btn-danger" style="cursor:default">Réglages › Confidentialité › Effacer</span></div>
         </article>
       </div>
     </div>
@@ -341,7 +342,7 @@ footer{padding:64px 0 56px; margin-top:80px; border-top:1px solid var(--line);}
     <div class="assure">
       <div>
         <b>Sécurité.</b>
-        Les données sont dans le stockage local de Chrome et ne sont pas chiffrées par l'extension. Quelqu'un qui accède à votre session d'ordinateur et à votre profil Chrome pourrait donc les lire. Verrouillez votre session et, sur un ordinateur partagé, videz les données de l'extension. AO1 est une aide heuristique en version bêta : il peut se tromper dans les deux sens et ne remplace pas un antivirus complet.
+        Les données sont dans le stockage local de Chrome et ne sont pas chiffrées par l'extension. Quelqu'un qui accède à votre session d'ordinateur et à votre profil Chrome pourrait donc les lire. Verrouillez votre session et, sur un ordinateur partagé, videz les données de l'extension. AO1 est une aide heuristique en version bêta : il peut se tromper dans les deux sens et ne remplace pas un antivirus complet : il analyse une relecture du début du fichier, pas le fichier déjà enregistré sur votre disque, et un site peut répondre autrement à cette relecture. Le stockage de l'extension est réservé à ses propres pages : les scripts ajoutés aux sites que vous visitez n'y ont pas accès.
       </div>
       <div>
         <b>Usage limité.</b>
@@ -351,7 +352,7 @@ footer{padding:64px 0 56px; margin-top:80px; border-top:1px solid var(--line);}
         <b>Enfants et changements.</b>
         L'extension ne s'adresse pas aux enfants et ne collecte rien à leur sujet.<br><br>
         Si une version modifie ce qui est dit ici, cette page sera mise à jour avec elle, et la date ci-dessous changera.<br><br>
-        <i style="color:var(--dim); font-size:14px;">Pour ChromeOptimizer 1.3 R7.</i>
+        <i style="color:var(--dim); font-size:14px;">Pour ChromeOptimizer 1.3 R9.</i>
       </div>
     </div>
   </div>
