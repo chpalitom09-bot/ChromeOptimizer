@@ -1,0 +1,14 @@
+{
+ "Chrome sans rien": {
+  "onglets_endormis_max": 0,
+  "premier_sommeil_s": null
+ },
+ "Économiseur Chrome": {
+  "onglets_endormis_max": 0,
+  "premier_sommeil_s": null
+ },
+ "ChromeOptimizer": {
+  "onglets_endormis_max": 19,
+  "premier_sommeil_s": -97.84
+ }
+}

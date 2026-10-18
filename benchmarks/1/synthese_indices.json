@@ -1,0 +1,29 @@
+{
+ "Chrome sans rien": {
+  "RAM moyenne": 100.0,
+  "RAM pic": 100.0,
+  "CPU moyen": 100.0,
+  "CPU total": 100.0,
+  "Processus": 100.0,
+  "Chargement": 100.0,
+  "Reprise": 100.0
+ },
+ "Économiseur Chrome": {
+  "RAM moyenne": 100.39088394386685,
+  "RAM pic": 100.97288385457969,
+  "CPU moyen": 100.0388282565786,
+  "CPU total": 99.82845770233293,
+  "Processus": 103.80584724671024,
+  "Chargement": 90.54016008577115,
+  "Reprise": 99.98326561450543
+ },
+ "ChromeOptimizer": {
+  "RAM moyenne": 40.132761829030486,
+  "RAM pic": 64.1281235913709,
+  "CPU moyen": 43.54170980663433,
+  "CPU total": 43.750064881811305,
+  "Processus": 54.19118461749994,
+  "Chargement": 89.65810865033286,
+  "Reprise": 171.23536591862842
+ }
+}

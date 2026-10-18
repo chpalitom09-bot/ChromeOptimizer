@@ -1,0 +1,86 @@
+{
+ "RAM moyenne": {
+  "economiseur_pct": -0.3908839438668558,
+  "chromeoptimizer_pct": 59.867238170969514
+ },
+ "RAM pic": {
+  "economiseur_pct": -0.9728838545797014,
+  "chromeoptimizer_pct": 35.87187640862911
+ },
+ "CPU moyen": {
+  "economiseur_pct": -0.03882825657859291,
+  "chromeoptimizer_pct": 56.45829019336567
+ },
+ "CPU total": {
+  "economiseur_pct": 0.17154229766707332,
+  "chromeoptimizer_pct": 56.24993511818869
+ },
+ "Processus": {
+  "economiseur_pct": -3.8058472467102415,
+  "chromeoptimizer_pct": 45.80881538250005
+ },
+ "Chargement complet (médiane)": {
+  "economiseur_pct": 10.920430411522924,
+  "chromeoptimizer_pct": -6.741945710578993
+ },
+ "Chargement complet (moyenne)": {
+  "economiseur_pct": 9.459839914228848,
+  "chromeoptimizer_pct": 10.341891349667144
+ },
+ "TTFB (médiane)": {
+  "economiseur_pct": 7.6923076923076925,
+  "chromeoptimizer_pct": 2.980769225038015
+ },
+ "DOMContentLoaded (médiane)": {
+  "economiseur_pct": 12.79333838001514,
+  "chromeoptimizer_pct": -2.043906131718395
+ },
+ "Événement load (médiane)": {
+  "economiseur_pct": 10.42960399021078,
+  "chromeoptimizer_pct": -7.655502392671116
+ },
+ "First Contentful Paint (médiane)": {
+  "economiseur_pct": -2.564102564102564,
+  "chromeoptimizer_pct": -17.094017094017094
+ },
+ "Largest Contentful Paint (médiane)": {
+  "economiseur_pct": -5.016722408026756,
+  "chromeoptimizer_pct": -10.367892976588628
+ },
+ "Blocage JS, tâches longues (moyenne)": {
+  "economiseur_pct": 7.016785978770676,
+  "chromeoptimizer_pct": 9.084176746482354
+ },
+ "Instabilité visuelle CLS (moyenne)": {
+  "economiseur_pct": -53.258157858958086,
+  "chromeoptimizer_pct": -86.34933303180551
+ },
+ "Requêtes réseau par page": {
+  "economiseur_pct": -0.7072637902785373,
+  "chromeoptimizer_pct": 2.184598580010926
+ },
+ "Requêtes tierces par page": {
+  "economiseur_pct": 5.82290664100096,
+  "chromeoptimizer_pct": 13.570741097208852
+ },
+ "Requêtes pub et traceurs abouties": {
+  "economiseur_pct": 5.6597222222222126,
+  "chromeoptimizer_pct": 100.0
+ },
+ "Emplacements pub visibles": {
+  "economiseur_pct": 4.999999999999998,
+  "chromeoptimizer_pct": 100.0
+ },
+ "Éléments DOM par page": {
+  "economiseur_pct": 3.6541270238691435,
+  "chromeoptimizer_pct": 3.5605491570689347
+ },
+ "Mémoire JS par page": {
+  "economiseur_pct": 5.579791478609813,
+  "chromeoptimizer_pct": 20.121427265786306
+ },
+ "Reprise d'un onglet (moyenne)": {
+  "economiseur_pct": 0.01673438549456193,
+  "chromeoptimizer_pct": -71.23536591862842
+ }
+}
