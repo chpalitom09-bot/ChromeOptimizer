@@ -179,14 +179,38 @@ const hideTip=()=>{tip.style.display='none'};
 function responsive(host,draw){let w=0;if(host._ro)host._ro.disconnect();const ro=new ResizeObserver(()=>{const nw=Math.round(host.clientWidth);if(nw&&nw!==w){w=nw;draw()}});ro.observe(host);host._ro=ro}
 
 async function getJSON(u){const r=await fetch(u,{cache:'no-cache'});if(!r.ok)throw new Error(r.status);return r.json()}
-async function probe(id){for(const b of ['benchmarks/'+id+'/','benchmarks/'+id+'/resultats/']){try{const ks=await getJSON(b+'synthese.json');return {id,base:b,ks}}catch(e){}}return null}
+async function ghList(p){const m=location.hostname.match(/^(.+)\.github\.io$/),repo=location.pathname.split('/')[1];if(!m||!repo)return null;try{const r=await fetch('https://api.github.com/repos/'+m[1]+'/'+repo+'/contents/'+p);if(!r.ok)return null;const j=await r.json();return Array.isArray(j)?j:null}catch(e){return null}}
+async function probe(id,files){
+ let base='benchmarks/'+id+'/';
+ if(files){
+  const names=files.map(f=>f.name);
+  if(!names.includes('synthese.json')){
+   if(!files.some(f=>f.type==='dir'&&f.name==='resultats'))return {id,base,missing:names};
+   const f2=await ghList('benchmarks/'+id+'/resultats');
+   if(!f2||!f2.some(f=>f.name==='synthese.json'))return {id,base,missing:(f2||[]).map(f=>f.name)};
+   base+='resultats/'
+  }
+  try{return {id,base,ks:await getJSON(base+'synthese.json')}}catch(e){return {id,base,missing:names}}
+ }
+ for(const b of ['benchmarks/'+id+'/','benchmarks/'+id+'/resultats/']){try{const ks=await getJSON(b+'synthese.json');return {id,base:b,ks}}catch(e){}}
+ return null
+}
 async function discover(){
- let list=null;
- try{const j=await getJSON('benchmarks/index.json');list=(Array.isArray(j)?j:j.runs||[]).map(x=>typeof x==='object'?x:{id:x})}catch(e){}
+ const meta={};
+ const top=await ghList('benchmarks');
+ const readIndex=async()=>{try{const j=await getJSON('benchmarks/index.json');(Array.isArray(j)?j:j.runs||[]).forEach(x=>{if(typeof x==='object')meta[x.id]=x;else meta[x]={id:x}});return Object.keys(meta).map(Number)}catch(e){return null}};
  const out=[];
- if(list){for(const it of list){const r=await probe(it.id);if(r)out.push(Object.assign(r,{date:it.date,title:it.titre||it.title,note:it.note}))}return out}
+ const add=(r,id)=>{if(r)out.push(Object.assign(r,{date:meta[id]&&meta[id].date,title:meta[id]&&(meta[id].titre||meta[id].title)}))};
+ if(top){
+  if(top.some(f=>f.name==='index.json'))await readIndex();
+  const ids=top.filter(f=>f.type==='dir'&&/^\d+$/.test(f.name)).map(f=>+f.name).sort((a,b)=>a-b);
+  for(const id of ids)add(await probe(id,await ghList('benchmarks/'+id)||[]),id);
+  return out
+ }
+ const listed=await readIndex();
+ if(listed){for(const id of listed)add(await probe(id),id);return out}
  let miss=0;
- for(let n=1;n<=MAX&&miss<3;n++){const r=await probe(n);if(r){out.push(r);miss=0}else miss++}
+ for(let n=1;n<=MAX&&miss<2;n++){const r=await probe(n);if(r){add(r,n);miss=0}else miss++}
  return out
 }
 async function loadRaw(run){
@@ -542,8 +566,8 @@ async function select(run){
 async function init(){
  buildMetrics();
  if(location.protocol==='file:'){$('#body').replaceChildren(h('div',{class:'state'},h('b',{},'Page ouverte en local'),'Le navigateur bloque la lecture des fichiers. Ouvrez la page depuis GitHub Pages ou lancez un petit serveur local.'));return}
- const runs=await discover();
- if(!runs.length){$('#body').replaceChildren(h('div',{class:'state'},h('b',{},'Aucun benchmark publié pour le moment'),'Ajoutez les fichiers du test dans ',h('code',{},'benchmarks/1/'),' (synthese.json et brut_*.json).'));return}
+ const all=await discover(),runs=all.filter(r=>r.ks).sort((a,b)=>a.id-b.id);
+ if(!runs.length){const bad=all.find(r=>r.missing);$('#body').replaceChildren(h('div',{class:'state'},h('b',{},bad?'Le dossier benchmarks/'+bad.id+' ne contient pas synthese.json':'Aucun benchmark publié pour le moment'),bad?('Fichiers trouvés : '+(bad.missing.join(', ')||'aucun')+'. Copiez tout le contenu du dossier resultats dans ce dossier.'):['Copiez tout le contenu du dossier resultats de benchmark.py dans ',h('code',{},'benchmarks/1/'),'.']));return}
  state.runs=runs;
  const want=Number(new URL(location.href).searchParams.get('run'));
  await select(runs.find(r=>r.id===want)||runs[runs.length-1])
