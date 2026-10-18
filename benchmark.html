@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Benchmark ChromeOptimizer : mémoire, processeur et vitesse de Chrome mesurés</title>
+<meta name="description" content="Résultats publics du benchmark de ChromeOptimizer : RAM, CPU, onglets en veille, temps de chargement et reprise des onglets, comparés à Chrome seul et à l'économiseur natif.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f4f5;--card:#fff;--ink:#15191d;--mute:#5d6872;--line:#dce1e5;--good:#177a48;--bad:#c23b2b;--ref:#7f8c8d;--eco:#2f80c0;--co:#e67e22;--p0:#e9edef;--p1:#fbefe3;--p2:#e4eef6;--p3:#e3f3ea;--f:'Archivo',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1113;--card:#151a1e;--ink:#eef1f3;--mute:#9aa5ae;--line:#262d33;--good:#4cc38a;--bad:#ef7060;--p0:#1a2025;--p1:#2a2118;--p2:#16222d;--p3:#16261e}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button{font-family:inherit}
+:focus-visible{outline:2px solid var(--co);outline-offset:2px}
+.wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+.hero{background:#07090a;color:#eef1f3;position:relative;overflow:hidden}
+.hero svg.circuit{position:absolute;inset:0;width:100%;height:100%;opacity:.55;pointer-events:none}
+.top{display:flex;justify-content:space-between;align-items:center;padding:18px 0;position:relative;font-size:15px}
+.brand{font-weight:800;font-stretch:75%;font-size:22px;letter-spacing:.02em;text-decoration:none}
+.top nav a{margin-left:20px;color:#b7c0c7;text-decoration:none}
+.top nav a:hover{color:#fff}
+.heroGrid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;padding:36px 0 56px;position:relative}
+h1{font-weight:850;font-stretch:62%;font-size:clamp(54px,9vw,104px);line-height:.92;margin:0 0 20px;letter-spacing:.005em}
+.lead{color:#b7c0c7;max-width:520px;margin:0 0 24px;font-size:17px}
+.runs{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:7px 14px;border-radius:999px;cursor:pointer;font-size:14px;line-height:1.2;display:inline-flex;align-items:center;gap:8px}
+.chip:hover{border-color:var(--mute)}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.hero .chip{background:transparent;color:#d3dadf;border-color:#2c343b}
+.hero .chip:hover{border-color:#6b7780}
+.hero .chip[aria-pressed=true]{background:#fff;color:#000;border-color:#fff}
+.chip small{opacity:.7;font-size:12px}
+.chip i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.gaugeBox{max-width:460px;width:100%;justify-self:end}
+.gauge{width:100%;display:block}
+.gauge .track{stroke:#1d242a}
+.gauge .fill{stroke:var(--co);transition:stroke-dasharray .8s cubic-bezier(.2,.8,.2,1)}
+.gauge .needle,.gauge .mark{transform-origin:200px 190px;transform-box:view-box;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.gauge .val{font-weight:800;font-stretch:70%;font-size:64px;fill:#fff}
+.gauge .val.neg{fill:#ef7060}
+.gauge text.tk{fill:#6f7b84;font-size:12px}
+.gLabel{text-align:center;color:#b7c0c7;margin:-6px 0 14px;min-height:26px}
+.gRows{display:grid;gap:6px;margin:14px 0 14px;font-size:14px}
+.gRows div{display:flex;justify-content:space-between;gap:12px;color:#b7c0c7}
+.gRows b{color:#fff;font-weight:600}
+.gRows i{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:8px}
+.metrics{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.sub{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+.sub .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.sub a{padding:14px 12px;text-decoration:none;color:var(--mute);font-size:15px;white-space:nowrap;border-bottom:2px solid transparent}
+.sub a:hover{color:var(--ink)}
+.sub a.on{color:var(--ink);border-bottom-color:var(--co)}
+section{padding-top:64px;scroll-margin-top:48px}
+h2{font-weight:800;font-stretch:70%;font-size:clamp(34px,5vw,46px);line-height:1;margin:0 0 10px}
+.what{color:var(--mute);max-width:680px;margin:0 0 24px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;border-top:3px solid var(--line)}
+.stat b{display:block;font-weight:800;font-stretch:70%;font-size:40px;line-height:1.05;font-variant-numeric:tabular-nums}
+.stat span{color:var(--mute);font-size:14px}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.legend .chip{padding:5px 11px;font-size:13px}
+.legend .chip[aria-pressed=false]{opacity:.5}
+.legend .chip[aria-pressed=true]{background:var(--card);color:var(--ink);border-color:var(--line)}
+.legend.static .chip{cursor:default}
+.plot svg{display:block;width:100%;height:auto;overflow:visible}
+.plot text{font-family:var(--f);fill:var(--mute);font-size:12px}
+.plot .lbl{fill:var(--ink)}
+.plot .grid{stroke:var(--line);stroke-width:1}
+.note{color:var(--mute);font-size:14px;margin:14px 0 0}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:right;font-variant-numeric:tabular-nums}
+th:first-child,td:first-child{text-align:left}
+th{font-weight:600;color:var(--mute);white-space:nowrap}
+th button{all:unset;cursor:pointer;font-weight:600;color:var(--mute)}
+th button:hover{color:var(--ink)}
+th button:focus-visible{outline:2px solid var(--co)}
+tr.grp td{font-weight:700;background:var(--bg);text-align:left}
+.g{font-weight:700}
+.g.good{color:var(--good)}
+.g.bad{color:var(--bad)}
+.g.none{color:var(--mute);font-weight:400}
+.scroll{overflow-x:auto}
+td.bar{position:relative}
+td.bar i{position:absolute;left:0;top:7px;bottom:7px;opacity:.16;border-radius:0 4px 4px 0}
+td.bar span{position:relative}
+details{margin-top:18px}
+summary{cursor:pointer;font-weight:600;padding:6px 0}
+.meters{display:grid;gap:12px}
+.meter{display:grid;grid-template-columns:170px 1fr 90px;gap:12px;align-items:center;font-size:14.5px}
+.meter .t{height:14px;background:var(--bg);border-radius:4px;overflow:hidden}
+.meter .t i{display:block;height:100%;border-radius:4px;transition:width .6s}
+.meter b{text-align:right;font-variant-numeric:tabular-nums}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.two h3{margin:0 0 14px;font-size:17px}
+.strip{display:flex;height:44px;border-radius:8px;overflow:hidden;margin:6px 0 8px}
+.strip div{display:flex;align-items:center;padding:0 10px;font-size:13px;color:var(--ink);white-space:nowrap;overflow:hidden}
+.kv{display:grid;grid-template-columns:200px 1fr;gap:6px 18px;margin:18px 0 0;font-size:14.5px}
+.kv dt{color:var(--mute)}
+.kv dd{margin:0;overflow-wrap:anywhere}
+.sites{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.sites span{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:2px 9px;font-size:13px}
+.files{display:flex;flex-wrap:wrap;gap:10px}
+.files a{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:9px 14px;text-decoration:none;font-size:14.5px}
+.files a:hover{border-color:var(--ink)}
+.recapImg{max-width:100%;border:1px solid var(--line);border-radius:10px;margin-top:18px;background:#fff}
+footer{margin-top:88px;border-top:1px solid var(--line);padding:28px 0 48px;color:var(--mute);font-size:14.5px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:8px 28px;justify-content:space-between}
+.state{padding:90px 0;text-align:center;color:var(--mute)}
+.state b{display:block;color:var(--ink);font-size:22px;margin-bottom:8px}
+.state code{background:var(--card);border:1px solid var(--line);padding:2px 7px;border-radius:5px}
+.tip{position:fixed;z-index:50;display:none;pointer-events:none;background:#0b0e10;color:#eef1f3;border-radius:8px;padding:9px 12px;font-size:13px;line-height:1.45;max-width:300px;border:1px solid #2a3238}
+.tip .h{font-weight:700;margin-bottom:3px}
+.tip div i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px}
+.tip div span{float:right;margin-left:14px;font-variant-numeric:tabular-nums}
+@media (max-width:900px){.heroGrid{grid-template-columns:1fr;gap:28px}.gaugeBox{justify-self:center}.grid3,.two{grid-template-columns:1fr}.meter{grid-template-columns:120px 1fr 70px}.kv{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="hero">
+<svg class="circuit" aria-hidden="true" viewBox="0 0 1200 600" preserveAspectRatio="xMaxYMin slice" fill="none" stroke="#2a323a" stroke-width="1.2"><path d="M1200 70H980L950 40H800"/><circle cx="800" cy="40" r="3" fill="#2a323a"/><path d="M0 520H120L150 550H330"/><circle cx="330" cy="550" r="3" fill="#2a323a"/><path d="M1200 420H1060L1030 450H900"/><circle cx="900" cy="450" r="3" fill="#2a323a"/></svg>
+<div class="wrap">
+<div class="top"><a class="brand" href="./">ChromeOptimizer</a><nav><a href="./">Le site</a><a href="https://github.com/chpalitom09-bot/ChromeOptimizer">GitHub</a></nav></div>
+<div class="heroGrid">
+<div>
+<h1>Benchmark</h1>
+<p class="lead" id="lead">Trois configurations de Chrome, le même scénario de navigation, des mesures brutes publiées en entier. Choisissez un benchmark pour voir ses résultats.</p>
+<div class="runs" id="runs" role="group" aria-label="Choisir un benchmark"></div>
+</div>
+<div class="gaugeBox">
+<svg class="gauge" viewBox="0 0 400 290" role="img" aria-label="Jauge de gain par rapport à Chrome sans rien" id="gauge">
+<path class="track" d="M60 190A140 140 0 0 1 340 190" fill="none" stroke-width="18" stroke-linecap="round"/>
+<path class="fill" id="gFill" d="M60 190A140 140 0 0 1 340 190" fill="none" stroke-width="18" stroke-linecap="round" pathLength="100" stroke-dasharray="0 100"/>
+<g class="mark" id="gMark"><polygon points="193,24 207,24 200,38" fill="#2f80c0"/></g>
+<g class="needle" id="gNeedle"><polygon points="195,190 205,190 200,72" fill="#fff"/></g>
+<circle cx="200" cy="190" r="11" fill="#fff"/><circle cx="200" cy="190" r="4" fill="#07090a"/>
+<text class="tk" x="60" y="216" text-anchor="middle">0 %</text><text class="tk" x="340" y="216" text-anchor="middle">100 %</text>
+<text class="val" id="gVal" x="200" y="268" text-anchor="middle">0 %</text>
+</svg>
+<div class="gLabel" id="gLabel"></div>
+<div class="metrics" id="metrics" role="group" aria-label="Choisir une mesure"></div>
+<div class="gRows" id="gRows"></div>
+</div>
+</div>
+</div>
+</header>
+<nav class="sub" id="sub" aria-label="Sections"><div class="wrap"></div></nav>
+<main class="wrap" id="body"><div class="state"><b>Chargement des résultats</b>Lecture du dossier benchmarks.</div></main>
+<footer><div class="wrap"><span>Mesures publiées telles quelles par le script benchmark.py, rien n'est retouché.</span><span><a href="./">Retour au site</a> &nbsp; <a href="https://github.com/chpalitom09-bot/ChromeOptimizer">Code source</a></span></div></footer>
+<script>
+const CFG=[{k:'reference',l:'Chrome sans rien',c:'#7f8c8d'},{k:'economiseur',l:'Économiseur Chrome',c:'#2f80c0'},{k:'chromeoptimizer',l:'ChromeOptimizer',c:'#e67e22'}];
+const PH=['Navigation','Inactivité','Retour sur les onglets','Repos final'];
+const MAX=60;
+const state={runs:[],cur:null,metric:'ram_idle'};
+const $=(s,r=document)=>r.querySelector(s);
+const NS='http://www.w3.org/2000/svg';
+const h=(t,a={},...c)=>{const e=document.createElement(t);for(const k in a){const v=a[k];if(v==null||v===false)continue;if(k==='class')e.className=v;else if(k.startsWith('on'))e.addEventListener(k.slice(2),v);else e.setAttribute(k,v===true?'':v)}c.flat(9).forEach(x=>{if(x==null||x===false)return;e.append(x.nodeType?x:document.createTextNode(x))});return e};
+const S=(t,a={},...c)=>{const e=document.createElementNS(NS,t);for(const k in a){const v=a[k];if(v==null||v===false)continue;if(k.startsWith('on'))e.addEventListener(k.slice(2),v);else e.setAttribute(k,v)}c.flat(9).forEach(x=>{if(x==null)return;e.append(x.nodeType?x:document.createTextNode(x))});return e};
+const nf=(v,d=0)=>v==null||Number.isNaN(v)?'n/a':Number(v).toLocaleString('fr-FR',{minimumFractionDigits:d,maximumFractionDigits:d});
+const sg=(v,d=1)=>v==null?'n/a':(v>=0?'+':'-')+nf(Math.abs(v),d)+' %';
+const gain=(a,b)=>a==null||b==null||a===0?null:(a-b)/a*100;
+const sf=f=>{try{const v=f();return v==null||Number.isNaN(v)?null:v}catch(e){return null}};
+const med=a=>{a=a.filter(x=>x!=null&&!Number.isNaN(x)).sort((x,y)=>x-y);if(!a.length)return null;const m=a.length>>1;return a.length%2?a[m]:(a[m-1]+a[m])/2};
+const mmss=t=>{const s=Math.round(t);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+const fmtDate=d=>{const x=new Date(d);return Number.isNaN(x.getTime())?null:x.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'})};
+const wrap=(s,n)=>{const w=s.split(' '),out=[];let cur='';w.forEach(x=>{if((cur+' '+x).trim().length>n&&cur){out.push(cur);cur=x}else cur=(cur+' '+x).trim()});if(cur)out.push(cur);return out};
+const ticks=(lo,hi,n=5)=>{const span=hi-lo||1,raw=span/n,p=Math.pow(10,Math.floor(Math.log10(raw))),f=raw/p,st=(f<1.5?1:f<3?2:f<7?5:10)*p,a=Math.floor(lo/st+1e-9)*st,b=Math.ceil(hi/st-1e-9)*st,r=[];for(let v=a;v<=b+st/2;v+=st)r.push(+v.toFixed(10));return r};
+
+const tip=h('div',{class:'tip',role:'status'});document.body.append(tip);
+function showTip(ev,title,lines){const kids=[];if(title)kids.push(h('div',{class:'h'},title));lines.forEach(l=>kids.push(h('div',{},l.c?h('i',{style:'background:'+l.c}):null,l.t,h('span',{},l.v))));tip.replaceChildren(...kids);tip.style.display='block';const r=tip.getBoundingClientRect();let x=ev.clientX+14,y=ev.clientY+14;if(x+r.width>innerWidth-8)x=ev.clientX-r.width-14;if(y+r.height>innerHeight-8)y=ev.clientY-r.height-14;tip.style.left=Math.max(8,x)+'px';tip.style.top=Math.max(8,y)+'px'}
+const hideTip=()=>{tip.style.display='none'};
+function responsive(host,draw){let w=0;if(host._ro)host._ro.disconnect();const ro=new ResizeObserver(()=>{const nw=Math.round(host.clientWidth);if(nw&&nw!==w){w=nw;draw()}});ro.observe(host);host._ro=ro}
+
+async function getJSON(u){const r=await fetch(u,{cache:'no-cache'});if(!r.ok)throw new Error(r.status);return r.json()}
+async function probe(id){for(const b of ['benchmarks/'+id+'/','benchmarks/'+id+'/resultats/']){try{const ks=await getJSON(b+'synthese.json');return {id,base:b,ks}}catch(e){}}return null}
+async function discover(){
+ let list=null;
+ try{const j=await getJSON('benchmarks/index.json');list=(Array.isArray(j)?j:j.runs||[]).map(x=>typeof x==='object'?x:{id:x})}catch(e){}
+ const out=[];
+ if(list){for(const it of list){const r=await probe(it.id);if(r)out.push(Object.assign(r,{date:it.date,title:it.titre||it.title,note:it.note}))}return out}
+ let miss=0;
+ for(let n=1;n<=MAX&&miss<3;n++){const r=await probe(n);if(r){out.push(r);miss=0}else miss++}
+ return out
+}
+async function loadRaw(run){
+ if(run.raw)return run.raw;
+ const raw={};
+ for(const c of CFG){let d=null;for(const p of ['brut_','brutload_']){try{d=await getJSON(run.base+p+c.k+'.json');break}catch(e){}}raw[c.k]=d}
+ run.raw=raw;return raw
+}
+
+const METRICS=[
+{id:'ram_idle',l:'Mémoire en inactivité',get:k=>k.phases['Inactivité'].ram_privee_moy,d:0,u:' Mo',less:'de mémoire en moins',more:'de mémoire en plus',tail:'RAM privée moyenne de Chrome pendant la phase où personne ne touche aux onglets.'},
+{id:'ram_final',l:'Mémoire au repos',get:k=>k.phases['Repos final'].ram_privee_moy,d:0,u:' Mo',less:'de mémoire en moins',more:'de mémoire en plus',tail:'RAM privée moyenne à la fin, une fois la navigation terminée.'},
+{id:'ram_avg',l:'Mémoire moyenne',get:k=>k.ram_privee_mo.moyenne,d:0,u:' Mo',less:'de mémoire en moins',more:'de mémoire en plus',tail:'RAM privée moyenne sur tout le scénario.'},
+{id:'cpu',l:'CPU consommé',get:k=>k.cpu_total_s,d:1,u:' s',less:'de CPU en moins',more:'de CPU en plus',tail:'Temps de processeur total utilisé par Chrome pendant le scénario.'},
+{id:'proc',l:'Processus',get:k=>k.processus.moyenne,d:1,u:'',less:'de processus en moins',more:'de processus en plus',tail:'Nombre moyen de processus Chrome ouverts.'},
+{id:'load',l:'Chargement des pages',get:k=>k.chargement_ms.mediane,d:0,u:' ms',less:'de temps de chargement en moins',more:'de temps de chargement en plus',tail:'Durée médiane pour charger une page entièrement.'},
+{id:'resume',l:'Reprise des onglets',get:k=>k.reprise_ms.moyenne,d:0,u:' ms',less:'de délai de reprise en moins',more:'de délai de reprise en plus',tail:'Temps moyen pour revenir sur un onglet.'}
+];
+const ITEMS=[
+['Mémoire et processeur','RAM moyenne',k=>k.ram_privee_mo.moyenne,0,'Mo'],
+['Mémoire et processeur','RAM au pic',k=>k.ram_privee_mo.max,0,'Mo'],
+['Mémoire et processeur','RAM en inactivité',k=>k.phases['Inactivité'].ram_privee_moy,0,'Mo'],
+['Mémoire et processeur','RAM au repos final',k=>k.phases['Repos final'].ram_privee_moy,0,'Mo'],
+['Mémoire et processeur','CPU moyen',k=>k.cpu_pct.moyenne,2,'%'],
+['Mémoire et processeur','CPU total consommé',k=>k.cpu_total_s,1,'s'],
+['Mémoire et processeur','Processus Chrome',k=>k.processus.moyenne,1,''],
+['Chargement des pages','Chargement complet (médiane)',k=>k.chargement_ms.mediane,0,'ms'],
+['Chargement des pages','Premier affichage FCP (médiane)',k=>k.fcp_ms.mediane,0,'ms'],
+['Chargement des pages','Plus grand affichage LCP (médiane)',k=>k.lcp_ms.mediane,0,'ms'],
+['Chargement des pages','Blocage du JavaScript (moyenne)',k=>k.tbt_ms.moyenne,0,'ms'],
+['Chargement des pages','Éléments DOM par page',k=>k.dom_nodes.moyenne,0,''],
+['Chargement des pages','Mémoire JS par page',k=>k.heap_js_mo.moyenne,1,'Mo'],
+['Réseau et publicités','Requêtes par page',k=>k.requetes_total.moyenne,0,''],
+['Réseau et publicités','Requêtes tierces par page',k=>k.requetes_tierces.moyenne,0,''],
+['Réseau et publicités','Pubs et traceurs abouties par page',k=>k.requetes_pub_abouties.moyenne,1,''],
+['Réseau et publicités','Emplacements pub visibles par page',k=>k.pubs_visibles.moyenne,1,''],
+['Reprise des onglets','Reprise moyenne d\'un onglet',k=>k.reprise_ms.moyenne,0,'ms']
+];
+const val=(ks,f)=>sf(()=>f(ks));
+
+function setGauge(run){
+ const ks=run.ks,m=METRICS.find(x=>x.id===state.metric);
+ const v={};CFG.forEach(c=>v[c.k]=ks[c.k]?val(ks[c.k],m.get):null);
+ const ge=gain(v.reference,v.economiseur),gc=gain(v.reference,v.chromeoptimizer);
+ const cl=x=>Math.max(0,Math.min(100,x==null?0:x));
+ $('#gFill').setAttribute('stroke-dasharray',cl(gc)+' 100');
+ $('#gNeedle').style.transform='rotate('+((cl(gc)-50)*1.8)+'deg)';
+ $('#gMark').style.transform='rotate('+((cl(ge)-50)*1.8)+'deg)';
+ $('#gMark').style.opacity=ge==null?0:1;
+ const gv=$('#gVal');gv.textContent=gc==null?'n/a':sg(gc,1);gv.classList.toggle('neg',gc!=null&&gc<0);
+ $('#gLabel').textContent=gc==null?'Mesure indisponible pour ce benchmark':(gc>=0?m.less:m.more)+' avec ChromeOptimizer';
+ $('#gRows').replaceChildren(...CFG.map(c=>h('div',{},h('span',{},h('i',{style:'background:'+c.c}),c.l),h('b',{},v[c.k]==null?'n/a':nf(v[c.k],m.d)+m.u))));
+ $('#gauge').setAttribute('aria-label',m.l+' : '+(gc==null?'indisponible':sg(gc,1)+' par rapport à Chrome sans rien'));
+ $('#metrics').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.id===state.metric));
+}
+function buildMetrics(){
+ $('#metrics').replaceChildren(...METRICS.map(m=>h('button',{class:'chip','data-id':m.id,'aria-pressed':m.id===state.metric,title:m.tail,onclick:()=>{state.metric=m.id;setGauge(state.cur)}},m.l)))
+}
+function buildRuns(){
+ const box=$('#runs');
+ box.replaceChildren(...state.runs.map((r,i)=>h('button',{class:'chip','aria-pressed':r===state.cur,onclick:()=>select(r)},r.title||('Benchmark '+r.id),h('small',{},[r.date&&fmtDate(r.date),i===state.runs.length-1&&state.runs.length>1?'dernier':null].filter(Boolean).join(', ')))))
+}
+
+function lineChart(host,spec){
+ const hidden=new Set();
+ const legend=h('div',{class:'legend'}),plot=h('div',{class:'plot'});
+ host.replaceChildren(legend,plot);
+ spec.series.forEach(s=>legend.append(h('button',{class:'chip','aria-pressed':true,onclick:e=>{const b=e.currentTarget;if(hidden.has(s.k)){hidden.delete(s.k);b.setAttribute('aria-pressed',true)}else{if(hidden.size>=spec.series.length-1)return;hidden.add(s.k);b.setAttribute('aria-pressed',false)}draw()}},h('i',{style:'background:'+s.c}),s.l)));
+ function at(s,t){const x=s.x,y=s.y;if(t<=x[0])return y[0];if(t>=x[x.length-1])return y[y.length-1];let lo=0,hi=x.length-1;while(hi-lo>1){const m=(lo+hi)>>1;if(x[m]<=t)lo=m;else hi=m}if(spec.step)return y[lo];const k=(t-x[lo])/(x[hi]-x[lo]||1);return y[lo]+(y[hi]-y[lo])*k}
+ function draw(){
+  hideTip();
+  const W=Math.max(300,plot.clientWidth),H=Math.round(Math.min(400,Math.max(250,W*.38))),m={l:56,r:12,t:30,b:30};
+  const vis=spec.series.filter(s=>!hidden.has(s.k));
+  let x0=Infinity,x1=-Infinity,y0=0,y1=-Infinity;
+  spec.series.forEach(s=>s.x.forEach(v=>{x0=Math.min(x0,v);x1=Math.max(x1,v)}));
+  vis.forEach(s=>s.y.forEach(v=>{if(v==null)return;y1=Math.max(y1,v);y0=Math.min(y0,v)}));
+  if(!(y1>y0))y1=y0+1;
+  const tk=ticks(y0,y1,5);y0=tk[0];y1=tk[tk.length-1];
+  const X=v=>m.l+(v-x0)/(x1-x0||1)*(W-m.l-m.r),Y=v=>m.t+(1-(v-y0)/(y1-y0))*(H-m.t-m.b);
+  const svg=S('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':spec.label||''});
+  (spec.marks||[]).forEach((mk,i)=>{if(mk.end==null)return;svg.append(S('rect',{x:X(mk.start),y:m.t,width:Math.max(0,X(mk.end)-X(mk.start)),height:H-m.t-m.b,fill:`var(--p${i%4})`}));const tx=S('text',{x:(X(mk.start)+X(mk.end))/2,y:m.t-10,'text-anchor':'middle'},mk.name);svg.append(tx)});
+  tk.forEach(v=>{svg.append(S('line',{class:'grid',x1:m.l,x2:W-m.r,y1:Y(v),y2:Y(v)}),S('text',{x:m.l-8,y:Y(v)+4,'text-anchor':'end'},nf(v,spec.d>0&&v%1?spec.d:0)))});
+  const xt=ticks(x0,x1,Math.max(3,Math.floor(W/110)));xt.filter(v=>v>=x0&&v<=x1).forEach(v=>svg.append(S('text',{x:X(v),y:H-8,'text-anchor':'middle'},mmss(v))));
+  vis.forEach(s=>{let d='';s.x.forEach((xv,i)=>{const yv=s.y[i];if(yv==null)return;if(!d)d='M'+X(xv).toFixed(1)+' '+Y(yv).toFixed(1);else if(spec.step)d+='H'+X(xv).toFixed(1)+'V'+Y(yv).toFixed(1);else d+='L'+X(xv).toFixed(1)+' '+Y(yv).toFixed(1)});svg.append(S('path',{d,fill:'none',stroke:s.c,'stroke-width':2,'stroke-linejoin':'round'}))});
+  const guide=S('line',{y1:m.t,y2:H-m.b,stroke:'var(--mute)','stroke-width':1,visibility:'hidden'});svg.append(guide);
+  const dots=vis.map(s=>S('circle',{r:4.5,fill:s.c,stroke:'var(--card)','stroke-width':2,visibility:'hidden'}));dots.forEach(d=>svg.append(d));
+  const ov=S('rect',{x:m.l,y:m.t,width:W-m.l-m.r,height:H-m.t-m.b,fill:'transparent',style:'touch-action:pan-y'});
+  ov.addEventListener('pointermove',ev=>{const r=svg.getBoundingClientRect(),px=(ev.clientX-r.left)*W/r.width,t=x0+(px-m.l)/(W-m.l-m.r)*(x1-x0);const gx=X(t);guide.setAttribute('x1',gx);guide.setAttribute('x2',gx);guide.setAttribute('visibility','visible');const ph=(spec.marks||[]).find(k=>k.end!=null&&t>=k.start&&t<=k.end);const lines=vis.map((s,i)=>{const v=at(s,t);dots[i].setAttribute('cx',gx);dots[i].setAttribute('cy',Y(v));dots[i].setAttribute('visibility','visible');return {c:s.c,t:s.l,v:nf(v,spec.d)+(spec.u||'')}});showTip(ev,mmss(Math.max(x0,Math.min(x1,t)))+(ph?' : '+ph.name:''),lines)});
+  ov.addEventListener('pointerleave',()=>{hideTip();guide.setAttribute('visibility','hidden');dots.forEach(d=>d.setAttribute('visibility','hidden'))});
+  svg.append(ov);plot.replaceChildren(svg)
+ }
+ responsive(plot,draw)
+}
+
+function groupedBars(host,o){
+ const legend=h('div',{class:'legend static'},o.series.map(s=>h('span',{class:'chip'},h('i',{style:'background:'+s.c}),s.l)));
+ const plot=h('div',{class:'plot'});host.replaceChildren(legend,plot);
+ function draw(){
+  hideTip();
+  const W=Math.max(300,plot.clientWidth),H=310,m={l:50,r:10,t:22,b:56};
+  let lo=0,hi=0;o.series.forEach(s=>s.v.forEach(v=>{if(v==null)return;lo=Math.min(lo,v);hi=Math.max(hi,v)}));
+  if(hi===lo)hi=lo+1;
+  const tk=ticks(lo,hi*1.08,4);lo=tk[0];hi=tk[tk.length-1];
+  const Y=v=>m.t+(1-(v-lo)/(hi-lo))*(H-m.t-m.b);
+  const svg=S('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':o.label||''});
+  tk.forEach(v=>svg.append(S('line',{class:'grid',x1:m.l,x2:W-m.r,y1:Y(v),y2:Y(v)}),S('text',{x:m.l-8,y:Y(v)+4,'text-anchor':'end'},nf(v,o.d&&v%1?o.d:0))));
+  const gw=(W-m.l-m.r)/o.cats.length,bw=Math.min(48,gw*.84/o.series.length);
+  o.cats.forEach((cat,i)=>{
+   const cx=m.l+gw*(i+.5),lines=wrap(cat,gw<110?12:20);
+   lines.forEach((ln,j)=>svg.append(S('text',{class:'lbl',x:cx,y:H-m.b+18+j*14,'text-anchor':'middle'},ln)));
+   o.series.forEach((s,j)=>{
+    const v=s.v[i];if(v==null)return;
+    const x=cx+(j-(o.series.length-1)/2)*bw,y1=Y(Math.max(v,0)),y2=Y(Math.min(v,0));
+    const r=S('rect',{x:x-bw/2+1,y:y1,width:bw-2,height:Math.max(1,y2-y1),fill:s.c,rx:2});
+    r.addEventListener('pointermove',ev=>showTip(ev,cat,[{c:s.c,t:s.l,v:nf(v,o.d)+(o.u||'')}]));
+    r.addEventListener('pointerleave',hideTip);
+    svg.append(r);
+    if(bw>=26)svg.append(S('text',{x,y:(v>=0?y1-5:y2+13),'text-anchor':'middle',style:'font-size:11px'},nf(v,o.d)))
+   })
+  });
+  svg.append(S('line',{x1:m.l,x2:W-m.r,y1:Y(0),y2:Y(0),stroke:'var(--mute)','stroke-width':1}));
+  plot.replaceChildren(svg)
+ }
+ responsive(plot,draw)
+}
+
+function gainChart(host,rows){
+ const plot=h('div',{class:'plot'});
+ host.replaceChildren(h('div',{class:'legend static'},CFG.slice(1).map(c=>h('span',{class:'chip'},h('i',{style:'background:'+c.c}),c.l))),plot);
+ function draw(){
+  hideTip();
+  const W=Math.max(300,plot.clientWidth),small=W<560,Lw=small?118:210,rh=44,m={l:Lw,r:56,t:8,b:30};
+  const H=m.t+rows.length*rh+m.b;
+  let mx=10;rows.forEach(r=>[r.e,r.c].forEach(v=>{if(v!=null)mx=Math.max(mx,Math.abs(v))}));
+  const lim=Math.min(120,mx*1.12),X=v=>m.l+(Math.max(-lim,Math.min(lim,v))+lim)/(2*lim)*(W-m.l-m.r);
+  const svg=S('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':'Gains par rapport à Chrome sans rien'});
+  ticks(-lim,lim,6).filter(v=>Math.abs(v)<=lim+1e-6).forEach(v=>{svg.append(S('line',{class:'grid',x1:X(v),x2:X(v),y1:m.t,y2:H-m.b}),S('text',{x:X(v),y:H-10,'text-anchor':'middle'},(v>0?'+':'')+nf(v)+' %'))});
+  let lastG=null;
+  rows.forEach((r,i)=>{
+   const y=m.t+i*rh,lines=wrap(r.label,small?16:30);
+   lines.forEach((ln,j)=>svg.append(S('text',{class:'lbl',x:8,y:y+rh/2+4+(j-(lines.length-1)/2)*13,style:'font-size:'+(small?11:12.5)+'px'},ln)));
+   [r.e,r.c].forEach((v,j)=>{
+    const col=CFG[j+1].c,by=y+7+j*16;
+    if(v!=null){const x0=X(0),x1=X(v);svg.append(S('rect',{x:Math.min(x0,x1),y:by,width:Math.max(1.5,Math.abs(x1-x0)),height:13,fill:col,rx:2}));svg.append(S('text',{x:v>=0?x1+5:x1-5,y:by+10.5,'text-anchor':v>=0?'start':'end',style:'font-size:11px;font-weight:700;fill:'+(v>=0?'var(--good)':'var(--bad)')},sg(v)))}
+    else svg.append(S('text',{x:X(0)+6,y:by+10.5,style:'font-size:11px'},'n/a'))
+   });
+   const hit=S('rect',{x:0,y,width:W,height:rh,fill:'transparent'});
+   hit.addEventListener('pointermove',ev=>showTip(ev,r.label,CFG.map((c,j)=>({c:c.c,t:c.l,v:nf(r.v[j],r.d)+(r.u?' '+r.u:'')+(j>0?' ('+sg(j===1?r.e:r.c)+')':'')}))));
+   hit.addEventListener('pointerleave',hideTip);
+   svg.append(hit)
+  });
+  svg.append(S('line',{x1:X(0),x2:X(0),y1:m.t,y2:H-m.b,stroke:'var(--ink)','stroke-width':1.2}));
+  plot.replaceChildren(svg)
+ }
+ responsive(plot,draw)
+}
+
+function meters(rows,d,u){
+ const mx=Math.max(1,...rows.map(r=>r.v||0));
+ return h('div',{class:'meters'},rows.map(r=>h('div',{class:'meter'},h('span',{},r.l),h('div',{class:'t'},h('i',{style:`width:${(r.v||0)/mx*100}%;background:${r.c}`})),h('b',{},nf(r.v,d)+(u||'')))))
+}
+function gainBadge(g,inv){if(g==null)return h('span',{class:'g none'},'n/a');const good=inv?g<0:g>0;return h('span',{class:'g '+(Math.abs(g)<0.05?'none':good?'good':'bad')},sg(g))}
+
+function sectionEl(id,title,what,...kids){return h('section',{id},h('h2',{},title),h('p',{class:'what'},what),...kids)}
+
+function secResume(run){
+ const ks=run.ks,rows=ITEMS.map(([g,l,f,d,u])=>{const v=CFG.map(c=>ks[c.k]?val(ks[c.k],f):null);return {g,label:l,v,d,u,e:gain(v[0],v[1]),c:gain(v[0],v[2])}});
+ const host=h('div',{class:'card'});gainChart(host,rows);
+ const tb=h('table',{},h('thead',{},h('tr',{},h('th',{},'Mesure'),CFG.map(c=>h('th',{},c.l)),h('th',{},'Gain ChromeOptimizer'))),h('tbody',{},(()=>{let last='';const out=[];rows.forEach(r=>{if(r.g!==last){last=r.g;out.push(h('tr',{class:'grp'},h('td',{colspan:5},r.g)))}out.push(h('tr',{},h('td',{},r.label),r.v.map(v=>h('td',{},v==null?'n/a':nf(v,r.d)+(r.u?' '+r.u:''))),h('td',{},gainBadge(r.c))))});return out})()));
+ return sectionEl('resume','Résumé','Chaque barre compare une configuration à Chrome sans rien. Vers la droite, c\'est mieux (moins de mémoire, moins de CPU, pages plus rapides). Vers la gauche, c\'est moins bien. Rien n\'est caché : les points faibles apparaissent aussi.',host,h('details',{},h('summary',{},'Voir toutes les valeurs en tableau'),h('div',{class:'card scroll',style:'margin-top:10px'},tb)))
+}
+
+function secMemoire(run,raw){
+ const ref=raw.reference;
+ if(!ref||!ref.samples||!ref.samples.length)return sectionEl('memoire','Mémoire et processeur','Les mesures détaillées dans le temps ne sont pas disponibles pour ce benchmark.');
+ const interpTo=(s,g)=>g.map(t=>{const x=s.samples.map(r=>r.t),y=s.samples.map(r=>r.private_mb);let lo=0,hi=x.length-1;if(t<=x[0])return y[0];if(t>=x[hi])return y[hi];while(hi-lo>1){const m=(lo+hi)>>1;if(x[m]<=t)lo=m;else hi=m}return y[lo]+(y[hi]-y[lo])*(t-x[lo])/(x[hi]-x[lo]||1)});
+ const sm=(v,n)=>n<=1?v:v.map((_,i)=>{let a=0,c=0;for(let j=i-(n>>1);j<=i+(n>>1);j++)if(j>=0&&j<v.length){a+=v[j];c++}return a/c});
+ const DEFS=[
+  {id:'private_mb',l:'Mémoire',u:' Mo',d:0,t:'Mémoire réellement utilisée par Chrome et tous ses processus. C\'est la valeur qui se rapproche le plus de ce que voit votre ordinateur.',get:s=>s.samples.map(r=>r.private_mb),x:s=>s.samples.map(r=>r.t)},
+  {id:'rss_mb',l:'Mémoire totale',u:' Mo',d:0,t:'Working set : toute la mémoire touchée par Chrome, y compris les parties partagées entre processus.',get:s=>s.samples.map(r=>r.rss_mb),x:s=>s.samples.map(r=>r.t)},
+  {id:'cpu_pct',l:'Processeur',u:' %',d:1,t:'Part du processeur utilisée par Chrome, lissée sur 5 mesures.',sm:5,get:s=>s.samples.map(r=>r.cpu_pct),x:s=>s.samples.map(r=>r.t)},
+  {id:'cum',l:'Processeur cumulé',u:' s',d:0,t:'Temps de processeur total consommé depuis le début. Plus la courbe monte lentement, plus l\'ordinateur chauffe et se vide peu.',get:s=>{let a=0,p=0;return s.samples.map(r=>{a+=r.cpu_pct/100*(s.ncpu||1)*(r.t-p);p=r.t;return a})},x:s=>s.samples.map(r=>r.t)},
+  {id:'n_proc',l:'Processus',u:'',d:0,t:'Nombre de processus Chrome ouverts. Un onglet endormi libère son processus.',get:s=>s.samples.map(r=>r.n_proc),x:s=>s.samples.map(r=>r.t)},
+  {id:'sys_mem_mb',l:'RAM du système',u:' Mo',d:0,t:'RAM utilisée sur toute la machine pendant le test, tous programmes confondus.',get:s=>s.samples.map(r=>r.sys_mem_mb),x:s=>s.samples.map(r=>r.t)},
+  {id:'sys_cpu_pct',l:'CPU du système',u:' %',d:1,t:'Charge processeur de toute la machine, lissée sur 5 mesures.',sm:5,get:s=>s.samples.map(r=>r.sys_cpu_pct),x:s=>s.samples.map(r=>r.t)},
+  {id:'gain',l:'Mémoire économisée',u:' Mo',d:0,t:'Mémoire libérée par rapport à Chrome sans rien, à chaque instant. Au-dessus de zéro, la configuration utilise moins de mémoire que la référence.',gainMode:true}
+ ];
+ const host=h('div',{class:'card'}),desc=h('p',{class:'note'}),chips=h('div',{class:'row'});
+ const have=CFG.filter(c=>raw[c.k]&&raw[c.k].samples&&raw[c.k].samples.length);
+ function show(id){
+  const d=DEFS.find(x=>x.id===id);
+  chips.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.id===id));
+  desc.textContent=d.t;
+  let series;
+  if(d.gainMode){const tmax=Math.min(...have.map(c=>raw[c.k].samples[raw[c.k].samples.length-1].t)),g=[];for(let t=0;t<tmax;t+=2)g.push(t);const rv=interpTo(ref,g);series=have.slice(1).map(c=>{const v=interpTo(raw[c.k],g);return {k:c.k,l:c.l,c:c.c,x:g,y:g.map((_,i)=>rv[i]-v[i])}})}
+  else series=have.map(c=>({k:c.k,l:c.l,c:c.c,x:d.x(raw[c.k]),y:sm(d.get(raw[c.k]),d.sm||1)}));
+  lineChart(host,{series,marks:ref.marks,u:d.u,d:d.d,label:d.l+' au cours du temps'})
+ }
+ DEFS.forEach(d=>chips.append(h('button',{class:'chip','data-id':d.id,'aria-pressed':false,onclick:()=>show(d.id)},d.l)));
+ const phHost=h('div',{class:'card',style:'margin-top:14px'}),phChips=h('div',{class:'row'}),phNote=h('p',{class:'note'});
+ const PD=[{l:'Mémoire',key:'ram_privee_moy',u:' Mo',d:0,t:'Mémoire moyenne de chaque phase du scénario.'},{l:'Processeur',key:'cpu_moy',u:' %',d:2,t:'Part moyenne du processeur utilisée dans chaque phase.'},{l:'Processus',key:'processus_moy',u:'',d:1,t:'Nombre moyen de processus ouverts dans chaque phase.'}];
+ function showPh(i){
+  const p=PD[i];phChips.querySelectorAll('button').forEach((b,j)=>b.setAttribute('aria-pressed',j===i));phNote.textContent=p.t;
+  groupedBars(phHost,{cats:PH,series:CFG.map(c=>({l:c.l,c:c.c,v:PH.map(ph=>run.ks[c.k]?sf(()=>run.ks[c.k].phases[ph][p.key]):null)})),u:p.u,d:p.d,label:p.l+' par phase'})
+ }
+ PD.forEach((p,i)=>phChips.append(h('button',{class:'chip','aria-pressed':false,onclick:()=>showPh(i)},p.l)));
+ const sec=sectionEl('memoire','Mémoire et processeur','L\'effet de l\'extension se voit surtout pendant l\'inactivité : les onglets inutilisés sont endormis et Chrome rend la mémoire au système. Passez la souris sur une courbe pour lire les valeurs, cliquez sur la légende pour masquer une configuration.',chips,host,desc,h('h3',{style:'margin:34px 0 12px;font-size:20px'},'Moyenne par phase'),phChips,phHost,phNote);
+ show('private_mb');showPh(0);return sec
+}
+
+function secVeille(run,raw){
+ const ref=raw.reference;
+ const stats=h('div',{class:'grid3'},CFG.map(c=>{const k=run.ks[c.k]||{};return h('div',{class:'stat',style:'border-top-color:'+c.c},h('b',{},k.onglets_endormis_max==null?'n/a':nf(k.onglets_endormis_max)),h('span',{},'onglets endormis au maximum, '+c.l),h('br'),h('span',{},k.premier_sommeil_s==null?'aucun onglet endormi':'premier sommeil après '+nf(k.premier_sommeil_s)+' s'))}));
+ const kids=[stats];
+ if(ref&&CFG.every(c=>raw[c.k]&&raw[c.k].states&&raw[c.k].states.length)){const host=h('div',{class:'card',style:'margin-top:14px'});kids.push(host);lineChart(host,{series:CFG.map(c=>({k:c.k,l:c.l,c:c.c,x:raw[c.k].states.map(s=>s.t),y:raw[c.k].states.map(s=>s.discarded)})),marks:ref.marks,u:' onglets',d:0,step:true,label:'Onglets en veille au cours du temps'})}
+ kids.push(h('p',{class:'note'},'Un onglet est compté comme endormi quand Chrome l\'a réellement déchargé de la mémoire, vérifié par l\'API des onglets avec la même extension sonde dans les trois cas. L\'horloge d\'ChromeOptimizer est accélérée pendant le test, ce qui explique le délai avant le premier sommeil exprimé en secondes réelles.'));
+ return sectionEl('veille','Onglets en veille','Endormir un onglet inactif libère sa mémoire sans le fermer. Ce graphique montre combien d\'onglets sont réellement endormis à chaque instant.',...kids)
+}
+
+function secPages(run,raw){
+ const ok={};CFG.forEach(c=>ok[c.k]=raw[c.k]&&raw[c.k].loads?raw[c.k].loads.filter(x=>x.ok):[]);
+ if(!ok.reference.length)return sectionEl('pages','Chargement des pages','Les mesures par site ne sont pas disponibles pour ce benchmark.');
+ const MS=[
+  {l:'Chargement complet',g:x=>x.wall_ms,d:0,u:'ms',t:'Temps entre la demande de la page et la fin de son chargement.'},
+  {l:'Premier octet',g:x=>x.ttfb,d:0,u:'ms',t:'Délai avant que le serveur commence à répondre. Il dépend surtout du réseau.'},
+  {l:'Premier affichage',g:x=>x.fcp,d:0,u:'ms',t:'Moment où quelque chose apparaît à l\'écran pour la première fois.'},
+  {l:'Plus grand affichage',g:x=>x.lcp,d:0,u:'ms',t:'Moment où le plus gros élément de la page est affiché, bon indicateur de vitesse ressentie.'},
+  {l:'Blocage JavaScript',g:x=>x.tbt,d:0,u:'ms',t:'Temps pendant lequel la page est restée figée par des scripts trop longs.'},
+  {l:'Transfert',g:x=>x.transfer_kb,d:0,u:'Ko',t:'Quantité de données téléchargées pour afficher la page.'},
+  {l:'Requêtes',g:x=>x.req&&x.req.total,d:0,u:'',t:'Nombre de requêtes réseau envoyées par la page.'},
+  {l:'Requêtes tierces',g:x=>x.req&&x.req.third,d:0,u:'',t:'Requêtes envoyées vers d\'autres domaines que celui du site.'},
+  {l:'Pubs abouties',g:x=>x.req&&x.req.ad_ok,d:0,u:'',t:'Requêtes de publicité ou de traçage qui ont réussi malgré l\'extension.'},
+  {l:'Pubs visibles',g:x=>x.ads_dom&&x.ads_dom.visible,d:0,u:'',t:'Emplacements publicitaires réellement visibles dans la page.'},
+  {l:'Éléments DOM',g:x=>x.dom_nodes,d:0,u:'',t:'Taille de la page : plus il y a d\'éléments, plus elle est lourde.'},
+  {l:'Mémoire JS',g:x=>x.heap_mb,d:1,u:'Mo',t:'Mémoire utilisée par le JavaScript de la page.'}
+ ];
+ const names=ok.reference.map(x=>x.site);CFG.slice(1).forEach(c=>ok[c.k].forEach(x=>{if(!names.includes(x.site))names.push(x.site)}));
+ const host=h('div',{class:'card'}),chips=h('div',{class:'row'}),desc=h('p',{class:'note'}),summary=h('div',{class:'grid3',style:'margin-bottom:14px'});
+ let cur=0,sort={k:'site',dir:1};
+ function show(i){
+  cur=i;const m=MS[i];desc.textContent=m.t;chips.querySelectorAll('button').forEach((b,j)=>b.setAttribute('aria-pressed',j===i));
+  const rows=names.map(n=>{const v=CFG.map(c=>{const x=ok[c.k].find(y=>y.site===n);return x?sf(()=>m.g(x)):null});return {n,v,d:gain(v[0],v[2])}});
+  const meds=CFG.map(c=>med(ok[c.k].map(x=>sf(()=>m.g(x)))));
+  summary.replaceChildren(...CFG.map((c,j)=>h('div',{class:'stat',style:'border-top-color:'+c.c},h('b',{},meds[j]==null?'n/a':nf(meds[j],m.d)+(m.u?' '+m.u:'')),h('span',{},'médiane, '+c.l),j===2?h('span',{},' '):null,j===2?gainBadge(gain(meds[0],meds[2])):null)));
+  const sorted=rows.slice().sort((a,b)=>{if(sort.k==='site')return sort.dir*a.n.localeCompare(b.n,'fr');const x=sort.k==='d'?a.d:a.v[sort.k],y=sort.k==='d'?b.d:b.v[sort.k];return sort.dir*((x==null?Infinity:x)-(y==null?Infinity:y))});
+  const th=(k,t)=>h('th',{'aria-sort':sort.k===k?(sort.dir>0?'ascending':'descending'):'none'},h('button',{onclick:()=>{sort=sort.k===k?{k,dir:-sort.dir}:{k,dir:1};show(cur)}},t+(sort.k===k?(sort.dir>0?' (croissant)':' (décroissant)'):'')));
+  const tb=h('table',{},h('thead',{},h('tr',{},th('site','Site'),CFG.map((c,j)=>th(j,c.l)),th('d','Écart ChromeOptimizer'))),h('tbody',{},sorted.map(r=>{const mx=Math.max(1e-9,...r.v.map(x=>x||0));return h('tr',{},h('td',{},r.n),r.v.map((v,j)=>h('td',{class:'bar'},v==null?'n/a':[h('i',{style:`width:${v/mx*100}%;background:${CFG[j].c}`}),h('span',{},nf(v,m.d)+(m.u?' '+m.u:''))])),h('td',{},gainBadge(r.d)))})));
+  host.replaceChildren(summary,h('div',{class:'scroll'},tb))
+ }
+ MS.forEach((m,i)=>chips.append(h('button',{class:'chip','aria-pressed':false,onclick:()=>show(i)},m.l)));
+ const sec=sectionEl('pages','Chargement des pages','20 sites très différents ont été ouverts dans chaque configuration. Choisissez une mesure, puis triez le tableau en cliquant sur un titre de colonne. Une réduction des requêtes ou du poids vient surtout du blocage des publicités et des traceurs.',chips,host,desc);
+ show(0);return sec
+}
+
+function secReprise(run,raw){
+ const rs={};CFG.forEach(c=>rs[c.k]=raw[c.k]&&raw[c.k].resumes?raw[c.k].resumes.filter(x=>x.ok):[]);
+ if(!rs.reference.length)return sectionEl('reprise','Reprise des onglets','Aucune reprise d\'onglet mesurée dans ce benchmark.');
+ const names=[];CFG.forEach(c=>rs[c.k].forEach(x=>{if(!names.includes(x.site))names.push(x.site)}));
+ const all=[].concat(...CFG.map(c=>rs[c.k].map(x=>Math.max(1,x.ms))));
+ const lo=Math.pow(10,Math.floor(Math.log10(Math.min(...all)))),hi=Math.pow(10,Math.ceil(Math.log10(Math.max(...all))));
+ const host=h('div',{class:'card'}),plot=h('div',{class:'plot'});
+ host.append(h('div',{class:'legend static'},CFG.map(c=>h('span',{class:'chip'},h('i',{style:'background:'+c.c}),c.l)),h('span',{class:'chip'},'Point plein : onglet resté actif'),h('span',{class:'chip'},'Anneau : onglet qui était endormi')),plot);
+ function draw(){
+  hideTip();
+  const W=Math.max(300,plot.clientWidth),small=W<560,m={l:small?110:170,r:16,t:8,b:34},rh=30,H=m.t+names.length*rh+m.b;
+  const X=v=>m.l+(Math.log10(Math.max(1,v))-Math.log10(lo))/(Math.log10(hi)-Math.log10(lo)||1)*(W-m.l-m.r);
+  const svg=S('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':'Délai de reprise par onglet'});
+  for(let e=Math.log10(lo);e<=Math.log10(hi);e++){const v=Math.pow(10,e);svg.append(S('line',{class:'grid',x1:X(v),x2:X(v),y1:m.t,y2:H-m.b}),S('text',{x:X(v),y:H-12,'text-anchor':'middle'},v>=1000?nf(v/1000)+' s':nf(v)+' ms'))}
+  names.forEach((n,i)=>{
+   const y=m.t+i*rh+rh/2;
+   svg.append(S('text',{class:'lbl',x:6,y:y+4,style:'font-size:'+(small?11:12.5)+'px'},n));
+   const hit=S('rect',{x:0,y:y-rh/2,width:W,height:rh,fill:'transparent'});
+   hit.addEventListener('pointermove',ev=>showTip(ev,n,CFG.map(c=>{const x=rs[c.k].find(z=>z.site===n);return {c:c.c,t:c.l,v:x?nf(x.ms)+' ms'+(x.discarded?' (endormi)':''):'n/a'}})));
+   hit.addEventListener('pointerleave',hideTip);
+   svg.append(hit);
+   CFG.forEach((c,j)=>{const x=rs[c.k].find(z=>z.site===n);if(!x)return;svg.append(S('circle',{cx:X(x.ms),cy:y+(j-1)*4,r:5,fill:x.discarded?'var(--card)':c.c,stroke:c.c,'stroke-width':2,style:'pointer-events:none'}))})
+  });
+  plot.replaceChildren(svg)
+ }
+ responsive(plot,draw);
+ const cards=h('div',{class:'grid3',style:'margin-bottom:14px'},CFG.map(c=>{const k=run.ks[c.k]||{};const a=sf(()=>k.reprise_onglets_endormis_ms.moyenne),b=sf(()=>k.reprise_onglets_actifs_ms.moyenne);return h('div',{class:'stat',style:'border-top-color:'+c.c},h('b',{},a==null?'aucun':nf(a)+' ms'),h('span',{},'reprise moyenne d\'un onglet endormi, '+c.l),h('br'),h('span',{},'onglet resté actif : '+(b==null?'n/a':nf(b)+' ms')))}));
+ return sectionEl('reprise','Reprise des onglets','Le prix d\'un onglet endormi : il faut le recharger quand on y revient. L\'échelle est logarithmique, chaque graduation est dix fois plus longue que la précédente.',cards,host)
+}
+
+function secPubs(run){
+ const ks=run.ks;
+ const mk=(key,d)=>CFG.map(c=>({l:c.l,c:c.c,v:ks[c.k]?val(ks[c.k],k=>k[key]):null}));
+ const a=mk('tot_pub_abouties'),b=mk('tot_pubs_visibles'),pc=ks.chromeoptimizer?sf(()=>ks.chromeoptimizer.tot_pub_bloquees):null;
+ const tot=pc==null?null:pc+(ks.chromeoptimizer.tot_pub_abouties||0);
+ return sectionEl('pubs','Publicités et traceurs','ChromeOptimizer inclut un bloqueur de publicités et de traceurs, qui réduit les requêtes et le poids des pages. Voici ce qui passe encore, sur toutes les pages du test.',h('div',{class:'two'},h('div',{class:'card'},h('h3',{},'Requêtes de pub et traceurs abouties'),meters(a,0,'')),h('div',{class:'card'},h('h3',{},'Emplacements de pub visibles'),meters(b,0,''))),pc==null?null:h('p',{class:'note'},'Requêtes bloquées par ChromeOptimizer : '+nf(pc)+(tot?', soit '+nf(pc/tot*100)+' % des '+nf(tot)+' tentées.':'.')+' Emplacements masqués : '+nf(sf(()=>ks.chromeoptimizer.tot_pubs_masquees))+'.'))
+}
+
+function secEvolution(){
+ const rs=state.runs;if(rs.length<2)return null;
+ const DEF=[['RAM en inactivité',METRICS[0]],['RAM au repos',METRICS[1]],['CPU consommé',METRICS[3]],['Chargement des pages',METRICS[5]]];
+ const cols=['#e67e22','#c0392b','#8e6bbf','#2a9d8f'];
+ const host=h('div',{class:'card'});
+ groupedBars(host,{cats:rs.map(r=>(r.title||('Benchmark '+r.id))+(r.date&&fmtDate(r.date)?' '+fmtDate(r.date):'')),series:DEF.map(([l,m],i)=>({l,c:cols[i],v:rs.map(r=>r.ks.reference&&r.ks.chromeoptimizer?gain(val(r.ks.reference,m.get),val(r.ks.chromeoptimizer,m.get)):null)})),u:' %',d:1,label:'Gain de ChromeOptimizer par benchmark'});
+ return sectionEl('evolution','Évolution','Le gain de ChromeOptimizer par rapport à Chrome sans rien, benchmark après benchmark. Au-dessus de zéro, c\'est une amélioration.',host)
+}
+
+function secProtocole(run,raw){
+ const ref=raw.reference,co=raw.chromeoptimizer;
+ const kids=[];
+ if(ref&&ref.marks&&ref.marks.length){
+  const tot=ref.marks.reduce((a,m)=>a+((m.end||0)-m.start),0)||1;
+  kids.push(h('div',{class:'strip'},ref.marks.map((m,i)=>h('div',{style:`flex:${(m.end-m.start)/tot};background:var(--p${i%4})`,title:m.name},m.name+' '+mmss(m.end-m.start)))));
+ }
+ const dl=h('dl',{class:'kv'});
+ const add=(k,v)=>{if(v)dl.append(h('dt',{},k),h('dd',{},v))};
+ if(ref){add('Machine',nf(ref.ncpu)+' coeurs logiques, '+nf(ref.ram_total_mb/1024,1)+' Go de RAM');const ua=ref.ua||'';const cv=(ua.match(/Chrome\/([\d.]+)/)||[])[1],os=(ua.match(/\(([^)]+)\)/)||[])[1];add('Navigateur','Chromium '+(cv||'')+(os?', '+os:''))}
+ if(co){const st=co.settings||{},idle=st.idleMinutes||30,wp=co.warp||1;add('Réglage de l\'extension','algorithme '+(st.algorithm||'classic')+', veille après '+idle+' minutes d\'inactivité'+(st.adaptiveInterval===false?', mode adaptatif désactivé':''));if(wp>1)add('Accélération du temps','x'+wp+' : l\'horloge interne de l\'extension est accélérée pour simuler '+idle+' minutes d\'inactivité en '+nf(idle/wp,0)+' minutes réelles. Le code de l\'extension n\'est pas modifié.')}
+ add('Scénario identique','Chaque configuration part d\'un profil Chromium vierge, avec la même graine aléatoire, les mêmes sites dans le même ordre, les mêmes défilements et les mêmes retours sur les onglets.');
+ add('Économiseur natif','Réglé avec les préférences Chromium correspondantes. Son minuteur interne ne peut pas être accéléré.');
+ add('Échantillonnage','Mémoire, processeur et nombre de processus de tout l\'arbre de processus du navigateur, toutes les 2 secondes.');
+ kids.push(h('div',{class:'card'},dl));
+ const names=ref&&ref.loads?ref.loads.map(x=>x.site):[];
+ if(names.length)kids.push(h('div',{class:'card',style:'margin-top:14px'},h('b',{},nf(names.length)+' sites testés'),h('div',{class:'sites'},names.map(n=>h('span',{},n)))));
+ return sectionEl('protocole','Protocole','Comment le test est fait, pour que n\'importe qui puisse le refaire. Le script benchmark.py et les données brutes sont dans le dépôt.',...kids)
+}
+
+async function secDonnees(run){
+ const names=['recap_gains.png','rapport_benchmark.pdf','synthese.json',...CFG.map(c=>'brut_'+c.k+'.json'),...CFG.map(c=>'brutload_'+c.k+'.json')];
+ const found=[];
+ await Promise.all(names.map(async n=>{try{const r=await fetch(run.base+n,{method:'HEAD'});if(r.ok)found.push(n)}catch(e){}}));
+ found.sort((a,b)=>names.indexOf(a)-names.indexOf(b));
+ const L={'recap_gains.png':'Récapitulatif en image','rapport_benchmark.pdf':'Rapport complet en PDF','synthese.json':'Synthèse chiffrée'};
+ const kids=[h('div',{class:'files'},found.map(n=>h('a',{href:run.base+n,target:'_blank',rel:'noopener'},L[n]||('Données brutes : '+n.replace(/^brut(load)?_/,'').replace('.json','')))))];
+ if(found.includes('recap_gains.png'))kids.push(h('img',{class:'recapImg',src:run.base+'recap_gains.png',alt:'Récapitulatif des gains de ChromeOptimizer',loading:'lazy'}));
+ return sectionEl('donnees','Données','Tous les fichiers produits par le test sont publics et téléchargeables.',...kids)
+}
+
+let io=null;
+async function select(run){
+ state.cur=run;
+ const u=new URL(location.href);u.searchParams.set('run',run.id);history.replaceState(null,'',u);
+ buildRuns();setGauge(run);
+ const body=$('#body');
+ body.replaceChildren(h('div',{class:'state'},h('b',{},'Chargement des mesures détaillées'),'Un instant.'));
+ const raw=await loadRaw(run);
+ if(state.cur!==run)return;
+ const ks=run.ks,pages=sf(()=>ks.chromeoptimizer.pages),idle=sf(()=>raw.reference.marks.find(m=>m.name==='Inactivité'));
+ $('#lead').textContent='Trois configurations de Chrome, le même scénario'+(pages?' : '+nf(pages)+' sites ouverts':'')+(idle&&idle.end-idle.start>1?', '+nf((idle.end-idle.start)/60,0)+' minutes sans toucher aux onglets':'')+', puis retour sur chaque onglet. Les mesures brutes sont publiées en entier.';
+ const secs=[secResume(run),secMemoire(run,raw),secVeille(run,raw),secPages(run,raw),secReprise(run,raw),secPubs(run),secEvolution(),secProtocole(run,raw),await secDonnees(run)].filter(Boolean);
+ if(state.cur!==run)return;
+ body.replaceChildren(...secs);
+ const nav=$('#sub .wrap');nav.replaceChildren(...secs.map(s=>h('a',{href:'#'+s.id,'data-for':s.id},s.querySelector('h2').textContent)));
+ if(io)io.disconnect();
+ io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){nav.querySelectorAll('a').forEach(a=>a.classList.toggle('on',a.dataset.for===e.target.id))}})},{rootMargin:'-30% 0px -60% 0px'});
+ secs.forEach(s=>io.observe(s))
+}
+
+async function init(){
+ buildMetrics();
+ if(location.protocol==='file:'){$('#body').replaceChildren(h('div',{class:'state'},h('b',{},'Page ouverte en local'),'Le navigateur bloque la lecture des fichiers. Ouvrez la page depuis GitHub Pages ou lancez un petit serveur local.'));return}
+ const runs=await discover();
+ if(!runs.length){$('#body').replaceChildren(h('div',{class:'state'},h('b',{},'Aucun benchmark publié pour le moment'),'Ajoutez les fichiers du test dans ',h('code',{},'benchmarks/1/'),' (synthese.json et brut_*.json).'));return}
+ state.runs=runs;
+ const want=Number(new URL(location.href).searchParams.get('run'));
+ await select(runs.find(r=>r.id===want)||runs[runs.length-1])
+}
+init();
+</script>
+</body>
+</html>

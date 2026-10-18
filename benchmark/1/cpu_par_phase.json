@@ -1,0 +1,20 @@
+{
+ "Chrome sans rien": {
+  "Navigation": 2.6701486013986013,
+  "Inactivité": 3.1203279702970295,
+  "Retour sur les onglets": 4.7765625,
+  "Repos final": 4.717708333333333
+ },
+ "Économiseur Chrome": {
+  "Navigation": 2.657455357142857,
+  "Inactivité": 3.074661330049261,
+  "Retour sur les onglets": 4.939811643835617,
+  "Repos final": 4.611666666666667
+ },
+ "ChromeOptimizer": {
+  "Navigation": 2.550625,
+  "Inactivité": 0.2964108910891089,
+  "Retour sur les onglets": 3.02652027027027,
+  "Repos final": 0.2389583333333333
+ }
+}
