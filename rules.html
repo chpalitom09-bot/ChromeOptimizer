@@ -176,12 +176,12 @@ footer{padding:64px 0 56px; margin-top:80px; border-top:1px solid var(--line);}
 <!-- HERO -->
 <div class="hero" id="top">
   <div class="wrap">
-    <span class="status in-up" style="--d:.05"><i></i>Dernière mise à jour : 16 octobre 2026</span>
+    <span class="status in-up" style="--d:.05"><i></i>Dernière mise à jour : 20 octobre 2026</span>
     <h1 aria-label="Politique de confidentialité">
       <span class="ln" aria-hidden="true"><span style="--i:0">Règles de</span></span>
       <span class="ln" aria-hidden="true"><span style="--i:1">confidentialité.</span></span>
     </h1>
-    <p class="lead in-up" style="--d:.45">ChromeOptimizer fait son travail sur votre ordinateur et nulle part ailleurs. Il n'y a pas de compte à créer, pas de serveur à moi qui reçoit vos données, pas de publicité, pas de statistiques d'usage, et rien n'est revendu.</p>
+    <p class="lead in-up" style="--d:.45">ChromeOptimizer fait son travail sur votre ordinateur et nulle part ailleurs.</p>
   </div>
 </div>
 
@@ -192,8 +192,8 @@ footer{padding:64px 0 56px; margin-top:80px; border-top:1px solid var(--line);}
       <div class="sec-head" style="margin-bottom:28px">
         <h2>En bref</h2>
       </div>
-      <p style="color:var(--muted);font-size:16.5px;margin-bottom:16px;">Cette page explique ce que l'extension lit, ce qu'elle garde, ce qui peut quitter votre ordinateur, et comment tout effacer.</p>
-      <p style="color:var(--muted);font-size:16.5px;">Il existe deux situations où une requête réseau est envoyée : la vérification des mises à jour, que vous pouvez couper, et l'analyse des téléchargements par l'antivirus AO1, qui reste désactivé tant que vous ne l'allumez pas. Les deux sont détaillées plus bas, avec les réglages pour les limiter.</p>
+      <p style="color:var(--muted);font-size:16.5px;margin-bottom:16px;">Il n'y a pas de compte à créer, pas de serveur à moi qui reçoit vos données, pas de publicité, pas de statistiques d'usage, et rien n'est revendu. Cette page explique ce que l'extension lit, ce qu'elle garde, ce qui peut quitter votre ordinateur, et comment tout effacer.</p>
+      <p style="color:var(--muted);font-size:16.5px;">Il existe deux situations où une requête réseau est envoyée : la vérification des mises à jour, que vous pouvez couper, et l'analyse des téléchargements par l'Analyse de Menaces AO1, qui reste désactivé tant que vous ne l'allumez pas. Les deux sont détaillées plus bas, avec les réglages pour les limiter.</p>
     </div>
     <div>
       <div class="sec-head" style="margin-bottom:28px">
@@ -236,12 +236,24 @@ footer{padding:64px 0 56px; margin-top:80px; border-top:1px solid var(--line);}
           <span>Cette option, désactivée par défaut, installe un petit script sur les sites que vous visitez. Il se contente d'ajouter un attribut de chargement différé aux images, cadres et vidéos situés loin sous l'écran. Il ne lit ni le texte des pages, ni les formulaires, ni les mots de passe, et il n'envoie rien nulle part. Il ne fonctionne que si vous lui accordez l'accès aux sites.</span>
         </li>
         <li>
+          <b>La protection des formulaires.</b>
+          <span>Cette option, désactivée par défaut, installe un petit script sur les sites que vous visitez. Il note seulement que vous êtes en train de saisir dans un champ (cinq caractères ou plus), pour ne pas endormir cet onglet et ne pas perdre votre texte. Ce que vous tapez n'est jamais lu, copié ni enregistré : seul un repère (numéro d'onglet et heure) est gardé dans la mémoire de session, jusqu'à l'envoi du formulaire ou la fermeture de l'onglet. Il n'envoie rien nulle part et ne fonctionne que si vous lui accordez l'accès aux sites.</span>
+        </li>
+        <li>
           <b>Les téléchargements et les notifications.</b>
-          <span>Ces deux permissions ne servent qu'à l'antivirus AO1 : voir qu'un téléchargement démarre, le mettre en pause ou l'annuler, et vous prévenir en cas de doute. Selon le mode que vous avez choisi, AO1 peut aussi supprimer de votre disque un fichier jugé dangereux (mode Bloquer) ou vous proposer de le supprimer (autres modes). En dehors du mode Bloquer, il ne supprime jamais rien sans votre clic.</span>
+          <span>Ces deux permissions ne servent qu'à l'Analyse de Menaces AO1 : voir qu'un téléchargement démarre et vous prévenir en cas de doute. AO1 n'analyse que le téléchargement en cours, jamais votre disque, et ne supprime, ne bloque et ne met en pause aucun fichier : il affiche seulement un message pour vous demander d'être vigilant.</span>
+        </li>
+        <li>
+          <b>Les outils (catégorie Outils).</b>
+          <span>Ces options sont activées par défaut mais ne fonctionnent qu'avec l'accès aux sites. Le préchargement au survol ajoute une balise de préchargement vers une page du même site que celle où vous êtes ; la pause des vidéos met en pause les vidéos muettes hors écran. Ni l'un ni l'autre ne lit le texte des pages, les formulaires ou les mots de passe. Le blocage des pubs applique des listes fixes de domaines incluses dans l'extension (EasyList et EasyPrivacy), sans les mettre à jour à distance, et masque par CSS les emplacements publicitaires vides. Rien de ce que vous faites n'est lu, envoyé ou enregistré.</span>
+        </li>
+        <li>
+          <b>La Reprise intelligente.</b>
+          <span>Elle sert à rendre un onglet endormi plus rapide à retrouver. Pour cela, l'extension retient à quelle tranche de la journée vous ouvrez habituellement quels sites (seulement des noms de domaine et des compteurs), elle repère les onglets endormis que vous allez probablement rouvrir et peut les recharger en arrière-plan, quand la mémoire le permet. Le réveil plus tôt, les onglets voisins ou groupés et la garde chaude sont désactivés par défaut. L'écran d'attente instantané affiche, pendant le rechargement d'un onglet réveillé, le titre et l'icône que Chrome connaît déjà pour cet onglet : ils sont lus localement, jamais enregistrés ni envoyés. Le rechargement allégé, activé par défaut, bloque temporairement une courte liste de domaines publicitaires et fixe des vidéos en pause sur les onglets réveillés en arrière-plan, puis rétablit tout dès que vous ouvrez l'onglet. L'écran d'attente et le rechargement allégé ne fonctionnent qu'avec l'accès aux sites. Rien de tout cela ne lit le texte des pages, les formulaires ou les mots de passe, et rien n'est envoyé nulle part.</span>
         </li>
         <li>
           <b>L'accès aux sites web.</b>
-          <span>Il est facultatif et demandé séparément, jamais à l'installation. Il sert à deux choses : le chargement paresseux et la lecture partielle des fichiers par AO1. Vous pouvez le retirer à tout moment dans chrome://extensions, et le reste de l'extension continue de fonctionner.</span>
+          <span>Il est facultatif et demandé séparément, jamais à l'installation. Il sert à : le chargement paresseux, les outils (préchargement au survol, vidéos hors écran, masquage des emplacements publicitaires vides), l'écran d'attente instantané de la Reprise intelligente, la protection des formulaires et la lecture partielle des fichiers par AO1. Vous pouvez le retirer à tout moment dans chrome://extensions, et le reste de l'extension continue de fonctionner.</span>
         </li>
       </ul>
     </div>
@@ -258,12 +270,15 @@ footer{padding:64px 0 56px; margin-top:80px; border-top:1px solid var(--line);}
     
     <div class="table">
       <div class="tr"><b>Vos réglages</b><span>Le mode, le thème, vos sites protégés, vos préférences, et l'état de l'interrupteur général (actif ou en pause).</span></div>
-      <div class="tr"><b>Des compteurs</b><span>Combien d'onglets ont été endormis ou fermés, et combien de cycles ont tourné. Aucune adresse n'y figure.</span></div>
+      <div class="tr"><b>Des compteurs</b><span>Combien d'onglets ont été endormis ou fermés, combien de cycles ont tourné, et le résultat de la dernière vérification de mise à jour (numéro de version et date). Aucune adresse n'y figure.</span></div>
       <div class="tr"><b>L'historique des sites</b><span>Pour chaque site visité, seulement son nom de domaine (par exemple exemple.fr, jamais la page exacte), le nombre de visites, la date de la première et de la dernière. Il est limité à 150 domaines, les plus anciens sont supprimés en premier. Cette liste ressemble à un historique de navigation, donc je préfère être clair : elle sert uniquement à l'apprentissage local. Vous pouvez la désactiver et la vider dans la catégorie Données.</span></div>
-      <div class="tr"><b>Le modèle d'apprentissage</b><span>Des statistiques par domaine sur le délai habituel avant que vous reveniez sur un onglet, et les paramètres chiffrés du petit modèle qui en découle. Il ne contient aucun contenu de page. Vous pouvez le réinitialiser dans la catégorie IA.</span></div>
-      <div class="tr"><b>L'historique de l'antivirus</b><span>Les 50 dernières analyses : nom du fichier, note, signaux repérés, nombre de contrôles effectués, date, empreinte SHA-256 du début du fichier (ses 256 premiers Ko) et mesure d'entropie. L'adresse complète du téléchargement n'est pas conservée. Les réglages d'AO1 permettent de ne garder ni le nom ni l'empreinte.</span></div>
-      <div class="tr"><b>Les fichiers validés et le bilan de protection</b><span>Quand vous choisissez « Garder » ou « Ignorer » pour un fichier signalé par AO1, et que la conservation des détails est activée, l'empreinte SHA-256 de ce fichier est mémorisée pour ne plus le signaler (200 au maximum, et seulement pour les fichiers de moins de 256 Ko). Un bilan chiffré est aussi gardé : nombre de téléchargements analysés, signalés et bloqués, nombre de contrôles effectués, date du premier. Il ne contient ni nom de fichier ni adresse. Le bouton qui vide l'historique d'AO1 efface ces deux éléments.</span></div>
-      <div class="tr"><b>La mémoire de session</b><span>Quels onglets ont joué du son récemment, l'état du mode « un seul onglet » et le niveau de batterie. Elle disparaît à la fermeture du navigateur.</span></div>
+      <div class="tr"><b>Le modèle d'apprentissage</b><span>Des statistiques par domaine sur le délai habituel avant que vous reveniez sur un onglet, et les paramètres chiffrés du petit modèle qui en découle. Il contient aussi, pour les sites où vous allez souvent après un autre, quelques compteurs de transitions entre noms de domaine (par exemple « exemple.fr puis autre.fr »), limités à 150 domaines de départ et 8 destinations chacun : ils servent à recharger en avance l'onglet endormi que vous allez probablement rouvrir. Il ne contient aucun contenu de page. Vous pouvez le réinitialiser dans la catégorie IA.</span></div>
+      <div class="tr"><b>L'historique de l'Analyse de Menaces</b><span>Les 50 dernières analyses : nom du fichier, note, signaux repérés, nombre de contrôles effectués, date, empreinte SHA-256 du début du fichier (ses 256 premiers Ko) et mesure d'entropie. L'adresse complète du téléchargement n'est pas conservée. Les réglages d'AO1 permettent de ne garder ni le nom ni l'empreinte.</span></div>
+      <div class="tr"><b>Les fichiers que vous avez validés, et le bilan de protection</b><span>Quand vous choisissez « Garder » ou « Ignorer » pour un fichier signalé par AO1, et que la conservation des détails est activée, l'empreinte SHA-256 de ce fichier est mémorisée pour ne plus le signaler (200 au maximum, et seulement pour les fichiers de moins de 256 Ko). Un bilan chiffré est aussi gardé : nombre de téléchargements analysés, signalés et bloqués, nombre de contrôles effectués, date du premier. Il ne contient ni nom de fichier ni adresse. Le bouton qui vide l'historique d'AO1 efface ces deux éléments.</span></div>
+      <div class="tr"><b>Les habitudes de la Reprise intelligente</b><span>Pour chaque tranche de quatre heures (en semaine et le week-end), quelques noms de domaine que vous ouvrez souvent, avec un poids : 8 par tranche au maximum, les plus anciens sont oubliés progressivement. S'y ajoutent des compteurs de réveils et de réveils utiles. Aucune adresse complète, aucun titre de page. Vous pouvez tout effacer avec le bouton de réinitialisation de la Reprise intelligente.</span></div>
+      <div class="tr"><b>Le rappel d'avis</b><span>Pour ne pas vous solliciter trop tôt ni trop souvent, l'extension garde la date de sa première ouverture et, si vous choisissez « Plus tard », la date du prochain rappel. Vous pouvez désactiver ce rappel dans les réglages.</span></div>
+      <div class="tr"><b>La clé de réglages</b><span>L'export de la clé dans la catégorie Données produit un texte généré sur votre ordinateur, qui décrit vos réglages (y compris la liste de vos sites protégés). Il n'est ni stocké ni envoyé : il n'existe que si vous le copiez, et c'est vous qui décidez où le coller.</span></div>
+      <div class="tr"><b>La mémoire de session</b><span>Quels onglets ont joué du son récemment, quels onglets ont une saisie en cours (un simple repère, jamais le texte), l'état du mode « un seul onglet », l'état d'EcoOptimizer, le niveau de batterie, et pour la Reprise intelligente un repère par onglet (numéro d'onglet, heure du dernier passage, dernier domaine visité) servant à décider quoi recharger. Elle disparaît à la fermeture du navigateur.</span></div>
     </div>
 
     <div class="callout" style="margin-top:24px">
@@ -293,7 +308,7 @@ footer{padding:64px 0 56px; margin-top:80px; border-top:1px solid var(--line);}
         </li>
         <li>
           <b>Les cookies dans AO1.</b>
-          <span>Quand le téléchargement a été lancé depuis le site qui fournit le fichier (ou un site de la même famille), cette relecture envoie vos cookies de ce site, comme le ferait votre navigateur. C'est ce qui permet de voir le même fichier que vous, car beaucoup de sites renvoient sinon une page de connexion. Quand le téléchargement est déclenché depuis un autre site, aucun cookie n'est envoyé, pour qu'une page tierce ne puisse pas s'en servir. L'extension ne lit pas ces cookies, ne les copie pas et ne les stocke pas : elle demande simplement au navigateur de les joindre à la requête. Si cela vous gêne, désactivez-les dans AntiVirus, section Confidentialité de l'antivirus. L'analyse sera moins fiable sur les sites qui demandent une connexion.</span>
+          <span>Quand le téléchargement a été lancé depuis le site qui fournit le fichier (ou un site de la même famille), cette relecture envoie vos cookies de ce site, comme le ferait votre navigateur. C'est ce qui permet de voir le même fichier que vous, car beaucoup de sites renvoient sinon une page de connexion. Quand le téléchargement est déclenché depuis un autre site, aucun cookie n'est envoyé, pour qu'une page tierce ne puisse pas s'en servir. L'extension ne lit pas ces cookies, ne les copie pas et ne les stocke pas : elle demande simplement au navigateur de les joindre à la requête. Si cela vous gêne, désactivez-les dans Analyse de Menaces, section Confidentialité de l'Analyse de Menaces. L'analyse sera moins fiable sur les sites qui demandent une connexion.</span>
         </li>
         <li>
           <b>Un effet de bord à connaître.</b>
@@ -315,8 +330,8 @@ footer{padding:64px 0 56px; margin-top:80px; border-top:1px solid var(--line);}
       <div class="sec-head" style="margin-bottom:24px">
         <h2>Vos droits et les bases légales</h2>
       </div>
-      <p style="color:var(--muted);font-size:16px;margin-bottom:16px;">Si vous vivez dans l'Union européenne ou l'Espace économique européen, le RGPD s'applique. Pour les fonctions de base (apprentissage local, compteurs, historique des sites), la base légale est le fonctionnement du service que vous avez choisi d'installer. Pour l'antivirus AO1 et pour l'accès aux sites, c'est votre consentement : vous le donnez en activant la fonction et en accordant la permission, et vous le retirez en les coupant, sans justification à fournir.</p>
-      <p style="color:var(--muted);font-size:16px;margin-bottom:16px;">Les données sont conservées jusqu'à ce que vous les effaciez ou que vous désinstalliez l'extension, avec des plafonds de 150 domaines, de 50 analyses et de 200 empreintes validées. Vous avez le droit d'accéder à vos données, de les corriger, de les effacer, de limiter ou de refuser leur usage, et de les récupérer dans un format lisible. Comme elles sont dans votre navigateur et pas chez moi, les deux boutons de la catégorie Confidentialité des réglages de l'extension (rappelés ci-dessous) suffisent pour exercer ces droits tout de suite.</p>
+      <p style="color:var(--muted);font-size:16px;margin-bottom:16px;">Si vous vivez dans l'Union européenne ou l'Espace économique européen, le RGPD s'applique. Pour les fonctions de base (apprentissage local, compteurs, historique des sites), la base légale est le fonctionnement du service que vous avez choisi d'installer. Pour l'Analyse de Menaces AO1 et pour l'accès aux sites, c'est votre consentement : vous le donnez en activant la fonction et en accordant la permission, et vous le retirez en les coupant, sans justification à fournir.</p>
+      <p style="color:var(--muted);font-size:16px;margin-bottom:16px;">Les données sont conservées jusqu'à ce que vous les effaciez ou que vous désinstalliez l'extension, avec des plafonds de 150 domaines, de 50 analyses et de 200 empreintes validées. Vous avez le droit d'accéder à vos données, de les corriger, de les effacer, de limiter ou de refuser leur usage, et de les récupérer dans un format lisible. Comme elles sont dans votre navigateur et pas chez moi, les deux boutons de la catégorie Confidentialité des réglages de l'extension (Exporter et Effacer) suffisent pour exercer ces droits tout de suite.</p>
       <p style="color:var(--muted);font-size:16px;">Si vous estimez que vos droits ne sont pas respectés, vous pouvez saisir la CNIL (cnil.fr) ou l'autorité de protection des données de votre pays.</p>
     </div>
     <div>
@@ -352,7 +367,7 @@ footer{padding:64px 0 56px; margin-top:80px; border-top:1px solid var(--line);}
         <b>Enfants et changements.</b>
         L'extension ne s'adresse pas aux enfants et ne collecte rien à leur sujet.<br><br>
         Si une version modifie ce qui est dit ici, cette page sera mise à jour avec elle, et la date ci-dessous changera.<br><br>
-        <i style="color:var(--dim); font-size:14px;">Pour ChromeOptimizer 1.3 R14.</i>
+        <i style="color:var(--dim); font-size:14px;">Pour ChromeOptimizer 1.4.12.</i>
       </div>
     </div>
   </div>
